@@ -9,7 +9,8 @@ import 'package:flutter_gawlah/map_widgets/placecard.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class PlacePolylinePage extends StatelessWidget {
-  const PlacePolylinePage({Key key, this.height, this.width1, this.tour_id, this.centre})
+  const PlacePolylinePage(
+      {Key key, this.height, this.width1, this.tour_id, this.centre})
       : super(key: key);
 
   final double height;
@@ -27,7 +28,11 @@ class PlacePolylinePage extends StatelessWidget {
 }
 
 class PlacePolylineBody extends StatefulWidget {
-  const PlacePolylineBody({Key key, this.tour_id, this.centre,}) : super(key: key);
+  const PlacePolylineBody({
+    Key key,
+    this.tour_id,
+    this.centre,
+  }) : super(key: key);
 
   final int tour_id;
   final GeoPoint centre;
@@ -48,8 +53,6 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
   Stream Mapobjects;
   Set<Polygon> polygons;
   Set<Polyline> polylines;
-
-
 
   Completer<GoogleMapController> _controller = Completer();
 
@@ -95,14 +98,13 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
           .snapshots()
           .map((list) => list.documents.map((doc) => doc.data));
     }
-    
+
     setState(() {
       activeTag = tag;
     });
   }
 
   LatLng _createcentre(GeoPoint centre) {
-
     return new LatLng(centre.latitude, centre.longitude);
   }
 
@@ -123,8 +125,7 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
     return Polygons;
   }
 
-
-Set<Polyline> polylines_set(List polyys, Set<Polyline> Polylines) {
+  Set<Polyline> polylines_set(List polyys, Set<Polyline> Polylines) {
     Polylines.clear();
 
     polyys.forEach((PolyObj) {
@@ -141,7 +142,6 @@ Set<Polyline> polylines_set(List polyys, Set<Polyline> Polylines) {
     return Polylines;
   }
 
-
   Polygon Place(List<dynamic> polylinePoints, String idd) {
     List<LatLng> latlngs = new List();
     polylinePoints.forEach((point) {
@@ -154,8 +154,7 @@ Set<Polyline> polylines_set(List polyys, Set<Polyline> Polylines) {
       polygonId: PolygonId(idd),
       fillColor: activepolygon == idd ? Colors.red : Colors.transparent,
       strokeColor: Colors.black,
-      strokeWidth: 5
-      ,
+      strokeWidth: 5,
       visible: true,
       points: latlngs,
     );
@@ -171,8 +170,8 @@ Set<Polyline> polylines_set(List polyys, Set<Polyline> Polylines) {
     return new Polyline(
       consumeTapEvents: false,
       polylineId: PolylineId(idd),
-      color: Colors.greenAccent,width: 4,
-      
+      color: Colors.greenAccent,
+      width: 4,
       visible: true,
       points: latlngs,
     );
@@ -192,17 +191,15 @@ Set<Polyline> polylines_set(List polyys, Set<Polyline> Polylines) {
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height,
                     child: GoogleMap(
-                    
                       mapType: MapType.normal,
                       initialCameraPosition: new CameraPosition(
-                      target: _createcentre(widget.centre), zoom: 15.5),
+                          target: _createcentre(widget.centre), zoom: 15.5),
                       polygons: polygons_set(slideList, polygons),
                       polylines: polylines_set(slideList, polylines),
                       onMapCreated: _onMapCreated,
                     ),
                   ),
                 ),
-                
                 Positioned(
                     height: 200,
                     width: MediaQuery.of(context).size.width,
@@ -214,26 +211,25 @@ Set<Polyline> polylines_set(List polyys, Set<Polyline> Polylines) {
                         onPageChanged: (int index) {
                           setState(() {
                             activepolygon = slideList[index]['name'];
-                            gotoLocation(((slideList[index]['center']) as GeoPoint).latitude  , ((slideList[index]['center']) as GeoPoint).longitude, 18.0);
+                            gotoLocation(
+                                ((slideList[index]['center']) as GeoPoint)
+                                    .latitude,
+                                ((slideList[index]['center']) as GeoPoint)
+                                    .longitude,
+                                18.0);
                           });
                         },
                         itemCount: slideList.length,
                         itemBuilder: (context, index) {
                           {
-                            if (slideList[index]['type'] =='place' ) {
+                            if (slideList[index]['type'] == 'place') {
                               return PlaceCard(
                                 image: slideList[index]['image'],
                                 name: slideList[index]['name'],
                               );
-                            } 
+                            }
                           }
                         })),
-
-                //blur
-
-                //recent search
-
-                //search menu background
               ],
             );
           }),
