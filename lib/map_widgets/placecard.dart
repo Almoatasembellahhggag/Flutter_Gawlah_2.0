@@ -46,6 +46,16 @@ class PlaceCard extends StatelessWidget {
                       fontSize: 15,
                       color: Colors.yellow),
                 )),
+            Positioned(
+                bottom: 20,
+                left: 20,
+                child: Text(
+                  name,
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15,
+                      color: Colors.yellow),
+                ))
           ],
         ),
       ),
