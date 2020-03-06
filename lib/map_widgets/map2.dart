@@ -4,7 +4,7 @@ import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gawlah/map_widgets/page.dart';
+
 import 'package:flutter_gawlah/map_widgets/placecard.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
