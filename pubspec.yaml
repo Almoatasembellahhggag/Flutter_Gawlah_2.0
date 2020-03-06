@@ -76,7 +76,7 @@ flutter:
      - images_and_icons/moon.png
      - images_and_icons/gawlah.png
      - images_and_icons/g_transparent.png
-
+     - images_and_icons/mapstyle.txt
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.
