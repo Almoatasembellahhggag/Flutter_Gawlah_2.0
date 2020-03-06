@@ -65,16 +65,20 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
 
     polygons = new Set();
     polylines = new Set();
+
+    
     super.initState();
   }
 
   void _onMapCreated(GoogleMapController controller) {
     _controller.complete(controller);
+    
   }
 
   void dispose() {
     super.dispose();
   }
+  
 
   Future<void> gotoLocation(double lat, double long, double zoom) async {
     final GoogleMapController controller = await _controller.future;
@@ -191,9 +195,11 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height,
                     child: GoogleMap(
+                      
                       mapType: MapType.normal,
+                      
                       initialCameraPosition: new CameraPosition(
-                          target: _createcentre(widget.centre), zoom: 15.5),
+                      target: _createcentre(widget.centre), zoom: 15.5),
                       polygons: polygons_set(slideList, polygons),
                       polylines: polylines_set(slideList, polylines),
                       onMapCreated: _onMapCreated,
@@ -201,13 +207,14 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
                   ),
                 ),
                 Positioned(
-                    height: 200,
+                    height: 250,
+                    
                     width: MediaQuery.of(context).size.width,
                     bottom: 0,
                     child: PageView.builder(
                         physics: BouncingScrollPhysics(),
                         controller: PageController(
-                            viewportFraction: 0.7, initialPage:0),
+                            viewportFraction: 0.59, initialPage:0),
                         onPageChanged: (int index) {
                           setState(() {
                             activepolygon = slideList[index]['name'];
