@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gawlah/map_widgets/placeprofile.dart';
 
 class PlaceCard extends StatelessWidget {
-  const PlaceCard({Key key, this.name, this.image, this.period, this.size})
+  const PlaceCard({Key key, this.name, this.image, this.placetype, this.size})
       : super(key: key);
 
   final String image;
   final String name;
-  final String period;
+  final String placetype;
   final String size;
 
   @override
@@ -28,7 +28,7 @@ class PlaceCard extends StatelessWidget {
               tag: image,
               child: Container(
                 width: 200,
-                height: 200,
+                height: 300,
                 decoration: BoxDecoration(
                     borderRadius: new BorderRadius.all(Radius.circular(20.0)),
                     color: Colors.redAccent,
@@ -47,14 +47,14 @@ class PlaceCard extends StatelessWidget {
                       color: Colors.yellow),
                 )),
             Positioned(
-                bottom: 20,
+                bottom: 40,
                 left: 20,
                 child: Text(
-                  name,
+                  placetype,
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 15,
-                      color: Colors.yellow),
+                      fontSize: 13,
+                      color: Colors.red),
                 ))
           ],
         ),

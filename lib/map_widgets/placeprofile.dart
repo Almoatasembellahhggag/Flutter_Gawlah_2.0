@@ -18,9 +18,7 @@ class PlaceProfileState extends State<PlaceProfile> {
           height: MediaQuery.of(context).size.height,
           decoration: BoxDecoration(
               image: DecorationImage(
-                  image: NetworkImage(
-                    widget.image,
-                  scale: 200.0 ),
+                  image: NetworkImage(widget.image, scale: 200.0),
                   fit: BoxFit.fitHeight)),
         ),
       ),

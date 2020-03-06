@@ -207,7 +207,7 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
                     child: PageView.builder(
                         physics: BouncingScrollPhysics(),
                         controller: PageController(
-                            viewportFraction: 0.6, initialPage: 1),
+                            viewportFraction: 0.7, initialPage:0),
                         onPageChanged: (int index) {
                           setState(() {
                             activepolygon = slideList[index]['name'];
@@ -226,6 +226,7 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
                               return PlaceCard(
                                 image: slideList[index]['image'],
                                 name: slideList[index]['name'],
+                                placetype: slideList[index]['placetype'],
                               );
                             }
                           }
