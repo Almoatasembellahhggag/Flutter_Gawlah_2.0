@@ -67,17 +67,16 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
 
     polygons = new Set();
     polylines = new Set();
-    rootBundle.loadString('images_and_icons/mapstyle.txt').then((string) {
+    rootBundle.loadString('images_and_icons/nightmode.txts').then((string) {
       mapstyle = string;
     });
-   
 
     super.initState();
   }
 
   void _onMapCreated(GoogleMapController controller) {
     _controller.complete(controller);
-     controller.setMapStyle(mapstyle);
+    controller.setMapStyle(mapstyle);
   }
 
   void dispose() {
@@ -199,6 +198,7 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height,
                     child: GoogleMap(
+                      minMaxZoomPreference: MinMaxZoomPreference(14, 18),
                       mapType: MapType.normal,
                       initialCameraPosition: new CameraPosition(
                           target: _createcentre(widget.centre), zoom: 15.5),
