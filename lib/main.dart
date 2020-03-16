@@ -49,9 +49,10 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     itens.add(new ScreenHiddenDrawer(
         new ItemHiddenMenu(
-          name: "Screen 1",
-          baseStyle: TextStyle( color: Colors.white.withOpacity(0.8), fontSize: 28.0 ),
-          colorLineSelected: Colors.teal,
+          name: "Screen 21",
+          baseStyle: TextStyle( color: Colors.transparent, fontSize: 28.0 ),
+          colorLineSelected: Colors.transparent,
+          
         ),
         TourList2()));
 
