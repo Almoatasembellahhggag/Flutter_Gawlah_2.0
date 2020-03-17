@@ -1,29 +1,30 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gawlah/Tour_Items_Page_View/Tour_item_card.dart';
-import 'package:flutter_gawlah/Tours_Page_View/Tour_Card.dart';
+import 'place_card.dart';
+import 'Tour_card.dart';
+class TourList2 extends StatefulWidget {
 
-class Tour_Item_List extends StatefulWidget {
-
-  Tour_Item_List_State createState() => Tour_Item_List_State();
+  _TourListState2 createState() => _TourListState2();
 
 }
-class Tour_Item_List_State extends State<Tour_Item_List>{
-
+class _TourListState2 extends State<TourList2>{
   final PageController controller = PageController(
-      viewportFraction: .85,
+      viewportFraction: .8,
       keepPage:true
   );
   final Firestore database = Firestore.instance;
+  //can be changed within the app
   Color _BackGroundColor;
-  Stream Items;
+  Stream slides;
+  String activeTag = 'all';
   int currentPage = 0;
 
   @override
   void initState() {
+    _BackGroundColor = Color.fromRGBO(38 , 47 , 62, 1);
+
     _queryDatabase();
     controller.addListener(() {
-
       int next = controller.page.round();
       if (currentPage != next) {
         setState(() {
@@ -34,11 +35,15 @@ class Tour_Item_List_State extends State<Tour_Item_List>{
     super.initState();
   }
   void _queryDatabase({String tag = 'all'}) {
-
-  {
+    if (tag == 'all') {
+      Query query = database.collection('tours');
+      slides = query
+          .snapshots()
+          .map((list) => list.documents.map((doc) => doc.data));
+    } else {
       Query query =
-      database.collection('polylines').where('type', isEqualTo: 'item')  ;
-      Items = query
+      database.collection('tours').where('tags', arrayContains: tag);
+      slides = query
           .snapshots()
           .map((list) => list.documents.map((doc) => doc.data));
     }
@@ -46,6 +51,7 @@ class Tour_Item_List_State extends State<Tour_Item_List>{
 
     // Update the active tag
     setState(() {
+      activeTag = tag;
     });
   }
   Container _buildThemesPage() {
@@ -84,7 +90,9 @@ class Tour_Item_List_State extends State<Tour_Item_List>{
     );
   }
   FlatButton _buildButton(tag) {
+    Color color = tag == activeTag ? Colors.blue : Colors.transparent;
     return FlatButton(
+      color: color,
       child: SizedBox(
         width: 80,
         child: Text(
@@ -121,8 +129,12 @@ class Tour_Item_List_State extends State<Tour_Item_List>{
             ),
           ],
         ),
-        child:new TourItemCard(data)
-    );
+   
+        child:new TourCard(data),
+        
+      
+      );
+
   }
 
 
@@ -160,7 +172,7 @@ class Tour_Item_List_State extends State<Tour_Item_List>{
           child: Stack(children: [
             _buildbackground(),
             StreamBuilder(
-              stream: Items,
+              stream: slides,
               initialData: [],
               builder: (context, AsyncSnapshot snap) {
                 List slideList = snap.data.toList();
