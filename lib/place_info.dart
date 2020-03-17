@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class PlaceProfile extends StatefulWidget {
-  PlaceProfile({Key key}) : super(key: key);
+  final String video;
+  PlaceProfile({Key key,this.video}) : super(key: key);
 
   PlaceProfileState createState() => PlaceProfileState();
 }
