@@ -56,71 +56,22 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
   Set<Polygon> polygons;
   Set<Polyline> polylines;
 
+  List<int> nearby;
+
   final Set<Marker> _markers = {};
   static const _intialPositionn1 = LatLng(30.041833166, 31.257332304);
   static const _intialPositionn2 = LatLng(30.0554905, 31.2634282);
   Completer<GoogleMapController> _controller = Completer();
 
   void initState() {
-    Query query = database.collection('polylines');
-    Mapobjects = query
-        .where("tours", arrayContains: widget.tour_id)
-        .snapshots()
-        .map((list) => list.documents.map((doc) => doc.data));
-
+    _queryDatabase();
     polygons = new Set();
     polylines = new Set();
     rootBundle.loadString('images_and_icons/mapstyle.txt').then((string) {
       mapstyle = string;
     });
 
-    _boxes(30.041833166, 31.257332304);
-    _boxes(30.0554905, 31.2634282);
-    _boxes(30.052212451747547, 31.26263737678528);
-    _boxes(30.050559431652957, 31.262369155883786);
-    _boxes(30.053196821392653, 31.260963678359985);
-    _boxes(30.048163432201022, 31.263012886047363);
-    _boxes(30.051255932247386, 31.26746535301208);
-    _boxes(
-      30.049797918730953,
-      31.26807689666748,
-    );
-    _boxes(
-      30.05332683174633,
-      31.266725063323975,
-    );
-    _boxes(
-      30.06790548129843,
-      31.234130859374996,
-    );
-    _boxes(30.089295993825527, 31.246147155761722);
-    _boxes(
-      30.05691133569448,
-      31.262283325195312,
-    );
-    _boxes(
-      30.060300708403293,
-      31.26504063606262,
-    );
-    _boxes(
-      30.05422761307999,
-      31.261768341064457,
-    );
-    _boxes(
-      30.086325365908422,
-      31.328887939453125,
-    );
-    _boxes(30.05483122485245, 31.3330078125);
-    _boxes(30.013219833932094, 31.278076171875);
-    _boxes(29.950175057288813, 31.293869018554688);
-    _boxes(
-      29.957314210401563,
-      31.167526245117184,
-    );
-    _boxes(29.906734168105377, 31.21353149414062);
-    _boxes(30.0643399462443, 31.133880615234375);
-
-   
+    nearby = new List();
 
     super.initState();
   }
@@ -149,17 +100,15 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
           .where("tours", arrayContains: widget.tour_id)
           .snapshots()
           .map((list) => list.documents.map((doc) => doc.data));
-    } else {
-      Query query =
-          database.collection('polylines').where('building', isEqualTo: tag);
+    } else if (tag == 'nearby') {
+      Query query = database
+          .collection('polylines')
+          .where("tours", arrayContains: widget.tour_id)
+          .where(nearby, arrayContains: 'place_id');
       Mapobjects = query
           .snapshots()
           .map((list) => list.documents.map((doc) => doc.data));
     }
-
-    setState(() {
-      activeTag = tag;
-    });
   }
 
   LatLng _createcentre(GeoPoint centre) {
@@ -252,7 +201,7 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
                       minMaxZoomPreference: MinMaxZoomPreference(14, 18),
                       mapType: MapType.normal,
                       initialCameraPosition: new CameraPosition(
-                          target: _createcentre(widget.centre), zoom: 15.5),
+                      target: _createcentre(widget.centre), zoom: 15.5),
                       polygons: polygons_set(slideList, polygons),
                       polylines: polylines_set(slideList, polylines),
                       onMapCreated: _onMapCreated,
@@ -260,6 +209,8 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
                     ),
                   ),
                 ),
+                FloatingActionButton(onPressed: () => nearby_query(widget.centre,slideList)),
+                
                 Positioned(
                     height: 250,
                     width: MediaQuery.of(context).size.width,
@@ -299,37 +250,30 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
     );
   }
 
-  double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
+  double calculateDistance(GeoPoint latlng1, GeoPoint latlng2) {
     var p = 0.017453292519943295;
     var c = cos;
     var a = 0.5 -
-        c((lat2 - lat1) * p) / 2 +
-        c(lat1 * p) * c(lat2 * p) * (1 - c((lon2 - lon1) * p)) / 2;
+        c((latlng2.latitude - latlng1.latitude) * p) / 2 +
+        c(latlng1.latitude * p) *
+            c(latlng2.latitude * p) *
+            (1 - c((latlng2.longitude - latlng1.longitude) * p)) /
+            2;
     return 12742 * asin(sqrt(a));
   }
 
-  Widget _boxes(double lat, double long) {
-    LatLng newpoint = LatLng(lat, long);
-    setState(() {
-      _markers.add(Marker(
-        // This marker id can be anything that uniquely identifies each marker.
-        markerId: MarkerId("NearByPlaces"),
-        position: newpoint,
-        infoWindow: InfoWindow(
-          title: 'NearByPlace',
-          snippet: '5 Star Rating',
-        ),
-        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueViolet),
-      ));
-    });
+  void  nearby_query(tour_centre,List placesList) {
+    nearby.clear();
+    double dist;
+    for (int i = 0; i < placesList.length; i++) {
+        dist = calculateDistance(tour_centre, placesList[i]['center'] as GeoPoint);
+        if (dist< 5) 
+        {
+          nearby.add(placesList[i]['place_id']);
+        }
+      
+    }
+       _queryDatabase(tag: 'nearby');
 
-
-     double totalDistance = calculateDistance(
-        _intialPositionn1.latitude,
-        _intialPositionn1.longitude,
-        lat,
-        long);
-
-    print(totalDistance);
   }
 }
