@@ -1,25 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gawlah/map_widgets/placeprofile.dart';
+import 'place_profile.dart';
 
 class PlaceCard extends StatelessWidget {
-  const PlaceCard({Key key, this.name, this.image, this.placetype, this.size})
+  const PlaceCard({Key key, this.name, this.image, this.placetype, this.size, this.info,this.vid})
       : super(key: key);
 
   final String image;
   final String name;
   final String placetype;
   final String size;
-
+  final String info;
+  final String vid;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       child: GestureDetector(
+          
         onTap: () {
+          print(info);
+          print(vid);
           Navigator.push(
               context,
               MaterialPageRoute(
                   builder: (context) => PlaceProfile(
                         image: image,
+                        info: info,
+                        vid: vid,
                       )));
         },
         child: Stack(
@@ -55,7 +61,8 @@ class PlaceCard extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                       fontSize: 13,
                       color: Colors.red),
-                ))
+                )
+                )
           ],
         ),
       ),

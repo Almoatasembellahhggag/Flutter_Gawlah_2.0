@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gawlah/Tours_Page_View/Tour_List.dart';
-
-import 'package:flutter_gawlah/test2.dart';
-import 'package:flutter_gawlah/tourview.dart';
+import 'package:flutter_gawlah/Register.dart';
+import 'package:flutter_gawlah/auth.dart';
+import 'package:flutter_gawlah/sign_in.dart';
+import 'vedio.dart';
+import 'package:provider/provider.dart';
+import 'Tours_Pager.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'auth.dart';
+import 'wrapper.dart';
+import 'user.dart';
 
-import 'Tour_Items_Page_View/Tour_Item_Pager.dart';
-import 'Tours_Page_View/Tour_List2.dart';
-import 'listtest.dart';
-import 'map_widgets/map2.dart';
-/*
 void main() {
   runApp(MyApp());
 }
@@ -17,80 +17,66 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(title: 'Flutter Gawlah', home:TourList2());
+    return StreamProvider<User>.value(
+        value: AuthService().user,
+        child: MaterialApp(title: 'Flutter Gawlah', home: TourList2()));
   }
 }
-*/
-import 'package:hidden_drawer_menu/hidden_drawer/hidden_drawer_menu.dart';
+// import 'package:flutter/material.dart';
+// import 'package:ola_like_country_picker/ola_like_country_picker.dart';
+// import 'package:ola_like_country_picker/src/country_picker.dart';
 
-void main() => runApp(MyApp());
+// void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-     
-      home: MyHomePage(),
-    );
-  }
-}
+// class MyApp extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       title: 'Flutter Demo',
+//       theme: ThemeData(
+//         primarySwatch: Colors.blue,
+//       ),
+//       home: MyHomePage(title: 'Flutter Demo Home Page'),
+//     );
+//   }
+// }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key}) : super(key: key);
+// class MyHomePage extends StatefulWidget {
+//   MyHomePage({Key key, this.title}) : super(key: key);
+//   final String title;
+//   @override
+//   _MyHomePageState createState() => _MyHomePageState();
+// }
 
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
+// class _MyHomePageState extends State<MyHomePage> {
+//   CountryPicker c;
+//   Country country = Country.fromJson(countryCodes[94]);
 
-class _MyHomePageState extends State<MyHomePage> {
-  List<ScreenHiddenDrawer> itens = new List();
+//   @override
+//   void initState() {
+//     super.initState();
+//     c = CountryPicker(onCountrySelected: (Country country) {
+//       print(country);
+//       setState(() {
+//         this.country = country;
+//       });
+//     });
+//   }
 
-  @override
-  void initState() {
-    itens.add(new ScreenHiddenDrawer(
-        new ItemHiddenMenu(
-          name: "Screen 21",
-          baseStyle: TextStyle( color: Colors.transparent, fontSize: 28.0 ),
-          colorLineSelected: Colors.transparent,
-          
-        ),
-        TourList2()));
-
-    itens.add(new ScreenHiddenDrawer(
-        new ItemHiddenMenu(
-          name: "Screen 2",
-          baseStyle: TextStyle( color: Colors.white.withOpacity(0.8), fontSize: 28.0 ),
-          colorLineSelected: Colors.orange,
-        ),
-        Tour_Item_List()));
-
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-
-    return HiddenDrawerMenu(
-      backgroundColorMenu: Colors.blueGrey,
-      backgroundColorAppBar: Colors.cyan,
-      screens: itens,
-        //    typeOpen: TypeOpen.FROM_RIGHT,
-        //    enableScaleAnimin: true,
-        //    enableCornerAnimin: true,
-        //    slidePercent: 80.0,
-        //    verticalScalePercent: 80.0,
-        //    contentCornerRadius: 10.0,
-        //    iconMenuAppBar: Icon(Icons.menu),
-        //    backgroundContent: DecorationImage((image: ExactAssetImage('assets/bg_news.jpg'),fit: BoxFit.cover),
-        //    whithAutoTittleName: true,
-        //    styleAutoTittleName: TextStyle(color: Colors.red),
-        //    actionsAppBar: <Widget>[],
-        //    backgroundColorContent: Colors.blue,
-        //    elevationAppBar: 4.0,
-        //    tittleAppBar: Center(child: Icon(Icons.ac_unit),),
-        //    enableShadowItensMenu: true,
-        //    backgroundMenu: DecorationImage(image: ExactAssetImage('assets/bg_news.jpg'),fit: BoxFit.cover),
-    );
-    
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return GestureDetector(
+//       child: Container(
+//         decoration: BoxDecoration(
+//           image: DecorationImage(
+//             image:
+//                 AssetImage(country.flagUri, package: 'ola_like_country_picker'),
+//           ),
+//         ),
+//       ),
+//       onTap: () {
+//         c.launch(context);
+//       },
+//     );
+//   }
+// }
