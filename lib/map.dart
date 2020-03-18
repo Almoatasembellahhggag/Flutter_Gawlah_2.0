@@ -5,6 +5,7 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:toast/toast.dart';
 
 import 'place_card.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -14,10 +15,10 @@ class PlacePolylinePage extends StatelessWidget {
       {Key key, this.height, this.width1, this.tour_id, this.centre})
       : super(key: key);
 
-  final double height;
-  final double width1;
-  final int tour_id;
   final GeoPoint centre;
+  final double height;
+  final int tour_id;
+  final double width1;
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +36,8 @@ class PlacePolylineBody extends StatefulWidget {
     this.centre,
   }) : super(key: key);
 
-  final int tour_id;
   final GeoPoint centre;
+  final int tour_id;
 
   @override
   State<StatefulWidget> createState() => PlacePolylineBodyState();
@@ -44,24 +45,25 @@ class PlacePolylineBody extends StatefulWidget {
 
 class PlacePolylineBodyState extends State<PlacePolylineBody>
     with TickerProviderStateMixin {
-  String mapstyle;
   PlacePolylineBodyState();
 
   String activepolygon = 'a';
   String activeTag = 'all';
   GoogleMapController controller;
   final Firestore database = Firestore.instance;
-
   Stream Mapobjects;
+  String mapstyle;
+  List<int> nearby;
   Set<Polygon> polygons;
   Set<Polyline> polylines;
 
-  List<int> nearby;
-
-  final Set<Marker> _markers = {};
   static const _intialPositionn1 = LatLng(30.041833166, 31.257332304);
   static const _intialPositionn2 = LatLng(30.0554905, 31.2634282);
+
   Completer<GoogleMapController> _controller = Completer();
+  final Set<Marker> _markers = {
+    new Marker(markerId: MarkerId('reference point'),position: new LatLng(30.05297394610351, 31.262176036834717))
+  };
 
   void initState() {
     _queryDatabase();
@@ -104,7 +106,7 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
       Query query = database
           .collection('polylines')
           .where("tours", arrayContains: widget.tour_id)
-          .where(nearby, arrayContains: 'place_id');
+          .where('id', whereIn: nearby);
       Mapobjects = query
           .snapshots()
           .map((list) => list.documents.map((doc) => doc.data));
@@ -184,6 +186,42 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
     );
   }
 
+  double calculateDistance(GeoPoint latlng1, GeoPoint latlng2) {
+    var p = 0.017453292519943295;
+    var c = cos;
+    var a = 0.5 -
+        c((latlng2.latitude - latlng1.latitude) * p) / 2 +
+        c(latlng1.latitude * p) *
+            c(latlng2.latitude * p) *
+            (1 - c((latlng2.longitude - latlng1.longitude) * p)) /
+            2;
+    return 12742 * asin(sqrt(a));
+  }
+
+  void nearby_query(GeoPoint tour_centre, List placesList) {
+    nearby.clear();
+    
+    placesList.forEach((place) {
+      switch (place['type']) {
+        case 'place':
+          if (calculateDistance(tour_centre, place['center'] as GeoPoint) <
+              1.5) {
+            nearby.add(place['id']);
+          }
+          break;
+
+        case 'route':
+          nearby.add(place['id']);
+          break;
+
+        default:
+          break;
+      }
+      _queryDatabase(tag: 'nearby');
+      setState(() {});
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -201,7 +239,7 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
                       minMaxZoomPreference: MinMaxZoomPreference(14, 18),
                       mapType: MapType.normal,
                       initialCameraPosition: new CameraPosition(
-                      target: _createcentre(widget.centre), zoom: 15.5),
+                          target: _createcentre(widget.centre), zoom: 15.5),
                       polygons: polygons_set(slideList, polygons),
                       polylines: polylines_set(slideList, polylines),
                       onMapCreated: _onMapCreated,
@@ -209,8 +247,11 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
                     ),
                   ),
                 ),
-                FloatingActionButton(onPressed: () => nearby_query(widget.centre,slideList)),
-                
+                Positioned(
+                  top: 250,
+                  child: FloatingActionButton(
+                      onPressed: () => nearby_query(widget.centre, slideList)),
+                ),
                 Positioned(
                     height: 250,
                     width: MediaQuery.of(context).size.width,
@@ -248,32 +289,5 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
             );
           }),
     );
-  }
-
-  double calculateDistance(GeoPoint latlng1, GeoPoint latlng2) {
-    var p = 0.017453292519943295;
-    var c = cos;
-    var a = 0.5 -
-        c((latlng2.latitude - latlng1.latitude) * p) / 2 +
-        c(latlng1.latitude * p) *
-            c(latlng2.latitude * p) *
-            (1 - c((latlng2.longitude - latlng1.longitude) * p)) /
-            2;
-    return 12742 * asin(sqrt(a));
-  }
-
-  void  nearby_query(tour_centre,List placesList) {
-    nearby.clear();
-    double dist;
-    for (int i = 0; i < placesList.length; i++) {
-        dist = calculateDistance(tour_centre, placesList[i]['center'] as GeoPoint);
-        if (dist< 5) 
-        {
-          nearby.add(placesList[i]['place_id']);
-        }
-      
-    }
-       _queryDatabase(tag: 'nearby');
-
   }
 }
