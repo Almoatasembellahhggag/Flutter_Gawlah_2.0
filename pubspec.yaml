@@ -91,8 +91,12 @@ flutter:
      - images_and_icons/gawlah.png
      - images_and_icons/g_transparent.png
      - images_and_icons/mapstyle.txt
+     - images_and_icons/mamluk_marker.png
+     - images_and_icons/mamluks_marker.png
+     - images_and_icons/mamluk_marker1.png
 
-
+     
+        
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.
 

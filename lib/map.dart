@@ -56,24 +56,30 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
   String mapstyle;
   List<int> nearby;
   Set<Polygon> polygons;
+  Set<Marker> markers;
   Set<Polyline> polylines;
   Set<Circle> circles;
+
+  Map<String, BitmapDescriptor> markers_icons;
 
   static const _intialPositionn1 = LatLng(30.041833166, 31.257332304);
   static const _intialPositionn2 = LatLng(30.0554905, 31.2634282);
 
   Completer<GoogleMapController> _controller = Completer();
-  final Set<Marker> _markers = {
-    new Marker(
-        markerId: MarkerId('reference point'),
-        position: new LatLng(30.05297394610351, 31.262176036834717))
-  };
 
   void initState() {
+    markers_icons = new Map();
+    BitmapDescriptor.fromAssetImage(ImageConfiguration(devicePixelRatio: .5),
+            'images_and_icons/mamluks_marker.png')
+        .then((onValue) {
+      markers_icons['mamluk'] = onValue;
+    });
+
     _queryDatabase();
     polygons = new Set();
     circles = {};
     polylines = new Set();
+    markers = new Set();
     rootBundle.loadString('images_and_icons/mapstyle.txt').then((string) {
       mapstyle = string;
     });
@@ -154,6 +160,30 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
     });
 
     return Polylines;
+  }
+
+  Set<Marker> markers_set(List places, Set<Marker> Markers) {
+    Markers.clear();
+
+    places.forEach((PlaceObj) {
+      switch (PlaceObj['type']) {
+        case 'place':
+          Markers.add(Marker(
+              position: new LatLng((PlaceObj['center'] as GeoPoint).latitude,
+                  (PlaceObj['center'] as GeoPoint).longitude),
+              markerId: MarkerId(PlaceObj['name']),
+              icon: markers_icons[PlaceObj['period']] as BitmapDescriptor));
+          break;
+
+        default:
+          break;
+      }
+    });
+    Markers.add(new Marker(
+        markerId: MarkerId('reference point'),
+        position: new LatLng(30.05297394610351, 31.262176036834717)));
+
+    return Markers;
   }
 
   Polygon Place(List<dynamic> polylinePoints, String idd) {
@@ -258,15 +288,17 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height,
                     child: GoogleMap(
-                      minMaxZoomPreference: MinMaxZoomPreference(14, 18),
+                
+                      myLocationEnabled: true,
+                      minMaxZoomPreference: MinMaxZoomPreference(10, 18),
                       mapType: MapType.normal,
                       initialCameraPosition: new CameraPosition(
-                          target: _createcentre(widget.centre), zoom: 15.5),
+                      target: _createcentre(widget.centre), zoom: 15.5),
                       polygons: polygons_set(slideList, polygons),
                       polylines: polylines_set(slideList, polylines),
                       circles: circles,
                       onMapCreated: _onMapCreated,
-                      markers: _markers,
+                      markers: markers_set(slideList, markers),
                     ),
                   ),
                 ),
