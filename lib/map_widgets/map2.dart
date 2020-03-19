@@ -225,7 +225,7 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
                               minMaxZoomPreference: MinMaxZoomPreference(14, 18),
                               mapType: MapType.normal,
                               initialCameraPosition: new CameraPosition(
-                                  target: _createcentre(widget.centre), zoom: 15.5),
+                              target: _createcentre(widget.centre), zoom: 15.5),
                               polygons: polygons_set(slideList, polygons),
                               polylines: polylines_set(slideList, polylines),
                               onMapCreated: _onMapCreated,

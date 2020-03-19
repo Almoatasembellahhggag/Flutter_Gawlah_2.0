@@ -47,6 +47,7 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
     with TickerProviderStateMixin {
   PlacePolylineBodyState();
 
+  bool nearbyactive = false;
   String activepolygon = 'a';
   String activeTag = 'all';
   GoogleMapController controller;
@@ -56,18 +57,22 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
   List<int> nearby;
   Set<Polygon> polygons;
   Set<Polyline> polylines;
+  Set<Circle> circles;
 
   static const _intialPositionn1 = LatLng(30.041833166, 31.257332304);
   static const _intialPositionn2 = LatLng(30.0554905, 31.2634282);
 
   Completer<GoogleMapController> _controller = Completer();
   final Set<Marker> _markers = {
-    new Marker(markerId: MarkerId('reference point'),position: new LatLng(30.05297394610351, 31.262176036834717))
+    new Marker(
+        markerId: MarkerId('reference point'),
+        position: new LatLng(30.05297394610351, 31.262176036834717))
   };
 
   void initState() {
     _queryDatabase();
     polygons = new Set();
+    circles = {};
     polylines = new Set();
     rootBundle.loadString('images_and_icons/mapstyle.txt').then((string) {
       mapstyle = string;
@@ -200,12 +205,12 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
 
   void nearby_query(GeoPoint tour_centre, List placesList) {
     nearby.clear();
-    
+
     placesList.forEach((place) {
       switch (place['type']) {
         case 'place':
           if (calculateDistance(tour_centre, place['center'] as GeoPoint) <
-              1.5) {
+              1.2) {
             nearby.add(place['id']);
           }
           break;
@@ -217,8 +222,25 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
         default:
           break;
       }
+      setState(() {
+        if (!nearbyactive) {
+          nearbyactive = true;
+        } else {
+          nearbyactive = false;
+        }
+        if (nearbyactive) {
+          circles.add(new Circle(
+              circleId: CircleId('nearby'),
+              center:
+                  new LatLng(widget.centre.latitude, widget.centre.longitude),
+              radius: 1200,
+              fillColor: Colors.yellowAccent.withOpacity(0.14),
+              strokeWidth: 2,
+              strokeColor: Colors.red));
+        }
+      });
+      gotoLocation((widget.centre).latitude, (widget.centre).longitude, 14.0);
       _queryDatabase(tag: 'nearby');
-      setState(() {});
     });
   }
 
@@ -242,6 +264,7 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
                           target: _createcentre(widget.centre), zoom: 15.5),
                       polygons: polygons_set(slideList, polygons),
                       polylines: polylines_set(slideList, polylines),
+                      circles: circles,
                       onMapCreated: _onMapCreated,
                       markers: _markers,
                     ),
