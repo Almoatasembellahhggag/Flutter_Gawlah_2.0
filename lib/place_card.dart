@@ -13,8 +13,10 @@ class PlaceCard extends StatelessWidget {
   final String size;
   final String info;
   final String vid;
+  
   @override
   Widget build(BuildContext context) {
+    var x=5;
     return GestureDetector(
       child: GestureDetector(
           
@@ -45,6 +47,7 @@ class PlaceCard extends StatelessWidget {
                     color: Colors.redAccent,
                     image: DecorationImage(
                         image: NetworkImage(image), fit: BoxFit.cover)),
+                       
               ),
             ),
             Positioned(
