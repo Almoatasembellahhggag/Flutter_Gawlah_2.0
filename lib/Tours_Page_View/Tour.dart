@@ -27,7 +27,4 @@ class Tour {
       this.tags,
       this.description,
       this.image});
-
 }
-
-

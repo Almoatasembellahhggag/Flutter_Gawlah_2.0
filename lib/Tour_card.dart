@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gawlah/map_widgets/map2.dart';
-import 'package:flutter_gawlah/tourview.dart';
+import 'package:flutter_gawlah/tour_view.dart';
+import 'map.dart';
 
 class TourCard extends StatelessWidget {
   final Map Tour;
+  
 
   TourCard(this.Tour);
 
@@ -11,14 +12,35 @@ class TourCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       child: _crearContenedor(context),
-      onTap: () {
+      onLongPress: () {
         Navigator.push(
             context,
             MaterialPageRoute(
+                builder: (context) => TourView(image:Tour['image'],info:Tour['info'],
+                )));
+                
+                
+                print(Tour['info']);
+                //PlacePolylinePage(
+                     // tour_id: Tour['id'],
+                      //centre: Tour['center'],
+                   // )
+                   // ));
+                   
+      },
+      onTap: (){
+ Navigator.push(
+            context,
+            MaterialPageRoute(
                 builder: (context) => PlacePolylinePage(
-                      tour_id: Tour['id'],
+                     tour_id: Tour['id'],
                       centre: Tour['center'],
-                    )));
+                   )
+                   ));
+
+
+
+
       },
     );
   }
@@ -80,10 +102,11 @@ class TourCard extends StatelessWidget {
   }
 
   Widget _Hero() {
-    return Image(
-      image: NetworkImage(Tour['image']),
-      fit: BoxFit.cover,
+    return Hero(
+      child: Image.network(Tour['image'],fit: BoxFit.fill,),
+      tag:Tour['image'] ,
     );
+    
   }
 
   Widget createname(BuildContext context) {
@@ -108,4 +131,5 @@ class TourCard extends StatelessWidget {
       ),
     );
   }
+
 }
