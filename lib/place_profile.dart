@@ -99,7 +99,7 @@ Widget _buildProfileRow(String name,String image) {
             children: <Widget>[
               Text(name,
                 style: new TextStyle(
-                    fontSize: 26.0,
+                    fontSize: MediaQuery.of(context).size.height * 0.035,
                    fontStyle: FontStyle.italic,
                     fontWeight: FontWeight.w400),
               ),
@@ -107,7 +107,7 @@ Widget _buildProfileRow(String name,String image) {
               new Text(
                 'Islamic Arts',
                 style: new TextStyle(
-                    fontSize: 14.0,
+                    fontSize: MediaQuery.of(context).size.height * 0.017,
                     color: Colors.white,
                     fontWeight: FontWeight.w300),
               ),
@@ -124,17 +124,18 @@ Widget _buildProfileRow(String name,String image) {
                      return Stack(
     children: <Widget>[
       new Padding(
-        padding: new EdgeInsets.only(left: 50.0,top: 100),
+        padding: new EdgeInsets.only(left: MediaQuery.of(context).size.width*0.05,top: MediaQuery.of(context).size.height*0.1),
         child: new Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               new Text(
                 'Info',
-                style: new TextStyle(fontSize: 34.0,color: Colors.black),
+                style: new TextStyle(fontSize: MediaQuery.of(context).size.height * 0.045,color: Colors.black),
               ),
               new Text(
                 info,
-                style: new TextStyle(color: Colors.grey, fontSize: 12.0),
+                style: new TextStyle(color: Colors.grey, fontSize: MediaQuery.of(context).size.height * 0.015 ),
+                textAlign: TextAlign.left,
               ),
               // SizedBox(height: MediaQuery.of(context).size.height-502),
           
