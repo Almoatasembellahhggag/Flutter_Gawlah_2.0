@@ -1,35 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:sliding_sheet/sliding_sheet.dart';
 import 'place_profile.dart';
 
 class PlaceCard extends StatelessWidget {
-  const PlaceCard({Key key, this.name,this.tag, this.image, this.placetype, this.size, this.info,this.vid})
+  const PlaceCard({Key key, this.name, this.image, this.placetype, this.size, this.info,this.vid})
       : super(key: key);
 
   final String image;
   final String name;
-  final String tag;
   final String placetype;
   final String size;
   final String info;
   final String vid;
-  
   @override
   Widget build(BuildContext context) {
-    var x=5;
     return GestureDetector(
       child: GestureDetector(
           
         onTap: () {
           print(info);
           print(vid);
-          print(name);
           Navigator.push(
               context,
               MaterialPageRoute(
                   builder: (context) => PlaceProfile(
-                    tag: tag,
-                        name:name,
+                    name: name,
                         image: image,
                         info: info,
                         vid: vid,
@@ -38,7 +32,7 @@ class PlaceCard extends StatelessWidget {
         child: Stack(
           children: <Widget>[
             Hero(
-              tag: tag,
+              tag: image,
               child: Container(
                 width: 200,
                 height: 300,
@@ -47,7 +41,6 @@ class PlaceCard extends StatelessWidget {
                     color: Colors.redAccent,
                     image: DecorationImage(
                         image: NetworkImage(image), fit: BoxFit.cover)),
-                       
               ),
             ),
             Positioned(
@@ -70,14 +63,10 @@ class PlaceCard extends StatelessWidget {
                       fontSize: 13,
                       color: Colors.red),
                 )
-                ),
-        
+                )
           ],
         ),
       ),
     );
   }
-
-
-
 }

@@ -158,12 +158,6 @@ class _TourListState2 extends State<TourList2>{
   }
 
 
-
-
-
-
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

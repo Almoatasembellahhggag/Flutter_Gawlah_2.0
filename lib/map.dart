@@ -282,7 +282,7 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
                                 placetype: slideList[index]['placetype'],
                                 info: slideList[index]['info'],
                                 vid: slideList[index]['vid'],
-                                tag: slideList[index]['tag'].toString(),
+                                
                               );
                             }
                           }
