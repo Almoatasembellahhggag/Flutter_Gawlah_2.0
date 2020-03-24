@@ -56,7 +56,7 @@ class PlaceProfileState extends State<PlaceProfile> {
    var notname=widget.name;
       Query query = database.collection('polylines');
       Places = query
-          .where("type", isEqualTo:'place').where('period',isEqualTo: widget.period)
+          .where("type", isEqualTo:"place").where("period",isEqualTo: widget.period)
           .snapshots()
           .map((list) => list.documents.map((doc) => doc.data));
     
@@ -138,9 +138,7 @@ class PlaceProfileState extends State<PlaceProfile> {
                                                             ['type'] ==
                                                         'place'&&slideList[index]
                                                             ['period'] ==
-                                                        widget.period && slideList[index]
-                                                            ['name'] ==
-                                                        widget.name){
+                                                        widget.period){
                                                       return Placeinfo(
                                                         name: slideList[index]
                                                             ['name'],
