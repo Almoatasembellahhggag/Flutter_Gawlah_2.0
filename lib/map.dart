@@ -1,4 +1,3 @@
-  
 import 'dart:async';
 import 'dart:io' show Platform;
 import 'dart:math';
@@ -20,6 +19,7 @@ class PlacePolylinePage extends StatelessWidget {
   final double height;
   final int tour_id;
   final double width1;
+ // final int id;
 
   @override
   Widget build(BuildContext context) {
@@ -281,7 +281,8 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
                                 name: slideList[index]['name'],
                                 placetype: slideList[index]['placetype'],
                                 info: slideList[index]['info'],
-                                vid: slideList[index]['vid'],
+                                idpl:slideList[index]['idpl']
+                                
                                 
                               );
                             }

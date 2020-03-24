@@ -1,46 +1,45 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'place_profile.dart';
 
-class PlaceCard extends StatelessWidget {
-  const PlaceCard({Key key, this.name, this.image, this.placetype,this.idpl, this.info})
+class Placeinfo extends StatelessWidget {
+  const Placeinfo({Key key, this.name, this.image})
       : super(key: key);
 
   final String image;
   final String name;
-  final String placetype;
-final int idpl;
-  final String info;
- // final String vid;
- // final int tourid;
+
+
+
+
   @override
   Widget build(BuildContext context) {
+    
     return GestureDetector(
       child: GestureDetector(
           
         onTap: () {
-          print(info);
-         
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => PlaceProfile( image: image,
-                        name: name,
-                        place: placetype,
-                        info: info,
-                        idpl:idpl,
-                        
-                      //  tourid: tourid,
-                      )));
+          // print(info);
+          // print(vid);
+          // Navigator.push(
+          //     context,
+          //     MaterialPageRoute(
+          //         builder: (context) => PlaceProfile(
+          //           name: name,
+          //               image: image,
+          //               info: info,
+          //               vid: vid,
+          //               tour_id: ,
+          //             )));
         },
         child: Stack(
           children: <Widget>[
-            Hero(
-              tag: image,
-              child: Container(
+            Positioned(
+              bottom: 20,
+              //left:0,
+              child:
+          Container(
                 width: 200,
-                height: 300,
+                height: 50,
                 decoration: BoxDecoration(
                     borderRadius: new BorderRadius.all(Radius.circular(20.0)),
                     color: Colors.redAccent,
@@ -50,7 +49,7 @@ final int idpl;
             ),
             Positioned(
                 bottom: 20,
-                left: 20,
+                left: 30,
                 child: Text(
                   name,
                   style: TextStyle(
@@ -60,9 +59,9 @@ final int idpl;
                 )),
             Positioned(
                 bottom: 40,
-                left: 20,
-                child: Text(
-                  placetype,
+                left: 30,
+                child: Text(name
+                  ,
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 13,
@@ -74,4 +73,5 @@ final int idpl;
       ),
     );
   }
+
 }
