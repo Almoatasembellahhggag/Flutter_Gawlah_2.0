@@ -281,7 +281,8 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
                                 name: slideList[index]['name'],
                                 placetype: slideList[index]['placetype'],
                                 info: slideList[index]['info'],
-                                idpl:slideList[index]['idpl']
+                                period:slideList[index]['period'],
+                             
                                 
                                 
                               );

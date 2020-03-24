@@ -11,17 +11,17 @@ class PlaceProfile extends StatefulWidget {
   final String info;
   //final String vid;
  // final String tag;
- final String place;
+
   final String name;
-  final int idpl;
+  final String period;
   //final int tourid;
   const PlaceProfile(
       {Key key,
      this.image,
       this.name,
-     this.place,
+
       this.info,
-      this.idpl,
+      this.period,
       })
       : super(key: key);
 
@@ -53,9 +53,10 @@ class PlaceProfileState extends State<PlaceProfile> {
   }
 
   void _queryDatabase() {
-      Query query = database.collection('items');
+   var notname=widget.name;
+      Query query = database.collection('polylines');
       Places = query
-          .where("touridp", arrayContains: widget.idpl)
+          .where("type", isEqualTo:'place').where('period',isEqualTo: widget.period)
           .snapshots()
           .map((list) => list.documents.map((doc) => doc.data));
     
@@ -68,8 +69,7 @@ class PlaceProfileState extends State<PlaceProfile> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.idpl);
-    print("hiiiiiiiiiiiiiiiiiiiiiiiiiii");
+  
      return Scaffold(
         body: Hero(
             tag: widget.image,
@@ -121,6 +121,8 @@ class PlaceProfileState extends State<PlaceProfile> {
                                       builder:
                                           (context, AsyncSnapshot snapshot) {
                                         List slideList = snapshot.data.toList();
+                                        print(snapshot.data.toString());
+                                        print("DDDDDDDDDDDDDD");
                                         return Stack(
                                           children: <Widget>[
                                             PageView.builder(
@@ -134,7 +136,11 @@ class PlaceProfileState extends State<PlaceProfile> {
                                                   {
                                                     if (slideList[index]
                                                             ['type'] ==
-                                                        'item') {
+                                                        'place'&&slideList[index]
+                                                            ['period'] ==
+                                                        widget.period && slideList[index]
+                                                            ['name'] ==
+                                                        widget.name){
                                                       return Placeinfo(
                                                         name: slideList[index]
                                                             ['name'],

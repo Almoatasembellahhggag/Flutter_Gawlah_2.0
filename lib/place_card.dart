@@ -4,14 +4,15 @@ import 'package:flutter/material.dart';
 import 'place_profile.dart';
 
 class PlaceCard extends StatelessWidget {
-  const PlaceCard({Key key, this.name, this.image, this.placetype,this.idpl, this.info})
+  const PlaceCard({Key key, this.name, this.image, this.placetype,this.period, this.info})
       : super(key: key);
 
   final String image;
   final String name;
   final String placetype;
-final int idpl;
+  final String period;
   final String info;
+ // final String type;
  // final String vid;
  // final int tourid;
   @override
@@ -27,9 +28,9 @@ final int idpl;
               MaterialPageRoute(
                   builder: (context) => PlaceProfile( image: image,
                         name: name,
-                        place: placetype,
+                       
                         info: info,
-                        idpl:idpl,
+                        period:period,
                         
                       //  tourid: tourid,
                       )));
