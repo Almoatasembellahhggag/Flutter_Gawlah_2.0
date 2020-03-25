@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'place_profile.dart';
 
 class PlaceCard extends StatelessWidget {
-  const PlaceCard({Key key, this.name, this.image, this.placetype,this.period, this.info})
+  const PlaceCard({Key key, this.name, this.image, this.placetype,this.period, this.info, this.h_ratio, this.w_ratio})
       : super(key: key);
 
   final String image;
@@ -12,6 +12,10 @@ class PlaceCard extends StatelessWidget {
   final String placetype;
   final String period;
   final String info;
+  final double h_ratio;
+    final double w_ratio;
+
+
  // final String type;
  // final String vid;
  // final int tourid;
@@ -31,6 +35,7 @@ class PlaceCard extends StatelessWidget {
                        
                         info: info,
                         period:period,
+                        place_type: placetype,
                         
                       //  tourid: tourid,
                       )));
@@ -40,8 +45,8 @@ class PlaceCard extends StatelessWidget {
             Hero(
               tag: image,
               child: Container(
-                width: 200,
-                height: 300,
+                width: MediaQuery.of(context).size.width*w_ratio,
+                height: MediaQuery.of(context).size.height*h_ratio,
                 decoration: BoxDecoration(
                     borderRadius: new BorderRadius.all(Radius.circular(20.0)),
                     color: Colors.redAccent,

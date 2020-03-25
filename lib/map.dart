@@ -277,6 +277,8 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
                           {
                             if (slideList[index]['type'] == 'place') {
                               return PlaceCard(
+                                h_ratio: MediaQuery.of(context).size.height*0.2,
+                                w_ratio: MediaQuery.of(context).size.width*.5,
                                 image: slideList[index]['image'],
                                 name: slideList[index]['name'],
                                 placetype: slideList[index]['placetype'],

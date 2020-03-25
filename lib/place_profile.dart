@@ -1,7 +1,12 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gawlah/place_card.dart';
 import 'package:flutter_gawlah/placeinfo.dart';
+import 'package:flutter_gawlah/verticalspacer.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:solid_bottom_sheet/solid_bottom_sheet.dart';
 import 'package:video_player/video_player.dart';
 import 'vedio.dart';
 import 'package:sliding_sheet/sliding_sheet.dart';
@@ -9,30 +14,29 @@ import 'package:sliding_sheet/sliding_sheet.dart';
 class PlaceProfile extends StatefulWidget {
   final String image;
   final String info;
+  final String place_type;
   //final String vid;
- // final String tag;
+  // final String tag;
 
   final String name;
   final String period;
   //final int tourid;
-  const PlaceProfile(
-      {Key key,
-     this.image,
-      this.name,
-
-      this.info,
-      this.period,
-      })
-      : super(key: key);
+  const PlaceProfile({
+    Key key,
+    this.image,
+    this.name,
+    this.info,
+    this.period,
+    this.place_type,
+  }) : super(key: key);
 
   PlaceProfileState createState() => PlaceProfileState();
- 
 }
 
 class PlaceProfileState extends State<PlaceProfile> {
-  
+  SolidController __controller = SolidController();
   String activeplace = 'all';
- // String tag = 'all';
+  // String tag = 'all';
   Color c = const Color(0xFF7F1019);
   final FlutterTts flutterTts = FlutterTts();
   final Firestore database = Firestore.instance;
@@ -44,116 +48,90 @@ class PlaceProfileState extends State<PlaceProfile> {
   final PageController controller =
       PageController(viewportFraction: .85, keepPage: true);
 
- 
   void initState() {
-    
     _queryDatabase();
 
     super.initState();
   }
 
   void _queryDatabase() {
-   var notname=widget.name;
-      Query query = database.collection('polylines');
-      Places = query
-          .where("type", isEqualTo:"place").where("period",isEqualTo: widget.period)
-          .snapshots()
-          .map((list) => list.documents.map((doc) => doc.data));
-    
-    
-    // Map the slides to the data payload
+    Query query = database.collection('polylines');
+    Places = query
+        .where("type", isEqualTo: 'place')
+        .where("period", isEqualTo: widget.period)
+        .where("placetype", isEqualTo: widget.place_type)
+        .snapshots()
+        .map((list) => list.documents.map((doc) => doc.data));
 
-    // Update the active tag
     setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-  
-     return Scaffold(
-        body: Hero(
-            tag: widget.image,
-            child: Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: NetworkImage(widget.image, scale: 200.0),
-                        fit: BoxFit.fitHeight)),
-                child: Stack(children: [
-                  SlidingSheet(
-                      elevation: 8,
-                      cornerRadius: 16,
-                      snapSpec: const SnapSpec(
-                        // Enable snapping. This is true by default.
-                        snap: true,
-                        // Set custom snapping points.
-                        snappings: [0.1, 0.1, 1.0],
-                        // Define to what the snappings relate to. In this case,
-                        // the total available space that the sheet can expand to.
-                        positioning: SnapPositioning.relativeToAvailableSpace,
-                      ),
-                      builder: (context, state) {
-                        // This is the content of the sheet that will get
-                        // scrolled, if the content is bigger than the available
-                        // height of the sheet.
-                        return 
-                        Container(
-                          height: MediaQuery.of(context).size.height,
-                          child:
-                             Stack(children: <Widget>[
-                             Image.network(widget.image,fit: BoxFit.fitHeight,height: double.infinity,width: double.infinity,),
-                               Container(
-                
-                            color: Colors.black.withOpacity(0.5),
-                          
-),                              Container(
-                                child:
-                                    _buildProfileRow(widget.name, widget.image),
-                              ),
-                              Container(
-                                child:
-                                    _buildMyTasksHeader(widget.info, context),
-                              ),
-                              Center(
-                                  child: StreamBuilder<Object>(
-                                      stream: Places,
-                                      builder:
-                                          (context, AsyncSnapshot snapshot) {
-                                        List slideList = snapshot.data.toList();
-                                        print(snapshot.data.toString());
-                                        print("DDDDDDDDDDDDDD");
-                                        return Stack(
-                                          children: <Widget>[
-                                            PageView.builder(
-                                                physics:
-                                                    BouncingScrollPhysics(),
-                                                controller: PageController(
-                                                    viewportFraction: 0.7,
-                                                    initialPage: 0),
-                                                itemCount: slideList.length,
-                                                itemBuilder: (context, index) {
-                                                  {
-                                                    if (slideList[index]
-                                                            ['type'] ==
-                                                        'place'&&slideList[index]
-                                                            ['period'] ==
-                                                        widget.period){
-                                                      return Placeinfo(
-                                                        name: slideList[index]
-                                                            ['name'],
-                                                        image: slideList[index]
-                                                            ['image'],
-                                                      );
-                                                    }
-                                                  }
-                                                }),
-                                          ],
-                                        );
-                                      })),
-                            ]));
-                      })
-                ]))));
+    return Scaffold(
+        bottomSheet: SolidBottomSheet(
+          controller: __controller,
+          draggableBody: true,
+          headerBar: Container(
+            color: Theme.of(context).primaryColor,
+            height: 50,
+            child: Center(
+              child: Text("Swipe me!"),
+            ),
+          ),
+          body: Stack(
+            children: <Widget>[
+              Column(
+                children: <Widget>[
+                  VSpacer(0.2),
+                  Container(
+                    color: Colors.red,
+                    height: MediaQuery.of(context).size.height*0.35,
+                    width: MediaQuery.of(context).size.width,
+                    child: StreamBuilder<Object>(
+                        stream: Places,
+                        builder: (context, AsyncSnapshot snapshot) {
+                          List slideList = snapshot.data.toList();
+                          return PageView.builder(
+                              physics: BouncingScrollPhysics(),
+                              controller: PageController(
+                                  viewportFraction: 0.5, initialPage: 0),
+                              itemCount: slideList.length,
+                              itemBuilder: (context, index) {
+                                {
+                                  if (slideList[index]['type'] == 'place') {
+                                    return PlaceCard(
+                                      w_ratio: MediaQuery.of(context).size.width*0.1,
+                                      h_ratio: MediaQuery.of(context).size.height*0.35,
+                                      image: slideList[index]['image'],
+                                      name: slideList[index]['name'],
+                                      placetype: slideList[index]['placetype'],
+                                      info: slideList[index]['info'],
+                                      period: slideList[index]['period'],
+                                    );
+                                  }
+                                }
+                              });
+                        }),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+        floatingActionButton: FloatingActionButton(
+            child: Icon(Icons.stars),
+            onPressed: () {
+              __controller.isOpened ? __controller.hide() : __controller.show();
+            }),
+        body: Container(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: NetworkImage(widget.image, scale: 200.0),
+                  fit: BoxFit.fitHeight)),
+        ));
   }
 
   Widget _buildProfileRow(String name, String image) {
