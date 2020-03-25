@@ -75,6 +75,12 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
       markers_icons['mamluk'] = onValue;
     });
 
+        BitmapDescriptor.fromAssetImage(ImageConfiguration(devicePixelRatio: .5),
+            'images_and_icons/fatimid_marker2.png')
+        .then((onValue) {
+      markers_icons['fatimid'] = onValue;
+    });
+
     _queryDatabase();
     polygons = new Set();
     circles = {};
@@ -199,7 +205,7 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
       fillColor: activepolygon == idd ? Colors.red : Colors.transparent,
       strokeColor: Colors.black,
       strokeWidth: 5,
-      visible: true,
+      visible: activepolygon == idd ? true : false,
       points: latlngs,
     );
   }
