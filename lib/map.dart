@@ -161,6 +161,7 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
           break;
 
         default:
+        
           break;
       }
     });
