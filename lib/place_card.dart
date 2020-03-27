@@ -1,3 +1,4 @@
+
 import 'dart:ui';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -5,12 +6,16 @@ import 'package:flutter/material.dart';
 import 'place_profile.dart';
 
 class PlaceCard extends StatelessWidget {
+
   const PlaceCard({Key key, this.name, this.image, this.placetype,this.period, this.info, this.h_ratio, this.w_ratio,this.center})
       : super(key: key);
 
   final String image;
   final String name;
   final String placetype;
+
+  final String vid;
+
   final String period;
   final String info;
   final double h_ratio;
@@ -27,6 +32,7 @@ class PlaceCard extends StatelessWidget {
       child: GestureDetector(
           
         onTap: () {
+
           print(center.latitude);
           print(center.longitude);
           print("hhhhh");
@@ -51,6 +57,7 @@ class PlaceCard extends StatelessWidget {
             Hero(
               tag: image,
               child: Container(
+
                 width: MediaQuery.of(context).size.width*w_ratio,
                 height: MediaQuery.of(context).size.height*h_ratio,
                 decoration: BoxDecoration(

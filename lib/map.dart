@@ -19,7 +19,7 @@ class PlacePolylinePage extends StatelessWidget {
   final double height;
   final int tour_id;
   final double width1;
- // final int id;
+
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +48,8 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
     with TickerProviderStateMixin {
   PlacePolylineBodyState();
 
+  bool nearbyactive = false;
+
   String activepolygon = 'a';
   String activeTag = 'all';
   GoogleMapController controller;
@@ -56,20 +58,38 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
   String mapstyle;
   List<int> nearby;
   Set<Polygon> polygons;
+  Set<Marker> markers;
   Set<Polyline> polylines;
+  Set<Circle> circles;
+
+  Map<String, BitmapDescriptor> markers_icons;
+
 
   static const _intialPositionn1 = LatLng(30.041833166, 31.257332304);
   static const _intialPositionn2 = LatLng(30.0554905, 31.2634282);
 
   Completer<GoogleMapController> _controller = Completer();
-  final Set<Marker> _markers = {
-    new Marker(markerId: MarkerId('reference point'),position: new LatLng(30.05297394610351, 31.262176036834717))
-  };
 
   void initState() {
+    markers_icons = new Map();
+    BitmapDescriptor.fromAssetImage(ImageConfiguration(devicePixelRatio: .5),
+            'images_and_icons/mamluks_marker.png')
+        .then((onValue) {
+      markers_icons['mamluk'] = onValue;
+    });
+
+        BitmapDescriptor.fromAssetImage(ImageConfiguration(devicePixelRatio: .5),
+            'images_and_icons/fatimid_marker2.png')
+        .then((onValue) {
+      markers_icons['fatimid'] = onValue;
+    });
+
     _queryDatabase();
     polygons = new Set();
+    circles = {};
     polylines = new Set();
+    markers = new Set();
+
     rootBundle.loadString('images_and_icons/mapstyle.txt').then((string) {
       mapstyle = string;
     });
@@ -145,12 +165,38 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
           break;
 
         default:
+        
           break;
       }
     });
 
     return Polylines;
   }
+
+  Set<Marker> markers_set(List places, Set<Marker> Markers) {
+    Markers.clear();
+
+    places.forEach((PlaceObj) {
+      switch (PlaceObj['type']) {
+        case 'place':
+          Markers.add(Marker(
+              position: new LatLng((PlaceObj['center'] as GeoPoint).latitude,
+                  (PlaceObj['center'] as GeoPoint).longitude),
+              markerId: MarkerId(PlaceObj['name']),
+              icon: markers_icons[PlaceObj['period']] as BitmapDescriptor));
+          break;
+
+        default:
+          break;
+      }
+    });
+    Markers.add(new Marker(
+        markerId: MarkerId('reference point'),
+        position: new LatLng(30.05297394610351, 31.262176036834717)));
+
+    return Markers;
+  }
+
 
   Polygon Place(List<dynamic> polylinePoints, String idd) {
     List<LatLng> latlngs = new List();
@@ -165,7 +211,8 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
       fillColor: activepolygon == idd ? Colors.red : Colors.transparent,
       strokeColor: Colors.black,
       strokeWidth: 5,
-      visible: true,
+      visible: activepolygon == idd ? true : false,
+
       points: latlngs,
     );
   }
@@ -201,12 +248,14 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
 
   void nearby_query(GeoPoint tour_centre, List placesList) {
     nearby.clear();
-    
+
     placesList.forEach((place) {
       switch (place['type']) {
         case 'place':
           if (calculateDistance(tour_centre, place['center'] as GeoPoint) <
-              1) {
+
+              1.2) {
+
             nearby.add(place['id']);
           }
           break;
@@ -218,8 +267,27 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
         default:
           break;
       }
+      setState(() {
+        if (!nearbyactive) {
+          nearbyactive = true;
+        } else {
+          nearbyactive = false;
+        }
+        if (nearbyactive) {
+          circles.add(new Circle(
+              circleId: CircleId('nearby'),
+              center:
+                  new LatLng(widget.centre.latitude, widget.centre.longitude),
+              radius: 1200,
+              fillColor: Colors.yellowAccent.withOpacity(0.14),
+              strokeWidth: 2,
+              strokeColor: Colors.red));
+        }
+      });
+      gotoLocation((widget.centre).latitude, (widget.centre).longitude, 14.0);
+      activepolygon = null;
       _queryDatabase(tag: 'nearby');
-      setState(() {});
+
     });
   }
 
@@ -237,14 +305,18 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height,
                     child: GoogleMap(
-                      minMaxZoomPreference: MinMaxZoomPreference(14, 18),
+                
+                      myLocationEnabled: true,
+                      minMaxZoomPreference: MinMaxZoomPreference(10, 18),
                       mapType: MapType.normal,
                       initialCameraPosition: new CameraPosition(
-                          target: _createcentre(widget.centre), zoom: 15.5),
+                      target: _createcentre(widget.centre), zoom: 15.5),
                       polygons: polygons_set(slideList, polygons),
                       polylines: polylines_set(slideList, polylines),
+                      circles: circles,
                       onMapCreated: _onMapCreated,
-                      markers: _markers,
+                      markers: markers_set(slideList, markers),
+
                     ),
                   ),
                 ),
@@ -277,17 +349,18 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
                           {
                             if (slideList[index]['type'] == 'place') {
                               return PlaceCard(
+
                                 h_ratio: MediaQuery.of(context).size.height*0.2,
                                 w_ratio: MediaQuery.of(context).size.width*.5,
                                 image: slideList[index]['image'],
                                 name: slideList[index]['name'],
                                 placetype: slideList[index]['placetype'],
                                 info: slideList[index]['info'],
+                                vid: slideList[index]['vid'],
+
                                 period:slideList[index]['period'],
                                 center:slideList[index]['center'],
-                             
-                                
-                                
+
                               );
                             }
                           }
@@ -297,4 +370,5 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
           }),
     );
   }
+
 }

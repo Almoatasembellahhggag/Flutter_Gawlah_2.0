@@ -1,3 +1,4 @@
+
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -16,6 +17,7 @@ import 'package:sliding_sheet/sliding_sheet.dart';
 class PlaceProfile extends StatefulWidget {
   final String image;
   final String info;
+
   final String place_type;
   //final String vid;
   // final String tag;
@@ -38,6 +40,7 @@ class PlaceProfile extends StatefulWidget {
 }
 
 class PlaceProfileState extends State<PlaceProfile> {
+
   SolidController __controller = SolidController();
   String activeplace = 'all';
   // String tag = 'all';

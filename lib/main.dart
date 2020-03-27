@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gawlah/Register.dart';
 import 'package:flutter_gawlah/auth.dart';
 import 'package:flutter_gawlah/sign_in.dart';
+
 import 'grid.dart';
 import 'vedio.dart';
 import 'package:provider/provider.dart';
@@ -20,7 +21,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return StreamProvider<User>.value(
         value: AuthService().user,
-        child: MaterialApp(title: 'Flutter Gawlah', home: GridViewExample()));
+        child: MaterialApp(title: 'Flutter Gawlah', home: TourList2()));
+
   }
 }
 // import 'package:flutter/material.dart';
