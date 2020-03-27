@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gawlah/Register.dart';
 import 'package:flutter_gawlah/auth.dart';
 import 'package:flutter_gawlah/sign_in.dart';
+import 'grid.dart';
 import 'vedio.dart';
 import 'package:provider/provider.dart';
 import 'Tours_Pager.dart';
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return StreamProvider<User>.value(
         value: AuthService().user,
-        child: MaterialApp(title: 'Flutter Gawlah', home: TourList2()));
+        child: MaterialApp(title: 'Flutter Gawlah', home: GridViewExample()));
   }
 }
 // import 'package:flutter/material.dart';

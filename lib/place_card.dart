@@ -1,10 +1,11 @@
 import 'dart:ui';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'place_profile.dart';
 
 class PlaceCard extends StatelessWidget {
-  const PlaceCard({Key key, this.name, this.image, this.placetype,this.period, this.info, this.h_ratio, this.w_ratio})
+  const PlaceCard({Key key, this.name, this.image, this.placetype,this.period, this.info, this.h_ratio, this.w_ratio,this.center})
       : super(key: key);
 
   final String image;
@@ -13,7 +14,8 @@ class PlaceCard extends StatelessWidget {
   final String period;
   final String info;
   final double h_ratio;
-    final double w_ratio;
+  final double w_ratio;
+  final GeoPoint center;
 
 
  // final String type;
@@ -25,6 +27,9 @@ class PlaceCard extends StatelessWidget {
       child: GestureDetector(
           
         onTap: () {
+          print(center.latitude);
+          print(center.longitude);
+          print("hhhhh");
           print(info);
          
           Navigator.push(
@@ -36,6 +41,7 @@ class PlaceCard extends StatelessWidget {
                         info: info,
                         period:period,
                         place_type: placetype,
+                        center:center,
                         
                       //  tourid: tourid,
                       )));
