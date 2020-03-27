@@ -20,6 +20,7 @@ class PlacePolylinePage extends StatelessWidget {
   final int tour_id;
   final double width1;
 
+
   @override
   Widget build(BuildContext context) {
     return PlacePolylineBody(
@@ -48,6 +49,7 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
   PlacePolylineBodyState();
 
   bool nearbyactive = false;
+
   String activepolygon = 'a';
   String activeTag = 'all';
   GoogleMapController controller;
@@ -61,6 +63,7 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
   Set<Circle> circles;
 
   Map<String, BitmapDescriptor> markers_icons;
+
 
   static const _intialPositionn1 = LatLng(30.041833166, 31.257332304);
   static const _intialPositionn2 = LatLng(30.0554905, 31.2634282);
@@ -86,6 +89,7 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
     circles = {};
     polylines = new Set();
     markers = new Set();
+
     rootBundle.loadString('images_and_icons/mapstyle.txt').then((string) {
       mapstyle = string;
     });
@@ -192,6 +196,7 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
     return Markers;
   }
 
+
   Polygon Place(List<dynamic> polylinePoints, String idd) {
     List<LatLng> latlngs = new List();
     polylinePoints.forEach((point) {
@@ -206,6 +211,7 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
       strokeColor: Colors.black,
       strokeWidth: 5,
       visible: activepolygon == idd ? true : false,
+
       points: latlngs,
     );
   }
@@ -246,7 +252,9 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
       switch (place['type']) {
         case 'place':
           if (calculateDistance(tour_centre, place['center'] as GeoPoint) <
+
               1.2) {
+
             nearby.add(place['id']);
           }
           break;
@@ -278,6 +286,7 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
       gotoLocation((widget.centre).latitude, (widget.centre).longitude, 14.0);
       activepolygon = null;
       _queryDatabase(tag: 'nearby');
+
     });
   }
 
@@ -306,6 +315,7 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
                       circles: circles,
                       onMapCreated: _onMapCreated,
                       markers: markers_set(slideList, markers),
+
                     ),
                   ),
                 ),
@@ -338,11 +348,18 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
                           {
                             if (slideList[index]['type'] == 'place') {
                               return PlaceCard(
+
+                                h_ratio: MediaQuery.of(context).size.height*0.2,
+                                w_ratio: MediaQuery.of(context).size.width*.5,
                                 image: slideList[index]['image'],
                                 name: slideList[index]['name'],
                                 placetype: slideList[index]['placetype'],
                                 info: slideList[index]['info'],
                                 vid: slideList[index]['vid'],
+
+                                period:slideList[index]['period'],
+                                center:slideList[index]['center'],
+
                               );
                             }
                           }
@@ -352,4 +369,5 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
           }),
     );
   }
+
 }
