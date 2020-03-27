@@ -1,31 +1,55 @@
+
+import 'dart:ui';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'place_profile.dart';
 
 class PlaceCard extends StatelessWidget {
-  const PlaceCard({Key key, this.name, this.image, this.placetype, this.size, this.info,this.vid})
+
+  const PlaceCard({Key key, this.name, this.image, this.placetype,this.period, this.info, this.h_ratio, this.w_ratio,this.center})
       : super(key: key);
 
   final String image;
   final String name;
   final String placetype;
-  final String size;
-  final String info;
+
   final String vid;
+
+  final String period;
+  final String info;
+  final double h_ratio;
+  final double w_ratio;
+  final GeoPoint center;
+
+
+ // final String type;
+ // final String vid;
+ // final int tourid;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       child: GestureDetector(
           
         onTap: () {
+
+          print(center.latitude);
+          print(center.longitude);
+          print("hhhhh");
           print(info);
-          print(vid);
+         
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => PlaceProfile(
-                        image: image,
+                  builder: (context) => PlaceProfile( image: image,
+                        name: name,
+                       
                         info: info,
-                        vid: vid,
+                        period:period,
+                        place_type: placetype,
+                        center:center,
+                        
+                      //  tourid: tourid,
                       )));
         },
         child: Stack(
@@ -33,8 +57,9 @@ class PlaceCard extends StatelessWidget {
             Hero(
               tag: image,
               child: Container(
-                width: 200,
-                height: 300,
+
+                width: MediaQuery.of(context).size.width*w_ratio,
+                height: MediaQuery.of(context).size.height*h_ratio,
                 decoration: BoxDecoration(
                     borderRadius: new BorderRadius.all(Radius.circular(20.0)),
                     color: Colors.redAccent,

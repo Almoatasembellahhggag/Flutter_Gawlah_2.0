@@ -21,7 +21,8 @@ class VideoDemoState extends State<VideoDemo> {
   @override
   void initState() {
     //print(widget.vid);
-    _controller = VideoPlayerController.network(widget.vid);
+
+    _controller = VideoPlayerController.network("C:\Users\Administrator\Desktop\mosque.mp4");
     _initializeVideoPlayerFuture = _controller.initialize();
     _controller.setLooping(true);
     _controller.setVolume(1.0);
