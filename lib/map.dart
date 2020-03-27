@@ -276,6 +276,7 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
         }
       });
       gotoLocation((widget.centre).latitude, (widget.centre).longitude, 14.0);
+      activepolygon = null;
       _queryDatabase(tag: 'nearby');
     });
   }
