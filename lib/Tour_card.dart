@@ -16,7 +16,7 @@ class TourCard extends StatelessWidget {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => TourView(image:Tour['image'],info:Tour['info'],
+                builder: (context) => TourView(image:Tour['image'],info:Tour['info'],name: Tour['name'],rate:Tour['rate']
                 )));
                 
                 

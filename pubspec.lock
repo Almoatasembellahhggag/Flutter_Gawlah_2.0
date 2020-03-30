@@ -78,7 +78,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.2"
-
   charts_common:
     dependency: transitive
     description:
@@ -162,7 +161,6 @@ packages:
       name: cupertino_icons
       url: "https://pub.dartlang.org"
     source: hosted
-
     version: "0.1.3"
   dart_style:
     dependency: transitive
@@ -274,7 +272,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.1.2"
-
   flutter_staggered_grid_view:
     dependency: "direct main"
     description:
@@ -347,7 +344,6 @@ packages:
       name: google_api_availability
       url: "https://pub.dartlang.org"
     source: hosted
-
     version: "2.0.3"
   google_map_polyline:
     dependency: "direct main"
@@ -363,7 +359,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.5.24+1"
-
   google_maps_util:
     dependency: "direct main"
     description:
@@ -447,7 +442,6 @@ packages:
       name: location
       url: "https://pub.dartlang.org"
     source: hosted
-
     version: "2.5.4"
   location_permissions:
     dependency: transitive
@@ -455,7 +449,6 @@ packages:
       name: location_permissions
       url: "https://pub.dartlang.org"
     source: hosted
-
     version: "2.0.5"
   logging:
     dependency: transitive
@@ -533,7 +526,6 @@ packages:
       name: package_config
       url: "https://pub.dartlang.org"
     source: hosted
-
     version: "1.9.2"
   path:
     dependency: transitive
@@ -555,7 +547,6 @@ packages:
       name: permission_handler
       url: "https://pub.dartlang.org"
     source: hosted
-
     version: "4.4.0+hotfix.2"
   permission_handler_platform_interface:
     dependency: transitive
@@ -585,7 +576,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.2"
-
   pointycastle:
     dependency: transitive
     description:
@@ -606,9 +596,7 @@ packages:
       name: pub_semver
       url: "https://pub.dartlang.org"
     source: hosted
-
     version: "1.4.4"
-
   pubspec_parse:
     dependency: transitive
     description:
@@ -649,7 +637,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
-
   solid_bottom_sheet:
     dependency: "direct main"
     description:
@@ -796,7 +783,6 @@ packages:
       name: watcher
       url: "https://pub.dartlang.org"
     source: hosted
-
     version: "0.9.7+14"
   xml:
     dependency: transitive

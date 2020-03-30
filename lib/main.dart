@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gawlah/Rating.dart';
 import 'package:flutter_gawlah/Register.dart';
 import 'package:flutter_gawlah/auth.dart';
 import 'package:flutter_gawlah/sign_in.dart';

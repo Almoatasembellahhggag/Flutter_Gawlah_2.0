@@ -7,7 +7,7 @@ import 'place_profile.dart';
 
 class PlaceCard extends StatelessWidget {
 
-  const PlaceCard({Key key, this.name, this.image, this.placetype,this.period, this.info, this.h_ratio, this.w_ratio,this.center})
+  const PlaceCard({Key key, this.name, this.image, this.placetype,this.period, this.info, this.h_ratio, this.w_ratio,this.center, this.vid})
       : super(key: key);
 
   final String image;

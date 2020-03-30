@@ -90,85 +90,86 @@ class PlaceProfileState extends State<PlaceProfile> {
 
     return 
    Scaffold(
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        child: Stack(children: <Widget>[
-          Row(
-            children: <Widget>[
-              Column( mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.max,
+      body: SingleChildScrollView(
+              child: Container(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          child: Stack(children: <Widget>[
+            Row(
               children: <Widget>[
-                VSpacer(0.1),
-                Text(
-                  widget.name,
-                  style: new TextStyle(
-                    fontSize: 20,
-                    color: Colors.black,
+                Column( mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.max,
+                children: <Widget>[
+                  VSpacer(0.1),
+                  Text(
+                    widget.name,
+                    style: new TextStyle(
+                      fontSize: 20,
+                      color: Colors.black,
+                    ),
                   ),
-                ),
-                Text(
-                  "Cairo,Egypt,1421",
-                  style: new TextStyle(
-                      color: Colors.grey,
-                      fontWeight: FontWeight.w500,
-                      fontSize: MediaQuery.of(context).size.height * 0.015),
-                  textAlign: TextAlign.start,
-                ),
-                VSpacer(0.018),
-           Row(children:<Widget>[ 
-          new CircleAvatar(
-            minRadius: 25.0,
-            maxRadius: 25.0,
-            backgroundImage: new NetworkImage(widget.image),
-          ),
+                  Text(
+                    "Cairo,Egypt,1421",
+                    style: new TextStyle(
+                        color: Colors.grey,
+                        fontWeight: FontWeight.w500,
+                        fontSize: MediaQuery.of(context).size.height * 0.015),
+                    textAlign: TextAlign.start,
+                  ),
+                  VSpacer(0.018),
+             Row(children:<Widget>[ 
+            new CircleAvatar(
+              minRadius: 25.0,
+              maxRadius: 25.0,
+              backgroundImage: new NetworkImage(widget.image),
+            ),
   HSpacer(0.012),
   
-          Text(
-            "Read more about the constructor",
-                  style: new TextStyle(
-                     decoration: TextDecoration.underline,
-                      color: Colors.grey,
-                      fontWeight: FontWeight.w500,
-                      fontSize: MediaQuery.of(context).size.height * 0.015),
-                  textAlign: TextAlign.start,
+            Text(
+              "Read more about the place",
+                    style: new TextStyle(
+                       decoration: TextDecoration.underline,
+                        color: Colors.grey,
+                        fontWeight: FontWeight.w500,
+                        fontSize: MediaQuery.of(context).size.height * 0.015),
+                    textAlign: TextAlign.start,
 
 
-          ),
-            Icon(
-            Icons.arrow_right,
-            color: Colors.grey,
-          )
+            ),
+              Icon(
+              Icons.arrow_right,
+              color: Colors.grey,
+            )
 
-                ]),
-      
-      VSpacer(0.0),
-      Container(
-        height: (MediaQuery.of(context).size.height)/2,
-        width: (MediaQuery.of(context).size.width),
-                child:new Text(
-                 widget.info,
-                  style: new TextStyle(
-                      color: Colors.grey,
-                    fontWeight: FontWeight.w400,
-                      fontSize: MediaQuery.of(context).size.height * 0.02),
-                  textAlign: TextAlign.left,
-                ),
-      ),
+                  ]),
+        
+        VSpacer(0.0),
+        Container(
+          height: (MediaQuery.of(context).size.height)/2,
+          width: (MediaQuery.of(context).size.width),
+                  child:new Text(
+                   widget.info,
+                    style: new TextStyle(
+                        color: Colors.grey,
+                      fontWeight: FontWeight.w400,
+                        fontSize: MediaQuery.of(context).size.height * 0.02),
+                    textAlign: TextAlign.left,
+                  ),
+        ),
 
 VSpacer(0.03),
 Row(children: <Widget>[
  Icon(
-            Icons.location_on,
-            color: Colors.grey,
-          ),
+              Icons.location_on,
+              color: Colors.grey,
+            ),
 Text("Cairo location",
    style: new TextStyle(
-                      color: Colors.grey,
-                    fontWeight: FontWeight.bold,
-                      fontSize: MediaQuery.of(context).size.height * 0.02),
-                  textAlign: TextAlign.left,
+                        color: Colors.grey,
+                      fontWeight: FontWeight.bold,
+                        fontSize: MediaQuery.of(context).size.height * 0.02),
+                    textAlign: TextAlign.left,
 
 )
 
@@ -183,13 +184,13 @@ Container(
   color: Colors.white,
   child:Stack(children: <Widget>[
   GoogleMap(
-                      minMaxZoomPreference: MinMaxZoomPreference(14, 18),
-                      mapType: MapType.normal,
-                      initialCameraPosition: new CameraPosition(
-                          target: _createcentre(widget.center), zoom: 15.5),
-                   //   onMapCreated: _onMapCreated,
-                      markers: _markers,
-                    ),
+                        minMaxZoomPreference: MinMaxZoomPreference(14, 18),
+                        mapType: MapType.normal,
+                        initialCameraPosition: new CameraPosition(
+                            target: _createcentre(widget.center), zoom: 15.5),
+                     //   onMapCreated: _onMapCreated,
+                        markers: _markers,
+                      ),
 
 
 Container(
@@ -204,10 +205,11 @@ VSpacer(0.123),
 
 ],)
 
-              ])
-            ],
-          ),
-        ]),
+                ])
+              ],
+            ),
+          ]),
+        ),
       ),
     );
   }

@@ -142,12 +142,12 @@ class _TourListState2 extends State<TourList2>{
     return Container(
       color: _BackGroundColor,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
           Image.asset(
             'images_and_icons/g_transparent.png',
-            height: 100,
+            height: 70,
           ),
           Container(
             height: 575,
