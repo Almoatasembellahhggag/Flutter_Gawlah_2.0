@@ -4,6 +4,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gawlah/verticalspacer.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:video_player/video_player.dart';
+import 'Tour_card.dart';
+
 import 'horizontalspace.dart';
 import 'loading.dart';
 import 'package:flutter_tts/flutter_tts.dart';
@@ -72,7 +75,7 @@ child:Stack(children: <Widget>[
        
               Positioned(child: Row(children: <Widget>[ 
               Text(
-              x[0],
+              widget.name,
               style: TextStyle(
                 decoration: TextDecoration.underline,
                   fontSize: 50,
@@ -83,12 +86,12 @@ child:Stack(children: <Widget>[
             ), 
             HSpacer(0.1),
             
-            //    FloatingActionButton(
-            //      backgroundColor: Colors.transparent,
-            //   child: Icon(Icons.headset),
-            //   onPressed: () => speak(),
+               FloatingActionButton(
+                 backgroundColor: Colors.transparent,
+              child: Icon(Icons.headset),
+              onPressed: () => speak(),
 
-            // ),
+            ),
               ]),top:100
           
             ),
@@ -105,14 +108,16 @@ child:Stack(children: <Widget>[
                     direction: _isVertical ? Axis.vertical : Axis.horizontal,
                   ),
                   top:150
-      ),
-            
-            Positioned(child: 
+      ), 
+    
+      Column(
+              children:<Widget>[ 
+  VSpacer(0.29),
             Container(
-              height: MediaQuery.of(context).size.height*0.9,
+              height: MediaQuery.of(context).size.height*0.5,
               width:MediaQuery.of(context).size.width,
-                           
-               child:Text(
+                child:Column(children: <Widget>[       
+               Text(
                 widget.info,
                 style: TextStyle(
                   
@@ -122,13 +127,35 @@ child:Stack(children: <Widget>[
                     backgroundColor: Colors.transparent
                     ),
               ),
+            
+              ]),),
              
-            ),top:180),
+          //  VSpacer(0.08),
+
+        //        Text("Video",
+        //      style: TextStyle(
+                  
+        //             fontSize: 15,
+        //             color: Colors.white,
+        //             fontWeight: FontWeight.bold,
+                   
+        //             ),textAlign:TextAlign.center,
+        //             ),
+             
+             
+        //       Container(width:MediaQuery.of(context).size.width/2,height: MediaQuery.of(context).size.height*0.16,
+        //       //  child:Align(alignment: Alignment.bottomLeft,),
+        //  child:ButterFlyAssetVideo()
+        //         ),
+        //       //  ],)
+          
+                ])
+
 
             
 
             
-        
+
 
            
           // SizedBox(height: 20),
@@ -151,3 +178,5 @@ child:Stack(children: <Widget>[
     await flutterTts.speak(widget.info);
   }
 }
+
+

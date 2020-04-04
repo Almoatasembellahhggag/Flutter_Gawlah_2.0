@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+
 import 'package:provider/provider.dart';
 import 'authenticate.dart';
 import 'auth.dart';
+import 'home.dart';
 import 'user.dart';
 import 'Tours_Pager.dart';
 class Wrapper  extends StatelessWidget {
@@ -14,7 +16,7 @@ class Wrapper  extends StatelessWidget {
   if(user==null){
   return Authenticate();
   }
-  else{ return TourList2();
+  else{ return Home();
 
   }
   }
