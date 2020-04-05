@@ -15,7 +15,7 @@ class BrewTile extends StatelessWidget {
         child: ListTile(
           leading: CircleAvatar(
             radius: 25.0,
-            backgroundColor: Colors.brown[brew.review],
+            backgroundColor: Colors.blue,
             backgroundImage: AssetImage('images_and_icons/g_transparent.png'),
           ),
           title: Text(brew.name),

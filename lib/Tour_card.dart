@@ -1,15 +1,18 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gawlah/tour_view.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'map.dart';
 
 class TourCard extends StatelessWidget {
   final Map Tour;
-  
+
 
   TourCard(this.Tour);
 
   @override
   Widget build(BuildContext context) {
+    GeoPoint mylocation=new GeoPoint(29.962696, 31.276942);
     return InkWell(
       child: _crearContenedor(context),
       onLongPress: () {
@@ -34,7 +37,8 @@ class TourCard extends StatelessWidget {
             MaterialPageRoute(
                 builder: (context) => PlacePolylinePage(
                      tour_id: Tour['id'],
-                      centre: Tour['center'],
+                      centre: mylocation,
+                      //Tour['center'],
                    )
                    ));
 

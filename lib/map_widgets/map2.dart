@@ -221,7 +221,7 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
                           child: SizedBox(
                             width: MediaQuery.of(context).size.width,
                             height: MediaQuery.of(context).size.height,
-                            child: GoogleMap(
+                            child: GoogleMap(myLocationEnabled: true,
                               minMaxZoomPreference: MinMaxZoomPreference(14, 18),
                               mapType: MapType.normal,
                               initialCameraPosition: new CameraPosition(

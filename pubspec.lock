@@ -176,13 +176,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.9"
-  equatable:
-    dependency: transitive
-    description:
-      name: equatable
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.1.1"
   firebase:
     dependency: transitive
     description:
@@ -258,6 +251,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.6"
+  flutter_polyline_points:
+    dependency: "direct main"
+    description:
+      name: flutter_polyline_points
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.0"
   flutter_rating_bar:
     dependency: "direct main"
     description:
@@ -330,7 +330,7 @@ packages:
       name: geolocator
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.3.0"
+    version: "3.0.1"
   glob:
     dependency: transitive
     description:
@@ -344,7 +344,7 @@ packages:
       name: google_api_availability
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.3"
+    version: "2.0.4"
   google_map_polyline:
     dependency: "direct main"
     description:
@@ -443,13 +443,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.5.4"
-  location_permissions:
-    dependency: transitive
-    description:
-      name: location_permissions
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.5"
   logging:
     dependency: transitive
     description:
@@ -542,19 +535,12 @@ packages:
     source: hosted
     version: "0.1.7"
   permission_handler:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: permission_handler
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.4.0+hotfix.2"
-  permission_handler_platform_interface:
-    dependency: transitive
-    description:
-      name: permission_handler_platform_interface
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.0"
+    version: "3.3.0"
   petitparser:
     dependency: transitive
     description:
@@ -562,13 +548,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.4.0"
-  place_picker:
-    dependency: "direct main"
-    description:
-      name: place_picker
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.9.11"
   plugin_platform_interface:
     dependency: transitive
     description:
@@ -800,4 +779,4 @@ packages:
     version: "2.2.0"
 sdks:
   dart: ">=2.7.0 <3.0.0"
-  flutter: ">=1.12.13+hotfix.5 <2.0.0"
+  flutter: ">=1.12.13+hotfix.6 <2.0.0"

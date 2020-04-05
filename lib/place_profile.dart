@@ -27,7 +27,7 @@ class PlaceProfile extends StatefulWidget {
   final String period;
   final GeoPoint center;
   final String video;
-   final VideoPlayerController videoPlayerController;
+  //  final VideoPlayerController videoPlayerController;
   final bool looping;
   //final int tourid;
   const PlaceProfile(
@@ -40,7 +40,7 @@ class PlaceProfile extends StatefulWidget {
       this.looping,
       this.center, 
       this.video,
-      @required this.videoPlayerController,
+      
       })
       : super(key: key);
 
