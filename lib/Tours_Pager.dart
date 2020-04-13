@@ -1,5 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gawlah/horizontalspace.dart';
+import 'package:flutter_gawlah/maindrawer.dart';
+import 'brew_list.dart';
 import 'place_card.dart';
 import 'Tour_card.dart';
 class TourList2 extends StatefulWidget {
@@ -56,7 +59,6 @@ class _TourListState2 extends State<TourList2>{
   }
   Container _buildThemesPage() {
     return Container(
-
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -141,19 +143,29 @@ class _TourListState2 extends State<TourList2>{
   Widget _buildbackground() {
     return Container(
       color: _BackGroundColor,
-      child: Column(
+      child:
+     
+      Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
+         
           Image.asset(
             'images_and_icons/g_transparent.png',
             height: 70,
           ),
           Container(
             height: 575,
-          )
+          ),
+        
         ],
       ),
+     
+
+
+   
+    
+    
     );
   }
 
@@ -161,6 +173,7 @@ class _TourListState2 extends State<TourList2>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+     drawer:BrewList(),
         primary: true,
         body: Center(
           child: Stack(children: [

@@ -17,7 +17,8 @@ import 'package:sliding_sheet/sliding_sheet.dart';
 
 class PlaceProfile extends StatefulWidget {
   final String image;
-  final String info;
+  final Map info;
+  final int tourid;
 
   final String place_type;
   //final String vid;
@@ -32,6 +33,7 @@ class PlaceProfile extends StatefulWidget {
   //final int tourid;
   const PlaceProfile(
       {Key key,
+      this.tourid,
       this.image,
       this.name,
       this.info,
@@ -39,8 +41,7 @@ class PlaceProfile extends StatefulWidget {
       this.place_type,
       this.looping,
       this.center, 
-      this.video,
-      
+      this.video, 
       })
       : super(key: key);
 
@@ -235,7 +236,7 @@ class PlaceProfileState extends State<PlaceProfile> {
                     height: (MediaQuery.of(context).size.height) / 2,
                     width: (MediaQuery.of(context).size.width),
                     child: new Text(
-                      widget.info,
+                      widget.info[widget.tourid.toString()],
                       style: new TextStyle(
                           color: Colors.grey,
                           fontWeight: FontWeight.w400,
@@ -279,6 +280,7 @@ class PlaceProfileState extends State<PlaceProfile> {
                                       placetype: slideList[index]['placetype'],
                                       info: slideList[index]['info'],
                                       period: slideList[index]['period'],
+                                      tourid: widget.tourid,
                                     );
                                   }
                                 }

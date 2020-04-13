@@ -12,12 +12,12 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class PlacePolylinePage extends StatelessWidget {
   const PlacePolylinePage(
-      {Key key, this.height, this.width1, this.tour_id, this.centre})
+      {Key key, this.height, this.width1, this.tourid, this.centre})
       : super(key: key);
 
   final GeoPoint centre;
   final double height;
-  final int tour_id;
+  final int tourid;
   final double width1;
 
 
@@ -25,7 +25,7 @@ class PlacePolylinePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return PlacePolylineBody(
       centre: centre,
-      tour_id: tour_id,
+      tourid: tourid,
     );
   }
 }
@@ -33,12 +33,12 @@ class PlacePolylinePage extends StatelessWidget {
 class PlacePolylineBody extends StatefulWidget {
   const PlacePolylineBody({
     Key key,
-    this.tour_id,
+    this.tourid,
     this.centre,
   }) : super(key: key);
 
   final GeoPoint centre;
-  final int tour_id;
+  final int tourid;
 
   @override
   State<StatefulWidget> createState() => PlacePolylineBodyState();
@@ -70,7 +70,11 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
 
   Completer<GoogleMapController> _controller = Completer();
 
+
+
   void initState() {
+     print(widget.tourid);
+    print("objecthhhhhhhhhhhhhhhhhhhhhhh");
     markers_icons = new Map();
     BitmapDescriptor.fromAssetImage(ImageConfiguration(devicePixelRatio: .5),
             'images_and_icons/mamluks_marker.png')
@@ -120,13 +124,13 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
     if (tag == 'all') {
       Query query = database.collection('polylines');
       Mapobjects = query
-          .where("tours", arrayContains: widget.tour_id)
+          .where("tours", arrayContains: widget.tourid)
           .snapshots()
           .map((list) => list.documents.map((doc) => doc.data));
     } else if (tag == 'nearby') {
       Query query = database
           .collection('polylines')
-          .where("tours", arrayContains: widget.tour_id)
+          .where("tours", arrayContains: widget.tourid)
           .where('id', whereIn: nearby);
       Mapobjects = query
           .snapshots()
@@ -357,6 +361,7 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
                                 placetype: slideList[index]['placetype'],
                                 info: slideList[index]['info'],
                                 vid: slideList[index]['vid'],
+                                tourid:widget.tourid,
 
                                 period:slideList[index]['period'],
                                 center:slideList[index]['center'],

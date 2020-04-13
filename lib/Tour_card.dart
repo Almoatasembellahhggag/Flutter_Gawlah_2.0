@@ -13,14 +13,18 @@ class TourCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     GeoPoint mylocation=new GeoPoint(29.962696, 31.276942);
-    return InkWell(
+    return 
+    
+    
+    
+    InkWell(
       child: _crearContenedor(context),
       onLongPress: () {
         Navigator.push(
             context,
             MaterialPageRoute(
                 builder: (context) => TourView(image:Tour['image'],info:Tour['info'],name: Tour['name'],rate:Tour['rate']
-                )));
+              ,tourid: Tour['id'],  )));
                 
                 
                 print(Tour['info']);
@@ -36,7 +40,7 @@ class TourCard extends StatelessWidget {
             context,
             MaterialPageRoute(
                 builder: (context) => PlacePolylinePage(
-                     tour_id: Tour['id'],
+                     tourid: Tour['id'],
                       centre: mylocation,
                       //Tour['center'],
                    )
@@ -129,6 +133,8 @@ class TourCard extends StatelessWidget {
                 style: TextStyle(
                     fontSize: 37, color: Color.fromRGBO(230, 230, 230, .8)),
               ),
+              Post()
+              
             ],
           ),
         ],
@@ -137,3 +143,31 @@ class TourCard extends StatelessWidget {
   }
 
 }
+class Post extends StatefulWidget {
+
+
+  @override
+PostState createState() =>PostState();
+}
+
+class PostState extends State<Post> {
+  bool liked=false;
+  _pressed(){
+    setState(() {
+      liked=!liked;
+    });
+  }
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(icon:Icon(
+      liked? Icons.favorite:Icons.favorite_border,
+    color:liked ?Colors.red:Colors.grey),
+    onPressed: ()=>_pressed(),
+    
+    );
+  }
+}
+
+
+
+

@@ -7,7 +7,7 @@ import 'place_profile.dart';
 
 class PlaceCard extends StatelessWidget {
 
-  const PlaceCard({Key key, this.name, this.image, this.placetype,this.period, this.info, this.h_ratio, this.w_ratio,this.center, this.vid})
+  const PlaceCard({Key key, this.name, this.image, this.placetype,this.period, this.info, this.tourid,this.h_ratio, this.w_ratio,this.center, this.vid})
       : super(key: key);
 
   final String image;
@@ -17,10 +17,11 @@ class PlaceCard extends StatelessWidget {
   final String vid;
 
   final String period;
-  final String info;
+  final Map info;
   final double h_ratio;
   final double w_ratio;
   final GeoPoint center;
+  final int tourid;
 
 
  // final String type;
@@ -28,6 +29,8 @@ class PlaceCard extends StatelessWidget {
  // final int tourid;
   @override
   Widget build(BuildContext context) {
+     print(tourid);
+    print("objecthhhhhhhhhhhhhhhhhhhhhhh22222222222222222222222222222");
     return GestureDetector(
       child: GestureDetector(
           
@@ -43,7 +46,7 @@ class PlaceCard extends StatelessWidget {
               MaterialPageRoute(
                   builder: (context) => PlaceProfile( image: image,
                         name: name,
-                       
+                       tourid: tourid,
                         info: info,
                         period:period,
                         place_type: placetype,

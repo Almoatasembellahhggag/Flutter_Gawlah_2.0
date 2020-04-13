@@ -260,6 +260,7 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
                                         image: slideList[index]['image'],
                                         name: slideList[index]['name'],
                                         placetype: slideList[index]['placetype'],
+                                        tourid: widget.tour_id,
                                       );
                                     }
                                   }

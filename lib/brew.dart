@@ -4,6 +4,6 @@ class Brew {
   final String liked;
   final int review;
 
-  Brew({ this.name,this.liked,this.review, });
+  Brew({ this.name,this.liked,this.review});
 
 }
