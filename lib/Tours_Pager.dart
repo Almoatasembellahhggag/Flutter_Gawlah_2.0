@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gawlah/horizontalspace.dart';
 import 'package:flutter_gawlah/maindrawer.dart';
+import 'package:flutter_gawlah/ui/views/home_view.dart';
 import 'brew_list.dart';
 import 'place_card.dart';
 import 'Tour_card.dart';
@@ -173,7 +174,7 @@ class _TourListState2 extends State<TourList2>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     drawer:BrewList(),
+     drawer:HomeView(),
         primary: true,
         body: Center(
           child: Stack(children: [
