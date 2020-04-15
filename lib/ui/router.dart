@@ -1,4 +1,5 @@
 import 'package:flutter_gawlah/Tours_Pager.dart';
+import 'package:flutter_gawlah/models/post.dart';
 import 'package:flutter_gawlah/ui/views/create_post_view.dart';
 
 import '../ui/views/home_view.dart';
@@ -25,9 +26,12 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         viewToShow: HomeView(),
       );
     case CreatePostViewRoute:
+    var postToEdit=settings.arguments as Post;
       return _getPageRoute(
         routeName: settings.name,
-        viewToShow: CreatePostView(),
+        viewToShow: CreatePostView(
+          edittingPost: postToEdit,
+        ),
       );
 
       case TourList2Route:

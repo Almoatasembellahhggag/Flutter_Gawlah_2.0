@@ -38,44 +38,50 @@ final AuthService _authService=AuthService();
                           child: Image.asset('images_and_icons/g_transparent.png'),
                         ),
                         horizontalSpaceMedium,
-                        // FlatButton.icon(
-                        //   icon:Icon(Icons.person),
-                        //   label:Text('logout'),
-                        //   onPressed: () async{
-                        //     await model.signOut();
-                        //      Navigator.push(context, MaterialPageRoute(builder: (context)=>StartUpView()));
-
-                        //   },
-                        // )
-
-                      ],
-                    ),
-                    Expanded(
-                        child: model.posts != null
-                            ? ListView.builder(
-                                itemCount: model.posts.length,
-                                itemBuilder: (context, index) =>
-                                    GestureDetector(
-                                  onTap: () => model.editPost(index),
-                                  child: PostItem(
-                                    post: model.posts[index],
-                                    onDeleteItem: () => model.deletePost(index),
-                                  ),
-                                ),
-                              )
-                            : Center(
-                                child: CircularProgressIndicator(
-                                  valueColor: AlwaysStoppedAnimation(
-                                      Theme.of(context).primaryColor),
-                                ),
-                              ))
-
-                  ],
-                ),
-              ),
-
-            )
-            )
-            ;
-  }
+                        FlatButton.icon(
+                          icon:Icon(Icons.person),
+                          label:Text('logout'),
+                          onPressed: () {
+                            print("hiiiiii");
+                            model.signOut();
+                          }
+                                                      
+                          
+                                                  
+                                                  )
+                          
+                                                ],
+                                              ),
+                                              Expanded(
+                                                  child: model.posts != null
+                                                      ? ListView.builder(
+                                                          itemCount: model.posts.length,
+                                                          itemBuilder: (context, index) =>
+                                                              GestureDetector(
+                                                            onTap: () => model.editPost(index),
+                                                            child: PostItem(
+                                                              post: model.posts[index],
+                                                              onDeleteItem: () => model.deletePost(index),
+                                                            ),
+                                                          ),
+                                                        )
+                                                      : Center(
+                                                          child: CircularProgressIndicator(
+                                                            valueColor: AlwaysStoppedAnimation(
+                                                                Theme.of(context).primaryColor),
+                                                          ),
+                                                        ))
+                          
+                                            ],
+                                          ),
+                                        ),
+                          
+                                      )
+                                      )
+                                      ;
+                            }
+                          
+                          
+                      
+                            
 }

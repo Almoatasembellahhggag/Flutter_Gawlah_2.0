@@ -8,16 +8,14 @@ class SignOutViewModel extends BaseModel {
   final AuthenticationService _authenticationService =
       locator<AuthenticationService>();
   final NavigationService _navigationService = locator<NavigationService>();
+  
+Future signout() async{
 
-  Future signout() async {
-    var hasLoggedInUser = await _authenticationService.isUserLoggedIn();
+_authenticationService.signOut();
+_navigationService.navigateTo(LoginViewRoute);
 
-  if (hasLoggedInUser) {
-      
-  signout();
-       _navigationService.navigateTo(LoginViewRoute);
-    } else {
-     _navigationService.navigateTo(LoginViewRoute);
-   }
-  }
 }
+  
+  
+  
+  }

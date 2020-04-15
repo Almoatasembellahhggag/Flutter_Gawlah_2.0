@@ -8,10 +8,12 @@ class TourCard extends StatelessWidget {
   final Map Tour;
 
 
+ final Set<String> _saved = <String>{};
   TourCard(this.Tour);
 
   @override
   Widget build(BuildContext context) {
+     
     GeoPoint mylocation=new GeoPoint(29.962696, 31.276942);
     return 
     
@@ -133,7 +135,9 @@ class TourCard extends StatelessWidget {
                 style: TextStyle(
                     fontSize: 37, color: Color.fromRGBO(230, 230, 230, .8)),
               ),
-              Post()
+              Post(Tour['name']),
+              
+            
               
             ],
           ),
@@ -144,6 +148,7 @@ class TourCard extends StatelessWidget {
 
 }
 class Post extends StatefulWidget {
+  Post(String name);
 
 
   @override
@@ -152,10 +157,20 @@ PostState createState() =>PostState();
 
 class PostState extends State<Post> {
   bool liked=false;
+  List<String>likedlist;
+
+
+  
+
   _pressed(){
-    setState(() {
+  
+    setState(() {   
       liked=!liked;
+   
+          //  likedlist.add(name);
+          
     });
+
   }
   @override
   Widget build(BuildContext context) {
@@ -165,7 +180,12 @@ class PostState extends State<Post> {
     onPressed: ()=>_pressed(),
     
     );
+
+    
   }
+
+
+
 }
 
 

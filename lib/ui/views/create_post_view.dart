@@ -52,19 +52,19 @@ class CreatePostView extends StatelessWidget {
                   controller: titleController,
                 ),
                 verticalSpaceMedium,
-                Text('Post Image'),
-                verticalSpaceSmall,
-                Container(
-                  height: 250,
-                  decoration: BoxDecoration(
-                      color: Colors.grey[200],
-                      borderRadius: BorderRadius.circular(10)),
-                  alignment: Alignment.center,
-                  child: Text(
-                    'Tap to add post image',
-                    style: TextStyle(color: Colors.grey[400]),
-                  ),
-                )
+                // Text('Post Image'),
+                // verticalSpaceSmall,
+                // Container(
+                //   height: 250,
+                //   decoration: BoxDecoration(
+                //       color: Colors.grey[200],
+                //       borderRadius: BorderRadius.circular(10)),
+                //   alignment: Alignment.center,
+                //   child: Text(
+                //     'Tap to add post image',
+                //     style: TextStyle(color: Colors.grey[400]),
+                //   ),
+                // )
               ],
             ),
           )),

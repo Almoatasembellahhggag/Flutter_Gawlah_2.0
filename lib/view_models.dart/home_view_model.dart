@@ -2,6 +2,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_gawlah/constants/route_names.dart';
 import 'package:flutter_gawlah/models/post.dart';
+import 'package:flutter_gawlah/services/authentication_service.dart';
 import 'package:flutter_gawlah/services/dialog_service.dart';
 import 'package:flutter_gawlah/services/firestore_service.dart';
 import 'package:flutter_gawlah/services/navigation_service.dart';
@@ -13,7 +14,9 @@ class HomeViewModel extends BaseModel {
   final NavigationService _navigationService = locator<NavigationService>();
   final FirestoreService _firestoreService = locator<FirestoreService>();
   final DialogService _dialogService = locator<DialogService>();
-   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  // final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+    final AuthenticationService _authenticationService =
+   locator<AuthenticationService>();
  
 
   List<Post> _posts;
@@ -59,7 +62,8 @@ class HomeViewModel extends BaseModel {
 
  Future signOut()async{
 try {
-  return await _firebaseAuth.signOut();
+  return{await _authenticationService.signOut(),
+  _navigationService.navigateTo(LoginViewRoute)};
 
 }
 catch(e){
