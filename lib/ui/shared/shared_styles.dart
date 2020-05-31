@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 // Box Decorations
 
 BoxDecoration fieldDecortaion = BoxDecoration(
-    borderRadius: BorderRadius.circular(5), color: Colors.grey[200]);
+    borderRadius: BorderRadius.circular(5), color: Colors.white);
 
 BoxDecoration disabledFieldDecortaion = BoxDecoration(
-    borderRadius: BorderRadius.circular(5), color: Colors.grey[100]);
+    borderRadius: BorderRadius.circular(5),color: Colors.white);
 
 // Field Variables
 
@@ -20,4 +20,4 @@ const EdgeInsets largeFieldPadding =
 
 // Text Variables
 const TextStyle buttonTitleTextStyle =
-    const TextStyle(fontWeight: FontWeight.w700, color: Colors.white);
+    const TextStyle(fontWeight: FontWeight.w700, color: Color(0XFF1E88E5),);

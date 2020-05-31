@@ -21,11 +21,16 @@ class AuthenticationService {
         email: email,
         password: password,
       );
-      await _populateCurrentUser(authResult.user);
+      await populateCurrentUser(authResult.user);
       return authResult.user != null;
     } catch (e) {
       return e.message;
     }
+  }
+
+  Tourpage(){
+    return _currentUser.image;
+
   }
 
   Future signUpWithEmail({
@@ -33,6 +38,13 @@ class AuthenticationService {
     @required String password,
     @required String fullName,
     @required String role,
+    String image,
+     String likedtours,
+    String likedplaces,
+    int review,
+    String addcomment,
+    List<String>survey,
+
   }) async {
     try {
       var authResult = await _firebaseAuth.createUserWithEmailAndPassword(
@@ -43,9 +55,16 @@ class AuthenticationService {
       // create a new user profile on firestore
       _currentUser = User(
         id: authResult.user.uid,
-        email: email,
-        fullName: fullName,
+       fullName: fullName,
         userRole: role,
+        likedplaces:likedplaces,
+        likedtours:likedtours,
+        review:review,
+        addcomment:addcomment,
+        email: email,
+        survey: survey,
+        image: image,
+      
       );
 
       await _firestoreService.createUser(_currentUser);
@@ -66,11 +85,11 @@ class AuthenticationService {
 
   Future<bool> isUserLoggedIn() async {
     var user = await _firebaseAuth.currentUser();
-    await _populateCurrentUser(user);
+    await populateCurrentUser(user);
     return user != null;
   }
 
-  Future _populateCurrentUser(FirebaseUser user) async {
+  Future populateCurrentUser(FirebaseUser user) async {
     if (user != null) {
       _currentUser = await _firestoreService.getUser(user.uid);
     }

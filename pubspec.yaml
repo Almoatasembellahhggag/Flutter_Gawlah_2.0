@@ -11,10 +11,10 @@ description: A new Flutter application.
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.0+1
+#version: 1.0.0+1
 
-environment:
-  sdk: ">=2.2.2 <3.0.0"
+#environment:
+ # sdk: ">=2.2.2 <3.0.0"
 
 dependencies:
 
@@ -28,17 +28,25 @@ dependencies:
 
   geolocator: ^3.0.1
   font_awesome_flutter: ^8.7.0
-  firebase_auth: ^0.15.5+2
+  firebase_auth: ^0.15.3
+  mlkit:
+ 
+
   json_serializable: ^3.2.5
+  animated_text_kit: ^2.0.1
   firebase_database: ^3.1.3
   flutter_tts: ^0.9.0
   flutter_google_places: ^0.2.4
   google_maps_flutter: ^0.5.24+1
+  rate_my_app: 
   toast: ^0.1.5
   flutter_statusbarcolor: ^0.2.3
   flutter_rating_bar: ^3.0.1+1
-  google_maps_webservice: ^0.0.16
-  url_launcher: ^5.4.2
+  #google_maps_webservice: ^0.0.16
+  camera:
+  path_provider:
+  path:
+ 
   location: ^2.5.4
   uuid: '^2.0.4'
   http: ^0.12.0+4
@@ -49,19 +57,27 @@ dependencies:
   flutter_polyline_points: ^0.1.0
   geocoder: ^0.2.1
   sliver_fab: ^1.0.0
-  cloud_firestore: ^0.13.4+2
+  
   #flutter_google_places_autocomplete: ^0.1.3
   #place_picker: ^0.9.11
   #permission: ^0.1.5
   map_overlay: ^0.0.1
   provider_architecture: ^1.0.3
-  get_it: ^4.0.1
+  get_it: ^4.0.2
+  drawing_animation: ^0.1.1
+
   ola_like_country_picker: ^0.1.1
+  english_words: ^3.1.0
+  google_maps_webservice: ^0.0.14
   fluttertoast: ^3.1.3
   flutter_spinkit: ^4.1.2
   chewie: ^0.9.10
   video_player: ^0.10.8+1
   sliding_sheet: ^0.2.8
+  url_launcher: ^5.4.5
+  google_maps: ^3.4.2
+  webview_flutter: ^0.3.22+1
+  convert: ^2.1.1
 
  
 
@@ -75,13 +91,29 @@ dependencies:
   cupertino_icons: ^0.1.2
  # flutter_geofire: ^1.0.3
   provider: ^3.2.0
-  google_sign_in: ^4.1.1
+  google_sign_in: 
+  shimmer: ^1.0.1
+  splashscreen: ^1.2.0
+  firebase_ml_vision: ^0.9.3+8
+  firebase_admob: ^0.5.2
+  firebase_analytics: ^5.0.11
+  flutter_dialogflow: ^0.1.2
+  flutter_staggered_grid_view: 
+  cloud_firestore: ^0.13.0+1
+  shared_preferences: ^0.5.7+2
+  image_picker: 0.6.0+17
+  firebase_storage:
+  image_cropper: 1.0.2
+
+ 
 
   solid_bottom_sheet: ^0.1.9
-  flutter_staggered_grid_view: ^0.2.7
+  flutter_map: any
+
   
 
-  #geoflutterfire: ^2.1.0
+  geoflutterfire: any
+
  
 
 
@@ -104,11 +136,17 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
      - images_and_icons/ic_distance.png
-
+     - images_and_icons/test_barcode.jpg
      - images_and_icons/ic_gravity.png
      - images_and_icons/moon.png
      - images_and_icons/gawlah.png
+     - images_and_icons/footgif.gif
      - images_and_icons/g_transparent.png
+     - images_and_icons/gframe.jpg
+     - images_and_icons/gframen.png
+     - images_and_icons/gframen.jpg
+     - images_and_icons/g_transparentt.svg
+     - images_and_icons/g_transparenttt.svg
      - images_and_icons/mapstyle.txt
      - images_and_icons/mamluk_marker.png
      - images_and_icons/mamluks_marker.png
@@ -120,6 +158,14 @@ flutter:
      - images_and_icons/google_logo.png
      - images_and_icons/icon_large.png
      - images_and_icons/title.png
+     - images_and_icons/angry.gif
+     - images_and_icons/mmm.gif
+     - images_and_icons/hearteyes.gif
+     - images_and_icons/white.jpg
+     - images_and_icons/muezstreet.jpg
+     - images_and_icons/credentials.json
+     - images_and_icons/flutter-gawlah-3fd03-a8f3b6668303.json
+     - images_and_icons/flutter-gawlah-3fd03-d0f9ae334cc5.json
      
 
      
@@ -127,6 +173,7 @@ flutter:
      - images_and_icons/mosque.jpg
      - images_and_icons/new.png
      - images_and_icons/mosque.mp4
+     - images_and_icons/files/test.html
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -151,10 +198,9 @@ flutter:
           weight: 300
         - asset: images_and_icons/fonts/OpenSans-Regular.ttf
           weight: 400
-
-
-
-
+    - family: DancingScript     
+      fonts:
+        - asset: images_and_icons/fonts/DancingScript.ttf
 
   # fonts:
   #   - family: Schyler

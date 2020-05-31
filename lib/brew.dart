@@ -1,9 +1,11 @@
-class Brew {
+// class Brew {
 
-  final String name;
-  final String liked;
-  final int review;
+//   final String fullName;
+//   final String likedplaces;
+//   final String likedtours;
+//   final String userRole;
+//   final int review;
 
-  Brew({ this.name,this.liked,this.review});
+//   Brew({ this.review,this.fullName, this.likedplaces, this.likedtours, this.userRole});
 
-}
+// }

@@ -48,113 +48,113 @@
 //               SizedBox(height: 20.0),
 //               TextFormField(
 //                 decoration: textInputDecoration.copyWith(hintText: 'email'),
-//                 validator: (val) => val.isEmpty ? 'Enter an email' : null,
-//                 onChanged: (val) {
-//                   setState(() => email = val);
-//                 },
-//               ),
-//               SizedBox(height: 20.0),
-//               TextFormField(
-//                 decoration: textInputDecoration.copyWith(hintText: 'password'),
-//                 obscureText: true,
-//                 validator: (val) => val.length < 6 ? 'Enter a password 6+ chars long' : null,
-//                 onChanged: (val) {
-//                   setState(() => password = val);
-//                 },
-//               ),
-//               SizedBox(height: 20.0),
-//               RaisedButton(
-//                 color: Colors.pink[400],
-//                 child: Text(
-//                   'Register',
-//                   style: TextStyle(color: Colors.white),
-//                 ),
-//                 onPressed: () async {
-//                   if(_formKey.currentState.validate()){
-//                     setState(() => loading = true);
-//                     dynamic result = await _auth.registerWithEmailAndPassword(email, password);
-//                     if(result == null) {
-//                       setState(() {
-//                         loading = false;
-//                         error = 'Please supply a valid email';
-//                       });
-//                     }
-//                   }
-//                 }
-//               ),
-//               SizedBox(height: 12.0),
-//               Text(
-//                 error,
-//                 style: TextStyle(color: Colors.red, fontSize: 14.0),
-//               )
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//   }
+// //                 validator: (val) => val.isEmpty ? 'Enter an email' : null,
+// //                 onChanged: (val) {
+// //                   setState(() => email = val);
+// //                 },
+// //               ),
+// //               SizedBox(height: 20.0),
+// //               TextFormField(
+// //                 decoration: textInputDecoration.copyWith(hintText: 'password'),
+// //                 obscureText: true,
+// //                 validator: (val) => val.length < 6 ? 'Enter a password 6+ chars long' : null,
+// //                 onChanged: (val) {
+// //                   setState(() => password = val);
+// //                 },
+// //               ),
+// //               SizedBox(height: 20.0),
+// //               RaisedButton(
+// //                 color: Colors.pink[400],
+// //                 child: Text(
+// //                   'Register',
+// //                   style: TextStyle(color: Colors.white),
+// //                 ),
+// //                 onPressed: () async {
+// //                   if(_formKey.currentState.validate()){
+// //                     setState(() => loading = true);
+// //                     dynamic result = await _auth.registerWithEmailAndPassword(email, password);
+// //                     if(result == null) {
+// //                       setState(() {
+// //                         loading = false;
+// //                         error = 'Please supply a valid email';
+// //                       });
+// //                     }
+// //                   }
+// //                 }
+// //               ),
+// //               SizedBox(height: 12.0),
+// //               Text(
+// //                 error,
+// //                 style: TextStyle(color: Colors.red, fontSize: 14.0),
+// //               )
+// //             ],
+// //           ),
+// //         ),
+// //       ),
+// //     );
+// //   }
+// // }
+
+
+// import 'package:flutter/material.dart';
+
+
+// import 'usermanagment.dart';
+
+// import 'package:firebase_auth/firebase_auth.dart';
+
+// class SignupPage extends StatefulWidget {
+//   @override
+//   _SignupPageState createState() => _SignupPageState();
 // }
 
+// class _SignupPageState extends State<SignupPage> {
+//   String _email;
+//   String _password;
 
-import 'package:flutter/material.dart';
-
-
-import 'usermanagment.dart';
-
-import 'package:firebase_auth/firebase_auth.dart';
-
-class SignupPage extends StatefulWidget {
-  @override
-  _SignupPageState createState() => _SignupPageState();
-}
-
-class _SignupPageState extends State<SignupPage> {
-  String _email;
-  String _password;
-
-  @override
-  Widget build(BuildContext context) {
-    return new Scaffold(
-        body: Center(
-      child: Container(
-          padding: EdgeInsets.all(25.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              TextField(
-                  decoration: InputDecoration(hintText: 'Email'),
-                  onChanged: (value) {
-                    setState(() {
-                      _email = value;
-                    });
-                  }),
-              SizedBox(height: 15.0),
-              TextField(
-                  decoration: InputDecoration(hintText: 'Password'),
-                  onChanged: (value) {
-                    setState(() {
-                      _password = value;
-                    });
-                  }),
-              SizedBox(height: 20.0),
-              RaisedButton(
-                child: Text('Sign Up'),
-                color: Colors.blue,
-                textColor: Colors.white,
-                elevation: 7.0,
-                onPressed: () {
-                  FirebaseAuth.instance
-                      .createUserWithEmailAndPassword(
-                          email: _email, password: _password)
-                      .then((signedInUser) {
-                    UserManagement().storeNewUser(signedInUser, context);
-                  }).catchError((e) {
-                    print(e);
-                  });
-                },
-              ),
-            ],
-          )),
-    ));
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return new Scaffold(
+//         body: Center(
+//       child: Container(
+//           padding: EdgeInsets.all(25.0),
+//           child: Column(
+//             mainAxisAlignment: MainAxisAlignment.center,
+//             children: <Widget>[
+//               TextField(
+//                   decoration: InputDecoration(hintText: 'Email'),
+//                   onChanged: (value) {
+//                     setState(() {
+//                       _email = value;
+//                     });
+//                   }),
+//               SizedBox(height: 15.0),
+//               TextField(
+//                   decoration: InputDecoration(hintText: 'Password'),
+//                   onChanged: (value) {
+//                     setState(() {
+//                       _password = value;
+//                     });
+//                   }),
+//               SizedBox(height: 20.0),
+//               RaisedButton(
+//                 child: Text('Sign Up'),
+//                 color: Colors.blue,
+//                 textColor: Colors.white,
+//                 elevation: 7.0,
+//                 onPressed: () {
+//                   FirebaseAuth.instance
+//                       .createUserWithEmailAndPassword(
+//                           email: _email, password: _password)
+//                       .then((signedInUser) {
+//                     UserManagement().storeNewUser(signedInUser, context);
+//                   }).catchError((e) {
+//                     print(e);
+//                   });
+//                 },
+//               ),
+//             ],
+//           )),
+//     ));
+//   }
+// }

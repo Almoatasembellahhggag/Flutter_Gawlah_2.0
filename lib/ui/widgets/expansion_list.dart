@@ -40,9 +40,10 @@ class _ExpansionListState extends State<ExpansionList> {
           : widget.smallVersion
               ? sharedStyles.smallFieldHeight
               : startingHeight,
-      decoration: sharedStyles.fieldDecortaion.copyWith(
+      decoration: BoxDecoration(
+    borderRadius: BorderRadius.circular(5), color: Color.fromRGBO(38, 47, 62, 1),).copyWith(
         boxShadow: expanded
-            ? [BoxShadow(blurRadius: 10, color: Colors.grey[300])]
+            ? [BoxShadow(blurRadius: 10, color: Colors.grey[400])]
             : null,
       ),
       child: ListView(
@@ -61,7 +62,8 @@ class _ExpansionListState extends State<ExpansionList> {
           ),
           Container(
             height: 2,
-            color: Colors.grey[300],
+            color: Colors.white,
+            //grey[300],
           ),
           ..._getDropdownListItems()
         ],
@@ -127,10 +129,12 @@ class ExpansionListItem extends StatelessWidget {
             Expanded(
               child: Text(
                 title ?? '',
-                style: Theme.of(context)
-                    .textTheme
-                    .subhead
-                    .copyWith(fontSize: smallVersion ? 12 : 15),
+                style: TextStyle(color:Colors.white)
+                // Theme.of(context)
+                //     .textTheme
+                //     .subhead
+                //     .copyWith(fontSize: smallVersion ? 12 : 15),
+                    
               ),
             ),
             showArrow

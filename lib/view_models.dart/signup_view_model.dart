@@ -1,4 +1,8 @@
-import 'package:flutter_gawlah/Tours_Pager.dart';
+
+
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_gawlah/Image.dart';
+import 'package:flutter_gawlah/home.dart';
 
 import '../constants/route_names.dart';
 import '../locator.dart';
@@ -20,6 +24,7 @@ class SignUpViewModel extends BaseModel {
 
   void setSelectedRole(dynamic role) {
     _selectedRole = role;
+    
     notifyListeners();
   }
 
@@ -27,6 +32,12 @@ class SignUpViewModel extends BaseModel {
     @required String email,
     @required String password,
     @required String fullName,
+    String likedtours,
+    String likedplaces,
+    int review,
+    String addcomment,
+    String image
+
   }) async {
     setBusy(true);
 
@@ -34,7 +45,15 @@ class SignUpViewModel extends BaseModel {
         email: email,
         password: password,
         fullName: fullName,
-        role: _selectedRole);
+        role: _selectedRole,
+        likedplaces: likedplaces,
+        likedtours: likedtours,
+        review: review,
+        addcomment: addcomment,
+        image: image
+        
+        
+        );
 
     setBusy(false);
 

@@ -1,3 +1,6 @@
+import 'package:flutter_gawlah/ui/views/create_post_view.dart';
+import 'package:flutter_gawlah/view_models.dart/create_pos_view_model.dart';
+
 import '../constants/route_names.dart';
 import '../locator.dart';
 import '../services/authentication_service.dart';

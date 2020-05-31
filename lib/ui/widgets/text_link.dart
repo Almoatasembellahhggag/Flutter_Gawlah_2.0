@@ -4,6 +4,7 @@ class TextLink extends StatelessWidget {
   final String text;
   final Function onPressed;
   const TextLink(this.text, {this.onPressed});
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +12,7 @@ class TextLink extends StatelessWidget {
       onTap: onPressed,
       child: Text(
         text,
-        style: TextStyle(fontWeight: FontWeight.w700, fontSize: 14),
+        style: TextStyle(fontWeight: FontWeight.w700, fontSize: 14,color: Colors.white),
       ),
     );
   }

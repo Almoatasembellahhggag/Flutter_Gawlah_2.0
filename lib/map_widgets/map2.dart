@@ -5,10 +5,10 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_gawlah/placecards/place_card.dart';
 
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-import '../place_card.dart';
 
 class PlacePolylinePage extends StatelessWidget {
   const PlacePolylinePage(
