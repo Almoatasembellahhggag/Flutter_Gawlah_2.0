@@ -17,7 +17,7 @@ class PlaceCard extends StatelessWidget {
   final String vid;
 
   final String period;
-  final Map info;
+  final String info;
   final double h_ratio;
   final double w_ratio;
   final GeoPoint center;

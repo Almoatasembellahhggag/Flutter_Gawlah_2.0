@@ -1,25 +1,38 @@
-
-import 'package:flutter/foundation.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_gawlah/constants/route_names.dart';
 import 'package:flutter_gawlah/locator.dart';
+import 'package:flutter_gawlah/models/liked.dart';
 import 'package:flutter_gawlah/models/post.dart';
 import 'package:flutter_gawlah/models/user.dart';
+import 'package:flutter_gawlah/services/authentication_service.dart';
 import 'package:flutter_gawlah/services/dialog_service.dart';
 import 'package:flutter_gawlah/services/firestore_service.dart';
 import 'package:flutter_gawlah/services/navigation_service.dart';
-
+import 'package:flutter_gawlah/ui/views/shaklbas.dart';
 import 'package:flutter_gawlah/view_models.dart/base_model.dart';
 
-class AppViewModel extends BaseModel {
+class LikedViewModel extends BaseModel {
   final FirestoreService _firestoreService = locator<FirestoreService>();
   final DialogService _dialogService = locator<DialogService>();
   final NavigationService _navigationService = locator<NavigationService>();
-
+ final AuthenticationService _authenticationService =
+   locator<AuthenticationService>();
+   List<String> liked;
   User _edittingPost;
 
   bool get _editting => _edittingPost != null;
 
-  Future addPost({@required List<String>survey}) async {
+   likedtours(String name) async {
+      DocumentSnapshot ds =
+          await Firestore.instance.collection('Users').document(_authenticationService.currentUser.fullName).get();
+    liked=ds.data['survey'];
+     
+     return ds.data['survey'];
+    }
+
+
+  Future addPost({@required List<String>likedtours,@required List<String>survey}) async {
     setBusy(true);
 
     var result;
@@ -27,10 +40,10 @@ class AppViewModel extends BaseModel {
     if (!_editting) {
       result = 
      await _firestoreService
-        .addPosttt(User(survey: survey,id: currentUser.id,fullName: currentUser.fullName,userRole: currentUser.userRole,review: currentUser.review,likedtours: currentUser.likedtours,likedplaces: currentUser.likedplaces));
+        .addPosttt(User(likedtours: likedtours,id: currentUser.id,fullName: currentUser.fullName,userRole: currentUser.userRole,review: currentUser.review,survey: survey));
     } else {
       result = await _firestoreService.updatePosttt(User(
-        survey: survey,
+        likedtours: likedtours,
         id: _edittingPost.id,
         
       //  docume: _edittingPost.documentId,
@@ -51,7 +64,7 @@ class AppViewModel extends BaseModel {
       );
     }
 
-  _navigationService.navigateTo(TourList2Route);
+ // _navigationService.navigateTo(TourList2Route);
   }
 
   void setEdittingPost(User edittingPost) {

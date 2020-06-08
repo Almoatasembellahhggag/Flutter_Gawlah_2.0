@@ -6,6 +6,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gawlah/placecards/place_card.dart';
+import 'package:google_map_polyline/google_map_polyline.dart';
+import 'package:location/location.dart';
+//import 'package:permission/permission.dart';
 import 'package:toast/toast.dart';
 
 
@@ -20,6 +23,7 @@ class PlacePolylinePage extends StatelessWidget {
   final double height;
   final int tourid;
   final double width1;
+  
 
 
   @override
@@ -62,9 +66,10 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
   Set<Marker> markers;
   Set<Polyline> polylines;
   Set<Circle> circles;
-
+var currentLocation;
   Map<String, BitmapDescriptor> markers_icons;
-
+double lat;
+double lng;
 
   static const _intialPositionn1 = LatLng(30.041833166, 31.257332304);
   static const _intialPositionn2 = LatLng(30.0554905, 31.2634282);
@@ -74,6 +79,8 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
 
 
   void initState() {
+  //  getsomePoints();
+    _getLocation();
      print(widget.tourid);
     print("objecthhhhhhhhhhhhhhhhhhhhhhh");
     markers_icons = new Map();
@@ -105,8 +112,26 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
   }
 
   void _onMapCreated(GoogleMapController controller) {
-    _controller.complete(controller);
+    setState(() {
+         _controller.complete(controller);
     controller.setMapStyle(mapstyle);
+
+//  polylines.add(Polyline(
+//           polylineId: PolylineId('route1'),
+//           visible: true,
+//           points: routeCoords,
+//           width: 4,
+//           color: Colors.blue,
+//           startCap: Cap.roundCap,
+//           endCap: Cap.buttCap));
+
+
+    });
+ 
+   //getsomePoints();
+
+
+   
   }
 
   void dispose() {
@@ -156,26 +181,32 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
           break;
       }
     });
-
+debugPrint(Polygons.join(','));
     return Polygons;
   }
 
-  Set<Polyline> polylines_set(List polyys, Set<Polyline> Polylines) {
-    Polylines.clear();
+
+Set<Polyline> polylines_set(List polyys, Set<Polyline> Polyliness,Future<dynamic>route) {
+    Polyliness.clear();
+
 
     polyys.forEach((PolyObj) {
       switch (PolyObj['type']) {
-        case 'route':
-          Polylines.add(Route(PolyObj['points'], PolyObj['name']));
-          break;
-
-        default:
+        case 'place':
+                 
+                  Polyliness.add(Route(PolyObj['center'], PolyObj['name']));
+                  break;
         
-          break;
-      }
-    });
+                default:
+                  break;
+              }
+    
 
-    return Polylines;
+  
+    });
+   //  return Polyliness;
+print(Polyliness.elementAt(0).points);
+return Polyliness;
   }
 
   Set<Marker> markers_set(List places, Set<Marker> Markers) {
@@ -222,21 +253,45 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
     );
   }
 
-  Polyline Route(List<dynamic> polylinePoints, String idd) {
-    List<LatLng> latlngs = new List();
-    polylinePoints.forEach((point) {
-      latlngs.add(new LatLng(
-          (point as GeoPoint).latitude, (point as GeoPoint).longitude));
-    });
+_getLocation() async {
+    var location=new Location();
+    try {
+    //  currentLocation = await location.getLocation();
+        var pos = await location.getLocation();
+               lat = pos.latitude;
+ lng = pos.longitude;
+      setState(
+          () {
 
-    return new Polyline(
-      consumeTapEvents: false,
+ debugPrint(lat.toString());
+ debugPrint("LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD");
+
+          }); //rebuild the widget after getting the current location of the user
+    } on Exception {
+      currentLocation = null;
+    }
+  }
+
+
+  Polyline Route(GeoPoint polylinePoints, String idd) {
+    List<LatLng> latlngs = new List();
+    latlngs.add(new LatLng(polylinePoints.latitude,polylinePoints.longitude));
+   latlngs.add(new LatLng(lat,lng));
+  //  debugPrint(polylinePoints.join(','));
+    debugPrint(latlngs.join(','));
+   return new Polyline(
+      //consumeTapEvents: false,
       polylineId: PolylineId(idd),
       color: Colors.greenAccent,
-      width: 3,
-      visible: true,
+      width: 5,
+       visible:activepolygon == idd ? true : false,
       points: latlngs,
+      endCap: Cap.roundCap,
+      startCap: Cap.roundCap,
     );
+
+    
+    
   }
 
   double calculateDistance(GeoPoint latlng1, GeoPoint latlng2) {
@@ -296,6 +351,8 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
     });
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -317,7 +374,8 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
                       initialCameraPosition: new CameraPosition(
                       target: _createcentre(widget.centre), zoom: 15.5),
                       polygons: polygons_set(slideList, polygons),
-                      polylines: polylines_set(slideList, polylines),
+                      polylines:polylines_set(slideList, polylines, getsomePoints()),
+
                       circles: circles,
                       onMapCreated: _onMapCreated,
                       markers: markers_set(slideList, markers),
@@ -375,6 +433,24 @@ class PlacePolylineBodyState extends State<PlacePolylineBody>
             );
           }),
     );
+  }
+   List<LatLng> routeCoords;
+  GoogleMapPolyline googleMapPolyline =
+      new GoogleMapPolyline(apiKey: "AIzaSyBu80ekKNldo73k48QvOKrcZxPCyu8ehIM");
+ getsomePoints() async {
+    // var permissions =
+    //     await Permission.getPermissionsStatus([PermissionName.Location]);
+    // if (permissions[0].permissionStatus == PermissionStatus.notAgain) {
+    //   // var askpermissions =
+    //   //     await Permission.requestPermissions([PermissionName.Location]);
+    // } else {
+      routeCoords = await googleMapPolyline.getCoordinatesWithLocation(
+          origin: LatLng(30.05297394610351, 31.262176036834717),
+          destination: LatLng(30.786509, 31.000376),
+          mode: RouteMode.driving);
+          return routeCoords;
+   // }
+    
   }
 
 }

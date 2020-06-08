@@ -1,5 +1,6 @@
 
 import 'package:flutter_gawlah/Image.dart';
+
 import 'package:flutter_gawlah/Tours/Tours_Pager.dart';
 import 'package:flutter_gawlah/models/place.dart';
 import 'package:flutter_gawlah/models/post.dart';
@@ -58,6 +59,15 @@ Route<dynamic> generateRoute(RouteSettings settings) {
           edittingPost: placeToEdit ,
         ),
       );
+
+      //         case  LikedViewPlaceRoute:
+      //      //  var placeToEdit=settings.arguments as Place;
+      // return _getPageRoute(
+      //   routeName: settings.name,
+      //   viewToShow: LikedViewPlace(
+      //    // edittingPost: placeToEdit ,
+      //   ),
+      // );
   // case MyHomepageRoute:
   //     return _getPageRoute(
   //       routeName: settings.name,

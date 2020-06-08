@@ -8,7 +8,7 @@ import 'note_text.dart';
 
 
 
-class InputField extends StatefulWidget {
+class InputLongField extends StatefulWidget {
   final TextEditingController controller;
   final TextInputType textInputType;
   final bool password;
@@ -25,7 +25,7 @@ class InputField extends StatefulWidget {
   final TextInputFormatter formatter;
   final Color color;
 
-  InputField(
+  InputLongField(
       {@required this.controller,
       @required this.placeholder,
       this.enterPressed,
@@ -42,12 +42,12 @@ class InputField extends StatefulWidget {
       this.smallVersion = false, this.color});
 
   @override
-  _InputFieldState createState() => _InputFieldState();
+  _InputFieldLongState createState() => _InputFieldLongState();
 }
 
-class _InputFieldState extends State<InputField> {
+class _InputFieldLongState extends State<InputLongField> {
   bool isPassword;
-  double fieldHeight = 55;
+  double fieldHeight = 300;
 
   @override
   void initState() {
@@ -65,7 +65,7 @@ class _InputFieldState extends State<InputField> {
                   child: Container(
                   
                   
-            height: widget.smallVersion ? 40 : fieldHeight,
+            height: widget.smallVersion ? 60: 300,
             alignment: Alignment.centerLeft,
             padding: fieldPadding,
             decoration: widget.isReadOnly ? BoxDecoration(

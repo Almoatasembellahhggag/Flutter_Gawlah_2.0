@@ -17,7 +17,7 @@ import 'package:sliding_sheet/sliding_sheet.dart';
 
 class PlaceProfile extends StatefulWidget {
   final String image;
-  final Map info;
+  final String info;
   final int tourid;
 
   final String place_type;
@@ -236,7 +236,7 @@ class PlaceProfileState extends State<PlaceProfile> {
                     height: (MediaQuery.of(context).size.height) / 2,
                     width: (MediaQuery.of(context).size.width),
                     child: new Text(
-                      widget.info[widget.tourid.toString()],
+                      widget.info,
                       style: new TextStyle(
                           color: Colors.grey,
                           fontWeight: FontWeight.w400,

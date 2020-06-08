@@ -6,6 +6,7 @@ const String CreatePostViewRoute = "CreatePostView";
 const String MyHomepageRoute = "MyHomePage";
 const String  MyProfilepageRoute="ProfilePage";
 const String  CreatePlaceViewRoute="CreatePlaceView";
+const String LikedViewPlaceRoute="LikedViewPlace";
 
 
 // Generate the views here

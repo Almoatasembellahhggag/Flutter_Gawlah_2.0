@@ -62,15 +62,19 @@ class PostItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 60,
+      height: 80,
       margin: const EdgeInsets.only(top: 20),
       alignment: Alignment.center,
-      child: Row(
+     // child:Stack(children: <Widget>[
+     
+    child:  Row(
         children: <Widget>[
+           Container(height: 80,width: 80
+      ,child: Image.network(post.image,fit: BoxFit.fill,)),
           Expanded(
               child: Padding(
             padding: const EdgeInsets.only(left: 15.0),
-            child: Text(post.name),
+            child:  Text(post.name,style: TextStyle(fontSize:20,fontWeight: FontWeight.bold,color:Color.fromRGBO(38, 47, 62, 1)),),
           )),
           IconButton(
             icon: Icon(Icons.close),
@@ -82,11 +86,12 @@ class PostItem extends StatelessWidget {
           ),
         ],
       ),
+      //]),
       decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(5),
           boxShadow: [
-            BoxShadow(blurRadius: 8, color: Colors.grey[200], spreadRadius: 3)
+            BoxShadow(blurRadius: 8, color: Color.fromRGBO(38, 47, 62, 1), spreadRadius: 3)
           ]),
     );
   }

@@ -1,16 +1,17 @@
-
-import 'package:flutter/foundation.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_gawlah/constants/route_names.dart';
 import 'package:flutter_gawlah/locator.dart';
+import 'package:flutter_gawlah/models/liked.dart';
+import 'package:flutter_gawlah/models/message.dart';
 import 'package:flutter_gawlah/models/post.dart';
 import 'package:flutter_gawlah/models/user.dart';
 import 'package:flutter_gawlah/services/dialog_service.dart';
 import 'package:flutter_gawlah/services/firestore_service.dart';
 import 'package:flutter_gawlah/services/navigation_service.dart';
-
+import 'package:flutter_gawlah/ui/views/shaklbas.dart';
 import 'package:flutter_gawlah/view_models.dart/base_model.dart';
 
-class AppViewModel extends BaseModel {
+class MessageViewModel extends BaseModel {
   final FirestoreService _firestoreService = locator<FirestoreService>();
   final DialogService _dialogService = locator<DialogService>();
   final NavigationService _navigationService = locator<NavigationService>();
@@ -19,23 +20,15 @@ class AppViewModel extends BaseModel {
 
   bool get _editting => _edittingPost != null;
 
-  Future addPost({@required List<String>survey}) async {
+  Future addMessage({@required String message}) async {
     setBusy(true);
 
     var result;
 
-    if (!_editting) {
       result = 
      await _firestoreService
-        .addPosttt(User(survey: survey,id: currentUser.id,fullName: currentUser.fullName,userRole: currentUser.userRole,review: currentUser.review,likedtours: currentUser.likedtours,likedplaces: currentUser.likedplaces));
-    } else {
-      result = await _firestoreService.updatePosttt(User(
-        survey: survey,
-        id: _edittingPost.id,
-        
-      //  docume: _edittingPost.documentId,
-      ));
-   }
+        .addMessage(Message(message: message,userId: currentUser.id));
+    
 
     setBusy(false);
 
@@ -46,12 +39,12 @@ class AppViewModel extends BaseModel {
       );
     } else {
       await _dialogService.showDialog(
-        title: 'Post successfully Added',
-        description: 'Your post has been created',
+        title: 'Message successfully sent',
+        description: 'We will reply back as soon as we see your message. Thank You!!',
       );
     }
 
-  _navigationService.navigateTo(TourList2Route);
+ // _navigationService.navigateTo(TourList2Route);
   }
 
   void setEdittingPost(User edittingPost) {

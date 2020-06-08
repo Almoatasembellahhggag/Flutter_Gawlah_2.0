@@ -85,17 +85,19 @@ Future<void> _launchInBrowser(String url) async {
                             fit: BoxFit.fitHeight,
                             height: double.infinity,
                             width: double.infinity)),
-                    Container(
-                        child: Stack(children: <Widget>[
-                      ClipRect(
-                        child: BackdropFilter(
-                          filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
-                          child: Container(
-                            color: Colors.black38.withOpacity(0.5),
+                     
+                                       Container(
+                          child: Stack(children: <Widget>[
+                        ClipRect(
+                          child: BackdropFilter(
+                            filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+                            child: Container(
+                              color: Colors.black38.withOpacity(0.5),
+                            ),
                           ),
                         ),
-                      ),
-                    ])),
+                      ])),
+                    
 
                     Positioned(
                         child: Row(children: <Widget>[
@@ -108,15 +110,21 @@ Future<void> _launchInBrowser(String url) async {
                                 fontWeight: FontWeight.bold,
                                 backgroundColor: Colors.transparent),
                           ),
-                          HSpacer(0.1),
+                        
+                
+          HSpacer(0.1),
+             
                           FloatingActionButton(
                             backgroundColor: Colors.transparent,
                             child: Icon(Icons.headset),
                             onPressed: () => null,
                             //speak(),
                           ),
+        
                         ]),
                         top: 100),
+
+                          
                     Positioned(
                         child: RatingBarIndicator(
                           rating: rate,
@@ -132,10 +140,20 @@ Future<void> _launchInBrowser(String url) async {
                         ),
                         top: 155),
 
+
                         HSpacer(0.2),
 
-                            RaisedButton(
-          child: Text('Rate'),
+                    
+
+                    Column( crossAxisAlignment: CrossAxisAlignment.start,
+        //mainAxisAlignment: MainAxisAlignment.end,
+                      
+                      
+                      children: <Widget>[
+                     VSpacer(0.26),
+                                                                       ClipOval(
+                                                                           child: RaisedButton(color: Colors.white,
+          child: Text('Rate',style: TextStyle(color:Colors.black,fontWeight: FontWeight.bold),),
           onPressed: () async {
             int stars = await showDialog(
               context: context,
@@ -148,32 +166,36 @@ Future<void> _launchInBrowser(String url) async {
             print('Selected rate stars: $stars');
           },
         ),
-                  
-
-                    Column(children: <Widget>[
-                      VSpacer(0.29),
-                      Container(
-                        height: MediaQuery.of(context).size.height * 0.5,
-                        width: MediaQuery.of(context).size.width,
-                        child: Column(children: <Widget>[
-                          Text(
-                           widget.info,
-                            style: TextStyle(
-                                fontSize: 15,
-                                color: Colors.white,
-                                fontWeight: FontWeight.w300,
-                                backgroundColor: Colors.transparent),
-                          ),
-                        ]),
+                                                                     ), 
+                                                                       VSpacer(0.03),  
+            
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Container(
+                          height: MediaQuery.of(context).size.height * 0.6,
+                          width: MediaQuery.of(context).size.width,
+                          child: Column(children: <Widget>[
+                            Text(
+                            
+                             widget.info,
+                              style: TextStyle(
+                               
+                                  fontSize: 15,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  backgroundColor: Colors.transparent),
+                            textAlign: TextAlign.justify, ),
+                          ]),
+                        ),
                       ),
-         TextLink(
+        //  TextLink(
                 
-                  'Click to see the place 3D',
-                  onPressed: () {
+        //           'Click to see the place 3D',
+        //           onPressed: () {
                     
-                   _launchInBrowser(_laucherUrl);
-                  }
-         ),
+        //            _launchInBrowser(_laucherUrl);
+        //           }
+        //  ),
 
 
          

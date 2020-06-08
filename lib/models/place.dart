@@ -15,8 +15,8 @@ class Place {
   final String image;
   final String idd;
   final int id;
-  final Map info;
-  final String infoo;
+  final String info;
+
   final String period;
   final String placetype;
   final String pointss;
@@ -41,7 +41,7 @@ class Place {
     this.center,
     this.centerr,
     this.id,
-    this.infoo,
+  
     this.type,
    this.documentId,
     @required this.name, this.userId,
@@ -52,7 +52,7 @@ class Place {
     return {
      'userId':userId,
       'name': name,
-      'infoo':infoo,
+    
       'center':center,
       'idd':idd,
       'id':id,
@@ -81,7 +81,7 @@ class Place {
     type: map['type'],
     userId: map['userId'],
     period: map['period'],
-    infoo: map['infoo'],
+    info: map['info'],
     idd:map['idd'],
     tourss: map['tourss'],
     pointss:map['pointss'] ,

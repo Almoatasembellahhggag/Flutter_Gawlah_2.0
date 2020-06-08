@@ -1,7 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gawlah/Tours/likedmodel.dart';
 import 'package:flutter_gawlah/Tours/tour_view.dart';
+import 'package:flutter_gawlah/locator.dart';
 import 'package:flutter_gawlah/map_widgets/map.dart';
+import 'package:flutter_gawlah/models/liked.dart';
+import 'package:flutter_gawlah/models/user.dart';
+import 'package:flutter_gawlah/services/authentication_service.dart';
+import 'package:flutter_gawlah/services/dialog_service.dart';
+import 'package:flutter_gawlah/services/firestore_service.dart';
+import 'package:flutter_gawlah/services/navigation_service.dart';
+import 'package:flutter_gawlah/view_models.dart/homeplace_view_model.dart';
+import 'package:provider_architecture/viewmodel_provider.dart';
 
 
 
@@ -9,13 +19,30 @@ import 'package:flutter_gawlah/map_widgets/map.dart';
 
 class TourCard extends StatelessWidget {
   final Map Tour;
+  final List<String>saved;
+  final FirestoreService _firestoreService = locator<FirestoreService>();
+  final DialogService _dialogService = locator<DialogService>();
+  final NavigationService _navigationService = locator<NavigationService>();
+  final AuthenticationService _authenticationService =
+        locator<AuthenticationService>();
+
+     User edittingPost;
+
+  bool liked=false;
+  List<String>likedlist;
+final List<String>survey;
+  
+int index =0;
+
+  
 
 
- final Set<String> _saved = <String>{};
-  TourCard(this.Tour);
+  TourCard(this.Tour, this.saved,this.survey);
 
   @override
   Widget build(BuildContext context) {
+
+
      
     GeoPoint mylocation=new GeoPoint(29.962696, 31.276942);
     return 
@@ -124,7 +151,17 @@ class TourCard extends StatelessWidget {
   }
 
   Widget createname(BuildContext context) {
-    return Container(
+
+      return ViewModelProvider<LikedViewModel>.withConsumer(
+        viewModel:LikedViewModel(),
+        onModelReady: (model) {
+
+//   this.saved = edittingPost?.likedtours ?? null;
+        
+//  model?.setEdittingPost(edittingPost);
+        },
+        builder: (context, model, child) =>
+    Container(
       padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
       width: MediaQuery.of(context).size.width * 0.6,
       child: Wrap(
@@ -142,58 +179,39 @@ class TourCard extends StatelessWidget {
       ),
                     //
               ),
-              Post(Tour['name']),
               
+              IconButton(icon:Icon(
+      liked? Icons.favorite:Icons.favorite_border,
+    color:liked ?Colors.red:Colors.grey),
+    onPressed: ()=>{_pressed(context,Tour['name']),debugPrint(saved.join(',')),model.addPost(likedtours: saved,survey: survey)}
             
-              
+              )  
             ],
           ),
         ],
       ),
-    );
+    ));
   }
 
-}
-class Post extends StatefulWidget {
-  Post(String name);
-
-
-  @override
-PostState createState() =>PostState();
-}
-
-class PostState extends State<Post> {
-  bool liked=false;
-  List<String>likedlist;
-
-
-  
-
-  _pressed(){
-  
-    setState(() {   
-      liked=!liked;
-   
-          //  likedlist.add(name);
-          
-    });
-
-  }
-  @override
-  Widget build(BuildContext context) {
-    return IconButton(icon:Icon(
-      liked? Icons.favorite:Icons.favorite_border,
-    color:liked ?Colors.red:Colors.grey),
-    onPressed: ()=>_pressed(),
+   _pressed(BuildContext context,String name){
     
-    );
+   liked=!liked; 
+  
+                            (context as Element).markNeedsBuild();
+   saved.add(Tour['name']);
+   debugPrint(saved.join(','));
 
-    
+  }
   }
 
 
 
-}
+
+
+
+
+
+
 
 
 

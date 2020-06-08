@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:ui' as ui;
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gawlah/datastore.dart';
@@ -188,9 +189,16 @@ class SplashScreenState extends State<SplashScreen>
 
     // TODO: implement build
     return Scaffold(
-      backgroundColor:  Color.fromRGBO(38 , 47 , 62, 1),
-      body: Center(
-        child: Container(
+     backgroundColor:  Color.fromRGBO(38, 47, 62, 1),
+      body: Center(child:
+        Stack(children: <Widget>[
+          BackdropFilter(
+                          filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+                          child: Container(
+                            color: Colors.black38.withOpacity(0.5),
+                          ),
+                        ),
+        Container(
           width: MediaQuery.of(context).size.width,
           height:  MediaQuery.of(context).size.height,
          padding: EdgeInsets.all(16.0),
@@ -203,8 +211,8 @@ class SplashScreenState extends State<SplashScreen>
                     _startAnimation();
                   },
                 ),
-        ),
-      ),
+        )],
+      ),),
       bottomNavigationBar: _animateController.isCompleted
           ? BottomAppBar(
               child: Container(
@@ -279,10 +287,10 @@ class SplashScreenState extends State<SplashScreen>
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Text('Question 1',style: TextStyle(color:Colors.white),),
+            Text('Question 1',style: TextStyle(color:Colors.white,fontSize: 20,fontWeight:FontWeight.bold ),),
             Container(
                 margin: EdgeInsets.only(top: 16.0),
-                child: Text('The overall experince of your tour was?',style: TextStyle(color:Colors.white),)),
+                child: Text('The overall experince of your tour was?',style: TextStyle(color:Colors.white,fontSize: 20),)),
             Container(
               margin: EdgeInsets.symmetric(vertical: 50.0),
               child: Text(
@@ -342,10 +350,10 @@ class SplashScreenState extends State<SplashScreen>
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                Text('Question 2',style: TextStyle(color:Colors.white),),
+                Text('Question 2',style: TextStyle(color:Colors.white,fontSize: 20,fontWeight: FontWeight.bold),),
                 Container(
                     margin: EdgeInsets.only(top: 16.0),
-                    child: Text('Which tour did you enjoy the most?',style: TextStyle(color:Colors.white),)),
+                    child: Text('Which tour did you enjoy the most?',style: TextStyle(color:Colors.white,fontSize: 20),)),
                 Expanded(
                   child: Center(
                     
@@ -453,10 +461,10 @@ class SplashScreenState extends State<SplashScreen>
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                Text('Question 3',style: TextStyle(color:Colors.white),),
+                Text('Question 3',style: TextStyle(color:Colors.white,fontSize: 20),),
                 Container(
                     margin: EdgeInsets.only(top: 16.0),
-                    child: Text('How would you rate your experince?',style: TextStyle(color:Colors.white),)),
+                    child: Text('How would you rate your experince?',style: TextStyle(color:Colors.white,fontSize: 20,fontWeight: FontWeight.bold),)),
                 Expanded(
                   child: Center(
                     
@@ -560,11 +568,11 @@ class SplashScreenState extends State<SplashScreen>
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                Text('Question 4',style: TextStyle(color:Colors.white),),
+                Text('Question 4',style: TextStyle(color:Colors.white,fontWeight: FontWeight.bold,fontSize: 20),),
                 Container(
                     margin: EdgeInsets.only(top: 16.0),
                     child: Text(
-                        'When you need help or has concerns related with our product, how satisfied are you with our customer support\'s performance?',style: TextStyle(color:Colors.white))),
+                        'When you need help or has concerns related with our product, how satisfied are you with our customer support\'s performance?',style: TextStyle(color:Colors.white,fontSize: 20))),
                 Expanded(
                   child: Center(
                     child: Container(

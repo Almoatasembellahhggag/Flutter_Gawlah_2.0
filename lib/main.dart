@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gawlah/Image.dart';
 import 'package:flutter_gawlah/Tours/Tours_Pager.dart';
 import 'package:flutter_gawlah/map_widgets/mvc.dart';
+import 'package:flutter_gawlah/placelocation.dart';
 import 'package:flutter_gawlah/tourlocation.dart';
 import 'package:flutter_gawlah/ui/views/create_post_view.dart';
 import 'package:flutter_gawlah/ui/views/home_view.dart';
@@ -48,6 +49,7 @@ class MyApp extends StatelessWidget {
       //SignUpView(),
      //SplashScreen(),
    LoginView(),
+  //MapsPlace(),
   //WebViewTest(),
  // HomeViewPlace(),
     //MapsDemo(),

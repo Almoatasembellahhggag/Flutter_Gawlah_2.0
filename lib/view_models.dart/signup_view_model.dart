@@ -32,8 +32,8 @@ class SignUpViewModel extends BaseModel {
     @required String email,
     @required String password,
     @required String fullName,
-    String likedtours,
-    String likedplaces,
+   List<String> likedtours,
+   List<String>  likedplaces,
     int review,
     String addcomment,
     String image

@@ -4,6 +4,7 @@ import 'package:flutter_gawlah/ui/widgets/busy_button.dart';
 import 'package:flutter_gawlah/ui/widgets/expansion_list.dart';
 import 'package:flutter_gawlah/ui/widgets/input_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gawlah/verticalspacer.dart';
 import 'package:provider_architecture/provider_architecture.dart';
 import 'package:flutter_gawlah/view_models.dart/signup_view_model.dart';
 import 'package:shimmer/shimmer.dart';
@@ -28,140 +29,122 @@ class SignUpView extends StatelessWidget {
         home: Scaffold(
         
             backgroundColor: Color.fromRGBO(38, 47, 62, 1),
-          body:
-          Stack(children:<Widget>[
-              Container(
-child: Stack(children: <Widget>[
-                      ClipRect(
-                        child: BackdropFilter(
-                          filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
-                          child: Container(
-                            color: Colors.black38.withOpacity(0.5),
+          body: Container(
+          // color: Colors.white,
+             child: Stack(children:<Widget>[
+                          ClipRect(
+                          child: BackdropFilter(
+                            filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+                            child: Container(
+                              color: Colors.black38.withOpacity(0.4),
+                            ),
                           ),
                         ),
-                      ),
-                    ])),
-        
-            Positioned(top:25,
-           right: 0,
-           child: Shimmer.fromColors(
-                period: Duration(milliseconds: 1500),
-                baseColor: Colors.blue[600],
-              //Color.fromRGBO(38, 47, 62, 1),
-              highlightColor:Colors.blue[900],
-                
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                   
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                  
-                    children: <Widget>[
-                      
+
+
+            
+     SingleChildScrollView(child:
+
+     Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+
+                  children: <Widget>[
+              
+                Padding(padding: const EdgeInsets.symmetric(vertical: 20),
+                                  child: Shimmer.fromColors(
+                  period: Duration(milliseconds: 1500),
+                  baseColor: Colors.blue[600],
+                  //Color.fromRGBO(38, 47, 62, 1),
+                  highlightColor:Colors.blue[900],
                     
-                      Container(
-                        child:
-                            Image.asset(
-                              "images_and_icons/g_transparent.png",height: 90,width: 100,fit: BoxFit.contain,) ),
-                                                  ]))),
-                                          Padding(
-                                            padding: const EdgeInsets.symmetric(horizontal: 50.0),
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: <Widget>[
-                                                Text(
-                                                  'Sign Up',
-                                                  style: TextStyle(
-                                                    color:Colors.white,
-                                                    fontSize: 38,
+                    child:  Row(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                      
+                    VSpacer(0.07),
+                    Container(child:
+                     Image.asset('images_and_icons/g_transparent.png'),height: 80,width: 60,),
+                        ],
+                      ),),
+
+                ),
+      
+         
+                                            Padding(
+                                              padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: <Widget>[
+                                                  VSpacer(0.05),
+                                                  Text(
+                                                    'Sign Up',
+                                                    style: TextStyle(
+                                                      color:Colors.white,
+                                                      fontSize: 45,
+                                                      fontWeight: FontWeight.bold
+                                                    ),
                                                   ),
-                                                ),
-                                                verticalSpaceMedium,
-                                    //            Center(
-                                    //              child: Container(
-                                    //                 width: 300.0,
-                                    // height: 100.0,
-                                                   
-                                    //                decoration: new BoxDecoration(
-                                    //   color: Colors.white,
-                                    //   shape: BoxShape.circle,
-                                      
-                                    // ),
-                                                   
-                                                   
-                                    //                child:Stack(children: <Widget>[
-                                    //                                Center(
-                                    //                 child: 
-                                    //                  Column(children: <Widget>[
-                                                                        
-                                    //                      IconButton(color:Colors.grey,iconSize: 70,
-                                    //   icon: Icon(Icons.person,),
-                                    //   //tooltip: 'Increase volume by 10',
-                                    //   onPressed: () {
-                                    //    Navigator.push(context, MaterialPageRoute(builder: (context)=>TakePictureScreen(camera: firstCamera)));
-                                    //   }, ),
-                                                     
-                                                     
-                                                        
-                                                       
-                                    //                   ] ),
-                                    //              ),
-                                    //                ])
-                                    //              ),
-                                    //            ),
-                                               
-                                               verticalSpaceMedium,
-                                                InputField(
-                                                  placeholder: 'Full Name',
-                                                  controller: fullNameController,
-                                                ),
-                                                verticalSpaceSmall,
-                                                InputField(
-                                                  placeholder: 'Email',
-                                                  controller: emailController,
-                                                ),
-                                                verticalSpaceSmall,
-                                                InputField(
-                                                  placeholder: 'Password',
-                                                  password: true,
-                                                  controller: passwordController,
-                                                  additionalNote:
-                                                      '   Password has to be a minimum of 6 chars.',
-                                                ),
-                                                verticalSpaceSmall,
-                                                ExpansionList<String>(
-                                                  
-                                                    items: ['Admin', 'User'],
+                                                  verticalSpaceMedium,
+                                                 
+                                                 verticalSpaceMedium,
+                                                  InputField(
+                                                   // color: Colors.white,
+                                                    placeholder: 'Full Name',
+                                                    controller: fullNameController,
+                                                  ),
+                                                  verticalSpaceSmall,
+                                                  InputField(
+                                                      //  color: Colors.white,
+                                                    placeholder: 'Email',
+                                                    controller: emailController,
+                                                  ),
+                                                  verticalSpaceSmall,
+                                                  InputField(
+                                                     //   color: Colors.white,
+                                                    placeholder: 'Password',
+                                                    password: true,
+                                                    controller: passwordController,
+                                                    additionalNote:
+                                                        '   Password has to be a minimum of 6 chars.',
+                                                  ),
+                                                  verticalSpaceSmall,
+                                                  ExpansionList<String>(
                                                     
-                                                    title: model.selectedRole,
-                                                    onItemSelected: model.setSelectedRole),
-                                                verticalSpaceMedium,
-                                                Row(
-                                                  mainAxisSize: MainAxisSize.max,
-                                                  mainAxisAlignment: MainAxisAlignment.end,
-                                                  children: [
-                                                    BusyButton(
-                                                      title: 'Sign Up',
-                                                      busy: model.busy,
-                                                      onPressed: () {
-                                                        model.signUp(
-                                                            email: emailController.text,
-                                                            password: passwordController.text,
-                                                            fullName: fullNameController.text);
-                                                      },
-                                                    )
-                                                  ],
-                                                )
-                                              ],
+                                                      items: ['Admin', 'User'],
+                                                      
+                                                      title: model.selectedRole,
+                                                      onItemSelected: model.setSelectedRole),
+                                                  verticalSpaceMedium,
+                                                  Row(
+                                                    mainAxisSize: MainAxisSize.max,
+                                                    mainAxisAlignment: MainAxisAlignment.end,
+                                                    children: [
+                                                      BusyButton(
+                                                        title: 'Sign Up',
+                                                        busy: model.busy,
+                                                        onPressed: () {
+                                                          model.signUp(
+                                                              email: emailController.text,
+                                                              password: passwordController.text,
+                                                              fullName: fullNameController.text);
+                                                        },
+                                                      )
+                                                    ],
+                                                  )
+                                                ],
+                                              ),
                                             ),
-                                          ),
-                                        ]),
+                                          ]),
+          ),
                                         //  ),
-                                      ),
-                                    )
-                              
-                                  );
+                                      )])))));
+                                  
                                
                               
                               

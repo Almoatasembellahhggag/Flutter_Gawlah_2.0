@@ -8,7 +8,7 @@ import 'note_text.dart';
 
 
 
-class InputField extends StatefulWidget {
+class InputFieldd extends StatefulWidget {
   final TextEditingController controller;
   final TextInputType textInputType;
   final bool password;
@@ -25,7 +25,7 @@ class InputField extends StatefulWidget {
   final TextInputFormatter formatter;
   final Color color;
 
-  InputField(
+  InputFieldd(
       {@required this.controller,
       @required this.placeholder,
       this.enterPressed,
@@ -42,12 +42,12 @@ class InputField extends StatefulWidget {
       this.smallVersion = false, this.color});
 
   @override
-  _InputFieldState createState() => _InputFieldState();
+  _InputFielddState createState() => _InputFielddState();
 }
 
-class _InputFieldState extends State<InputField> {
+class _InputFielddState extends State<InputFieldd> {
   bool isPassword;
-  double fieldHeight = 55;
+  double fieldHeight = 60;
 
   @override
   void initState() {
@@ -65,26 +65,28 @@ class _InputFieldState extends State<InputField> {
                   child: Container(
                   
                   
-            height: widget.smallVersion ? 40 : fieldHeight,
+            height: 70,
             alignment: Alignment.centerLeft,
             padding: fieldPadding,
             decoration: widget.isReadOnly ? BoxDecoration(
-    borderRadius: BorderRadius.circular(5), color: Colors.white)
+    borderRadius: BorderRadius.circular(5), color: Color.fromRGBO(38, 47, 62, 1))
  :  BoxDecoration(
-    borderRadius: BorderRadius.circular(5), color: Color.fromRGBO(38, 47, 62, 1), ),
+    borderRadius: BorderRadius.circular(5), color: Colors.white, ),
 
               
             child: Row(
               children: <Widget>[
                 Expanded(
                   child: TextFormField(
+                    maxLines: null,
+                  style: TextStyle(fontSize: 20),
                //  style: TextStyle(color:widget.color),
                     controller: widget.controller,
                     keyboardType: widget.textInputType,
                     focusNode: widget.fieldFocusNode,
                     textInputAction: widget.textInputAction,
                     onChanged: widget.onChanged,
-                
+              
                     inputFormatters:
                         widget.formatter != null ? [widget.formatter] : null,
                     //     style: TextStyle(color: Colors.white),
@@ -104,7 +106,7 @@ class _InputFieldState extends State<InputField> {
                     decoration: InputDecoration.collapsed(
                         hintText: widget.placeholder,
                         hintStyle:
-                            TextStyle(fontSize: widget.smallVersion ? 12 : 15,color: Colors.white)),
+                            TextStyle(fontSize: widget.smallVersion ? 18 : 20,color: Color.fromRGBO(38, 47, 62, 1))),
                   ),
                 ),
                 GestureDetector(
@@ -118,7 +120,7 @@ class _InputFieldState extends State<InputField> {
                           alignment: Alignment.center,
                           child: Icon(isPassword
                               ? Icons.visibility
-                              : Icons.visibility_off,color: Colors.blue[600],))
+                              : Icons.visibility_off,color: Colors.grey,))
                       : Container(),
                 ),
               ],

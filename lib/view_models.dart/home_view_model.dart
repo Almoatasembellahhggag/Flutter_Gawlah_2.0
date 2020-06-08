@@ -133,6 +133,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_gawlah/constants/route_names.dart';
 import 'package:flutter_gawlah/locator.dart';
 import 'package:flutter_gawlah/models/post.dart';
+import 'package:flutter_gawlah/services/authentication_service.dart';
 import 'package:flutter_gawlah/services/dialog_service.dart';
 import 'package:flutter_gawlah/services/firestore_service.dart';
 import 'package:flutter_gawlah/services/navigation_service.dart';
@@ -143,7 +144,9 @@ class HomeViewModel extends BaseModel {
   final NavigationService _navigationService = locator<NavigationService>();
   final FirestoreService _firestoreService = locator<FirestoreService>();
   final DialogService _dialogService = locator<DialogService>();
-
+    final AuthenticationService _authenticationService =
+   locator<AuthenticationService>();
+ 
   List<Post> _posts;
   List<Post> get posts => _posts;
 
@@ -186,4 +189,14 @@ class HomeViewModel extends BaseModel {
     _navigationService.navigateTo(CreatePostViewRoute,
         arguments: _posts[index]);
   }
+   Future signOut()async{
+try {
+  return{await _authenticationService.signOut(),
+  _navigationService.navigateTo(LoginViewRoute)};
+
 }
+catch(e){
+
+return e.toString();
+}
+   }}

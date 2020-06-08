@@ -7,6 +7,7 @@ import 'package:flutter_gawlah/locator.dart';
 import 'package:flutter_gawlah/services/authentication_service.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../verticalspacer.dart';
 import 'Tour_card.dart';
 import 'brew_list.dart';
 class TourList2 extends StatefulWidget {
@@ -128,8 +129,18 @@ class _TourListState2 extends State<TourList2>{
       onPressed: () => _queryDatabase(tag: tag),
     );
   }
-
-
+List<String>_saved=List<String>();
+    Future<String> likedtours() async {
+      DocumentSnapshot ds =
+          await Firestore.instance.collection('User').document(_authenticationService.currentUser.fullName).get();
+      debugPrint(ds.data['likedtours'].toString()+"hhhhhhhhhhhhhhhhhhhhhmmmmmmmmmmmmmmmmnnnnnnnnnnnnnnnnnn");
+     x( ds.data['likedtours'].toString());
+    }
+List<String>d=List<String>();
+x(String likedtoursstring){
+ d=likedtoursstring.split(',');
+  _saved=d;
+}
 
 
   Widget _buildStoryPage(Map data, bool active ,BuildContext context ) {
@@ -153,7 +164,7 @@ class _TourListState2 extends State<TourList2>{
           ],
         ),
    
-        child:new TourCard(data),
+        child:new TourCard(data,_saved,data['survey']),
         
       
       );
@@ -180,27 +191,52 @@ class _TourListState2 extends State<TourList2>{
                       ),
                     ])),
 
- Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: <Widget>[
-         Shimmer.fromColors(
-                period: Duration(milliseconds: 1500),
-                baseColor: Colors.blue[400],
-                highlightColor: Colors.blue[100],
-                child:
-          Image.asset(
-            'images_and_icons/g_transparent.png',
-          height: 80,
-          ),),
-        
-       
-          Container(
-            height: 550,
-          ),
-        
-        ],
-      ),
+ Padding(
+   padding: const EdgeInsets.all(10.0),
+   child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+           Shimmer.fromColors(
+                        period: Duration(milliseconds: 1500),
+                    baseColor: Colors.blue[600],
+                    //Color.fromRGBO(38, 47, 62, 1),
+                    highlightColor:Colors.blue[900],
+                  child:
+            Image.asset(
+              'images_and_icons/g_transparent.png',
+            height: 85,
+            ),),
+          
+         
+            Container(
+              height: 550,
+            ),
+          
+// Shimmer.fromColors(
+//                   period: Duration(milliseconds: 1500),
+//                   baseColor: Colors.blue[600],
+//                   //Color.fromRGBO(38, 47, 62, 1),
+//                   highlightColor:Colors.blue[900],
+                      
+//                     child:  Row(
+//                                   crossAxisAlignment: CrossAxisAlignment.end,
+//         mainAxisAlignment: MainAxisAlignment.end,
+//                       children: <Widget>[
+                        
+//                     VSpacer(0.05),
+//                     Container(child:
+//                      Image.asset('images_and_icons/g_transparent.png'),height: 70,width: 50,),
+//                         ],
+//                       ),),
+
+
+
+
+
+          ],
+        ),
+ ),
        
       
     

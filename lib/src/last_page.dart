@@ -1,5 +1,6 @@
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
+import 'package:flutter_gawlah/Tours/Tour_card.dart';
 
 import 'package:flutter_gawlah/src/appviewmodel.dart';
 import 'package:provider_architecture/viewmodel_provider.dart';
@@ -90,6 +91,7 @@ class LastPageState extends State<LastPage> {
                       color: Color.fromRGBO(38, 47, 62, 1),
                       onPressed: () {
                           model.addPost(survey: widget.finalstring);
+                       
                       
                       },
                       child: Text(
@@ -162,7 +164,7 @@ class LastPageState extends State<LastPage> {
             Text(
               msg,
               textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: Colors.white,fontSize: 20),
             ),
        Expanded(
                   child: Center(

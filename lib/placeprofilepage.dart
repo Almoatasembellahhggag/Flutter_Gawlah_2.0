@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gawlah/placelocation.dart';
 import 'package:flutter_gawlah/services/authentication_service.dart';
 import 'package:flutter_gawlah/tourlocation.dart';
 import 'package:flutter_gawlah/ui/shared/ui_helpers.dart';
@@ -13,17 +14,18 @@ import 'package:path/path.dart';
 
 import 'locator.dart';
 
-class ProfilePage extends StatefulWidget {
+class ProfilePagePlace extends StatefulWidget {
   //final String id;
 
  // const ProfilePage({Key key, this.id}) : super(key: key);
   @override
-  _ProfilePageState createState() => _ProfilePageState();
+  _ProfilePagePLaceState createState() => _ProfilePagePLaceState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class _ProfilePagePLaceState extends State<ProfilePagePlace> {
   File _image;
- String image="https://images.unsplash.com/photo-1502164980785-f8aa41d53611?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60";
+  String image="https://images.unsplash.com/photo-1502164980785-f8aa41d53611?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60";
+
 final CollectionReference _usersCollectionReference =
       Firestore.instance.collection('Users');
        final AuthenticationService _authenticationService =
@@ -31,7 +33,8 @@ final CollectionReference _usersCollectionReference =
   @override
   Widget build(BuildContext context) {
 
-Future getImage() async {
+
+ Future getImage() async {
       var image = await ImagePicker.pickImage(source: ImageSource.gallery);
 
       setState(() {
@@ -54,7 +57,7 @@ Future getImage() async {
 setState(() {
   // MapsDemo(image:imageString);
 
-   Navigator.push(context, MaterialPageRoute(builder:(context)=>MapsDemo(image:imageString)));
+   Navigator.push(context, MaterialPageRoute(builder:(context)=>MapsPlace(image:imageString)));
   
  
    debugPrint(imageString+"PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP");
@@ -97,7 +100,7 @@ setState(() {
      }
      else{
      
-    Navigator.push(context, MaterialPageRoute(builder:(context)=>MapsDemo(image:image)));
+    Navigator.push(context, MaterialPageRoute(builder:(context)=>MapsPlace(image:image)));
 
      }
      
@@ -189,7 +192,5 @@ setState(() {
   }
 
 
-  }
-
-
   
+}

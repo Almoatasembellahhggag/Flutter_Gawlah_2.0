@@ -133,6 +133,9 @@ import 'package:flutter_gawlah/ui/widgets/post_item.dart';
 import 'package:flutter_gawlah/view_models.dart/home_view_model.dart';
 import 'package:flutter_gawlah/view_models.dart/homeplace_view_model.dart';
 import 'package:provider_architecture/provider_architecture.dart';
+import 'package:shimmer/shimmer.dart';
+
+import '../../verticalspacer.dart';
 
 class HomeViewPlace extends StatelessWidget {
   const HomeViewPlace({Key key}) : super(key: key);
@@ -145,9 +148,9 @@ class HomeViewPlace extends StatelessWidget {
         viewModel: HomePlaceViewModel(),
         onModelReady: (model) => model.listenToPosts(),
         builder: (context, model, child) => Scaffold(
-              backgroundColor: Colors.white,
+              backgroundColor: Color.fromRGBO(38, 47, 62, 1),
               floatingActionButton: FloatingActionButton(
-                backgroundColor: Theme.of(context).primaryColor,
+                backgroundColor:Color.fromRGBO(38, 47, 62, 1),
                 child:
                     !model.busy ? Icon(Icons.add) : CircularProgressIndicator(),
                 onPressed: model.navigateToCreateView,
@@ -157,16 +160,28 @@ class HomeViewPlace extends StatelessWidget {
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.start,
+
                   children: <Widget>[
-                    verticalSpace(35),
-                    Row(
+              
+                Padding(padding: const EdgeInsets.symmetric(vertical: 10),
+                                  child: Shimmer.fromColors(
+                  period: Duration(milliseconds: 1500),
+                  baseColor: Colors.blue[600],
+                  //Color.fromRGBO(38, 47, 62, 1),
+                  highlightColor:Colors.blue[900],
+                    
+                    child:  Row(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
-                        SizedBox(
-                          height: 20,
-                          child: Image.asset("images_and_icons/g_transparent.png"),
-                        ),
-                      ],
-                    ),
+                      
+                    VSpacer(0.05),
+                    Container(child:
+                     Image.asset('images_and_icons/g_transparent.png'),height: 70,width: 50,),
+                        ],
+                      ),),
+                ),
+                Text("Places",style: TextStyle(color:Colors.white,fontSize: 50,fontFamily: "DancingScript"),),
                     Expanded(
                         child: model.posts != null
                             ? ListView.builder(

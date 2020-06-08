@@ -26,21 +26,19 @@ class LoginView extends StatelessWidget {
       builder: (context, model, child) => Scaffold(
           backgroundColor: Color.fromRGBO(38, 47, 62, 1),
           body: Container(// color: Colors.white,
-      child:SingleChildScrollView(
-      
-                      child: Stack(children:<Widget>[
-                Container(
-child: Stack(children: <Widget>[
-                        ClipRect(
+             child: Stack(children:<Widget>[
+                          ClipRect(
                           child: BackdropFilter(
                             filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
                             child: Container(
-                              color: Colors.black38.withOpacity(0.5),
+                              color: Colors.black38.withOpacity(0.4),
                             ),
                           ),
                         ),
-                      ])),
             
+     SingleChildScrollView(child:
+      
+                   
             
              Padding(
               padding: const EdgeInsets.symmetric(horizontal: 50),
@@ -79,7 +77,7 @@ child: Stack(children: <Widget>[
 
                   VSpacer(0.1),
                   InputField(
-                    color: Colors.white,
+                    
                     placeholder: 'Email',
                     controller: emailController,
                     
@@ -87,7 +85,7 @@ child: Stack(children: <Widget>[
                   ),
                   verticalSpaceSmall,
                   InputField(
-                    color:Colors.white,
+                   
                     placeholder: 'Password',
                     password: true,
                     controller: passwordController,
@@ -120,8 +118,8 @@ child: Stack(children: <Widget>[
                   )
                 ],
               ),
-            )]),
-          )))
-    );
+              ) )]),
+          )));
+ 
   }
 }

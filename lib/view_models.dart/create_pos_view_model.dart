@@ -17,6 +17,7 @@ class CreatePostViewModel extends BaseModel {
   final FirestoreService _firestoreService = locator<FirestoreService>();
   final DialogService _dialogService = locator<DialogService>();
   final NavigationService _navigationService = locator<NavigationService>();
+  
 
   Post _edittingPost;
 

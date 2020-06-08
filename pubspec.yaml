@@ -47,7 +47,7 @@ dependencies:
   path_provider:
   path:
  
-  location: ^2.5.4
+  location: ^3.0.2
   uuid: '^2.0.4'
   http: ^0.12.0+4
   dio: ^3.0.9
@@ -55,6 +55,7 @@ dependencies:
   google_map_polyline: ^0.2.0+1
   google_places_picker: ^2.1.0+2
   flutter_polyline_points: ^0.1.0
+  
   geocoder: ^0.2.1
   sliver_fab: ^1.0.0
   
@@ -103,6 +104,7 @@ dependencies:
   shared_preferences: ^0.5.7+2
   image_picker: 0.6.0+17
   firebase_storage:
+  marquee: ^1.5.2
   image_cropper: 1.0.2
 
  
@@ -161,6 +163,18 @@ flutter:
      - images_and_icons/angry.gif
      - images_and_icons/mmm.gif
      - images_and_icons/hearteyes.gif
+     - images_and_icons/egypt.jpg
+     - images_and_icons/giphy.gif
+     - images_and_icons/aaa.gif
+     - images_and_icons/aboutus.gif
+     - images_and_icons/message.png
+     - images_and_icons/about-us-icon-vector-png-3.png
+     - images_and_icons/small.gif
+     - images_and_icons/tenor.gif
+     - images_and_icons/aboutus.jpg
+     - images_and_icons/contactus.gif
+     - images_and_icons/markers.png
+     - images_and_icons/mapmarkers.png
      - images_and_icons/white.jpg
      - images_and_icons/muezstreet.jpg
      - images_and_icons/credentials.json

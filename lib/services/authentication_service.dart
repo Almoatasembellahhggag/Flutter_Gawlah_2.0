@@ -15,6 +15,12 @@ class AuthenticationService {
   Future loginWithEmail({
     @required String email,
     @required String password,
+   String fullName,
+   List<String> likedtours,
+   List<String>  likedplaces,
+    int review,
+    String addcomment,
+    String image
   }) async {
     try {
       var authResult = await _firebaseAuth.signInWithEmailAndPassword(
@@ -39,8 +45,8 @@ class AuthenticationService {
     @required String fullName,
     @required String role,
     String image,
-     String likedtours,
-    String likedplaces,
+  List<String> likedtours,
+List<String> likedplaces,
     int review,
     String addcomment,
     List<String>survey,

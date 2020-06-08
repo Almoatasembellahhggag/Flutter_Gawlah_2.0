@@ -5,6 +5,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+
+import 'package:flutter_gawlah/Tours/profilepageuaer.dart';
 import 'package:flutter_gawlah/brewlistmodel.dart';
 import 'package:flutter_gawlah/services/authentication_service.dart';
 import 'package:flutter_gawlah/services/firestore_service.dart';
@@ -12,6 +14,7 @@ import 'package:flutter_gawlah/src/app.dart';
 import 'package:flutter_gawlah/ui/views/create_post_view.dart';
 import 'package:flutter_gawlah/ui/views/home_view.dart';
 import 'package:flutter_gawlah/ui/views/home_view_places.dart';
+import 'package:flutter_gawlah/verticalspacer.dart';
 import 'package:flutter_gawlah/view_models.dart/home_view_model.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -20,14 +23,20 @@ import 'package:path/path.dart';
 
 import 'package:provider_architecture/viewmodel_provider.dart';
 
+import '../AboutUs.dart';
 import '../Quizgame.dart';
 import 'package:path/path.dart' as Path;
 import 'package:flutter/material.dart';
 
+import '../create.dart';
 import '../locator.dart';
 import '../profilepage.dart';
 
 class BrewList extends StatefulWidget {
+  final String imagecome;
+
+  const BrewList({Key key, this.imagecome}) : super(key: key);
+  
   @override
   _BrewListState createState() => _BrewListState();
 }
@@ -45,17 +54,24 @@ class _BrewListState extends State<BrewList> {
       Firestore.instance.collection('Users');
   var profilePicUrl =
       'https://pixel.nymag.com/imgs/daily/vulture/2017/06/14/14-tom-cruise.w700.h700.jpg';
-
+String imagee;
   @override
   Widget build(BuildContext context) {
 //final dbRef = FirebaseDatabase.instance.reference().child("Users").orderByChild("id").equalTo(_authenticationService.currentUser.id).orderByChild("image");
+       imge(String name) async {
+      DocumentSnapshot ds =
+          await Firestore.instance.collection('Users').document(_authenticationService.currentUser.fullName).get();
+     imagee=ds.data['image'].toString();
 
+    }
     @override
     void initState() {
-      // TODO: implement initState
+      imge(_authenticationService.currentUser.fullName);
+
       super.initState();
 
       setState(() {
+       
        // _uploadedFileURL = _firestoreService.user.image;
         //_firestoreService.updatePostimage(_firestoreService.user);
       });
@@ -215,8 +231,10 @@ if(_authenticationService.currentUser.userRole=="User"){
                         color: Color.fromRGBO(38, 47, 62, 1),
                         child: Center(
                             child: Column(
+
                           // mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
+                            VSpacer(0.1),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
@@ -263,10 +281,10 @@ if(_authenticationService.currentUser.userRole=="User"){
                                                           "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/240px-Circle-icons-profile.svg.png",
                                                           scale: 0.5,
                                                           fit: BoxFit.fill,
-                                                        )),
+                                                        )), ),
                                     ),
                                   ),
-                                ),
+                                
                                 Padding(
                                   padding: EdgeInsets.only(top: 150.0),
                                   child: IconButton(
@@ -279,8 +297,8 @@ if(_authenticationService.currentUser.userRole=="User"){
                                       //uploadFile();
                                       //print(getImagefinal(model.currentUser.image));
 
-                                      print(model.currentUser.image +
-                                          "HIIIIIIIIIIIIIIIi");
+                                      // print(model.currentUser.image +
+                                      //     "HIIIIIIIIIIIIIIIi");
 
                                       // print(dbRef);
                                       // _image=model.currentUser.image as File;
@@ -297,10 +315,10 @@ if(_authenticationService.currentUser.userRole=="User"){
                             ),
                             // Text(model.currentUser.image,style: TextStyle(fontSize: 10, color: Colors.white),
                             // ),
-                            Text(
-                              model.currentUser.email,
-                              style: TextStyle(color: Colors.white),
-                            ),
+                            // Text(
+                            //   model.currentUser.,
+                            //   style: TextStyle(color: Colors.white),
+                            // ),
                             //Text(model.currentUser.id,
 
                             //style: TextStyle( color: Colors.white),
@@ -359,7 +377,7 @@ if(_authenticationService.currentUser.userRole=="User"){
                                   ),
                                 ),
                               ],
-                            )
+                           )
                           ],
                         ))),
                     ListTile(
@@ -368,7 +386,37 @@ if(_authenticationService.currentUser.userRole=="User"){
                           "Profile",
                           style: TextStyle(fontSize: 18),
                         ),
-                        onTap: null),
+                        onTap:()=>{ if(_image!=null){Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => ProfilePageUser(
+images:_image
+                    
+                              ))),}
+                              //debugPrint("HKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK"),debugPrint(_authenticationService.currentUser.image)
+                              else if(_authenticationService.currentUser.image!=null){
+
+                              Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => ProfilePageUser(
+image:_authenticationService.currentUser.image,
+                    
+                              ))),}
+                              else{
+                                Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => ProfilePageUser(
+image:  "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/240px-Circle-icons-profile.svg.png",
+                    
+                                ),)),}
+                              
+                              
+                              
+                              
+                              }
+
+
+
+
+                        
+                        
+                        ),
                     ListTile(
                         leading: Icon(Icons.question_answer),
                         title: Text(
@@ -376,13 +424,37 @@ if(_authenticationService.currentUser.userRole=="User"){
                           style: TextStyle(fontSize: 18),
                         ),
                         onTap: () {
-                         //  Navigator.push(context,
-                           //    MaterialPageRoute(builder: (context) => App()));
+                          Navigator.push(context,
+                               MaterialPageRoute(builder: (context) => App()));
                         }),
                     ListTile(
                         leading: Icon(Icons.games),
                         title: Text(
                           "Game",
+                          style: TextStyle(fontSize: 18),
+                        ),
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => AnimalQuizz()));
+                        }),
+                          ListTile(
+                        leading: Icon(Icons.games),
+                        title: Text(
+                          "About Us",
+                          style: TextStyle(fontSize: 18),
+                        ),
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => AboutUsPage()));
+                        }),
+                          ListTile(
+                        leading: Icon(Icons.games),
+                        title: Text(
+                          "About Us",
                           style: TextStyle(fontSize: 18),
                         ),
                         onTap: () {
@@ -399,7 +471,7 @@ if(_authenticationService.currentUser.userRole=="User"){
                         ),
                         onTap: () async {
                           
-                        // await model.signOut();
+                       await model.signOut();
                         }),
                   ],
                 ),
@@ -423,18 +495,19 @@ if(_authenticationService.currentUser.userRole=="User"){
                             child: Column(
                           // mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
+                             VSpacer(0.03),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 Align(
                                   alignment: Alignment.center,
                                   child: CircleAvatar(
-                                    radius: 100,
+                                    radius: 80,
                                     backgroundColor: Color(0xff476cfb),
                                     child: ClipOval(
                                       child: new SizedBox(
-                                          width: 190.0,
-                                          height: 190.0,
+                                          width: 150.0,
+                                          height: 150.0,
                                           child: (_image != null &&
                                                   model.currentUser.image !=
                                                       null)
@@ -448,7 +521,7 @@ if(_authenticationService.currentUser.userRole=="User"){
                                               : (model.currentUser.image ==
                                                       null)
                                                   ? Image.network(
-                                                      "https://images.unsplash.com/photo-1502164980785-f8aa41d53611?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
+                                                      "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/480px-Circle-icons-profile.svg.png",
                                                       scale: 0.5,
                                                       fit: BoxFit.fill,
                                                     )
@@ -503,10 +576,10 @@ if(_authenticationService.currentUser.userRole=="User"){
                             ),
                             // Text(model.currentUser.image,style: TextStyle(fontSize: 10, color: Colors.white),
                             // ),
-                            Text(
-                              model.currentUser.email,
-                              style: TextStyle(color: Colors.white),
-                            ),
+                            // Text(
+                            //   model.currentUser.email,
+                            //   style: TextStyle(color: Colors.white),
+                            // ),
                             //Text(model.currentUser.id,
 
                             //style: TextStyle( color: Colors.white),
@@ -574,7 +647,8 @@ if(_authenticationService.currentUser.userRole=="User"){
                           "Profile",
                           style: TextStyle(fontSize: 18),
                         ),
-                        onTap: null),
+                        onTap: ()=>{ Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => ProfilePageUser())), debugPrint("HKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK"),debugPrint(_authenticationService.currentUser.image),debugPrint(_authenticationService.currentUser.likedtours.toString())}),
                     ListTile(
                         leading: Icon(Icons.favorite),
                         title: Text(
@@ -585,7 +659,7 @@ if(_authenticationService.currentUser.userRole=="User"){
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => HomeViewPlace()));
+                                  builder: (context) => CreatepageView()));
                         }),
                     ListTile(
                         leading: Icon(Icons.question_answer),
@@ -594,20 +668,32 @@ if(_authenticationService.currentUser.userRole=="User"){
                           style: TextStyle(fontSize: 18),
                         ),
                         onTap: () {
-                          // Navigator.push(context,
-                            // MaterialPageRoute(builder: (context) => App()));
+                          Navigator.push(context,
+                           MaterialPageRoute(builder: (context) => App()));
                         }),
-                    ListTile(
-                        leading: Icon(Icons.games),
+                    // ListTile(
+                    //     leading: Icon(Icons.games),
+                    //     title: Text(
+                    //       "Game",
+                    //       style: TextStyle(fontSize: 18),
+                    //     ),
+                    //     onTap: () {
+                    //       Navigator.push(
+                    //           context,
+                    //           MaterialPageRoute(
+                    //               builder: (context) => AnimalQuizz()));
+                    //     }),
+                          ListTile(
+                        leading: Icon(Icons.info),
                         title: Text(
-                          "Game",
+                          "About Us",
                           style: TextStyle(fontSize: 18),
                         ),
                         onTap: () {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => AnimalQuizz()));
+                                  builder: (context) => AboutUsPage()));
                         }),
                     ListTile(
                         leading: Icon(Icons.arrow_back),
@@ -616,7 +702,7 @@ if(_authenticationService.currentUser.userRole=="User"){
                           style: TextStyle(fontSize: 18),
                         ),
                         onTap: () async {
-                     //    await model.signOut();
+                      await model.signOut();
                         }),
                   ],
                 ),
@@ -632,24 +718,24 @@ if(_authenticationService.currentUser.userRole=="User"){
   
  
 
-  getImagefinal(String imagefinal) {
-    print(imagefinal + "hiiiiiiii");
-    if (imagefinal != null && _image == null) {
-      debugPrint("11111111111111111111111");
-      return Image.network(
-        imagefinal,
-        fit: BoxFit.fill,
-        scale: 0.5,
-      );
-    } else {
-      debugPrint("2222222222222222222222222222222222");
-      Image.file(
-        _image,
-        fit: BoxFit.fill,
-        scale: 0.5,
-      );
-    }
-  }
+  // getImagefinal(String imagefinal) {
+  //   print(imagefinal + "hiiiiiiii");
+  //   if (imagefinal != null && _image == null) {
+  //     debugPrint("11111111111111111111111");
+  //     return Image.network(
+  //       imagefinal,
+  //       fit: BoxFit.fill,
+  //       scale: 0.5,
+  //     );
+  //   } else {
+  //     debugPrint("2222222222222222222222222222222222");
+  //     Image.file(
+  //       _image,
+  //       fit: BoxFit.fill,
+  //       scale: 0.5,
+  //     );
+  //   }
+  // }
 }
 
 //   //}

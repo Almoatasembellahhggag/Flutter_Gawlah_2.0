@@ -9,6 +9,7 @@ import 'package:flutter_gawlah/profilepage.dart';
 import 'package:flutter_gawlah/services/authentication_service.dart';
 import 'package:flutter_gawlah/tourlocation.dart';
 import 'package:flutter_gawlah/ui/shared/ui_helpers.dart';
+import 'package:flutter_gawlah/ui/widgets/inputField.dart';
 import 'package:flutter_gawlah/ui/widgets/input_field.dart';
 import 'package:flutter_gawlah/ui/widgets/text_link.dart';
 import 'package:flutter_gawlah/ui/widgets/textlink1.dart';
@@ -18,6 +19,9 @@ import 'package:path/path.dart';
 import 'package:provider_architecture/provider_architecture.dart';
 
 import 'package:flutter_gawlah/models/user.dart';
+import 'package:shimmer/shimmer.dart';
+
+import '../../verticalspacer.dart';
 
 class CreatePostView extends StatelessWidget {
   final titleController = TextEditingController();
@@ -79,6 +83,7 @@ class CreatePostView extends StatelessWidget {
           model?.setEdittingPost(edittingPost);
         },
         builder: (context, model, child) => Scaffold(
+          backgroundColor: Color.fromRGBO(38, 47, 62, 1),
               floatingActionButton: FloatingActionButton(
                 child: !model.busy
                     ? Icon(Icons.add)
@@ -128,7 +133,7 @@ class CreatePostView extends StatelessWidget {
                   titleControllerImage.text = imge(name) as String;
                 },
                 backgroundColor: !model.busy
-                    ? Theme.of(context).primaryColor
+                    ? Color.fromRGBO(38, 47, 62, 1)
                     : Colors.grey[600],
               ),
               body: //Column( children:<Widget>[
@@ -154,27 +159,81 @@ class CreatePostView extends StatelessWidget {
 
   list(BuildContext context) {
     if (edittingPost == null) {
-      return Container(
+      return  Container(
           // color: Colors.white,
-          child: SingleChildScrollView(
-              child: Column(
-        children: <Widget>[
+             child: Stack(children:<Widget>[
+                        //   ClipRect(
+                        //   child: BackdropFilter(
+                        //     filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+                        //     child: Container(
+                        //       color: Colors.black38.withOpacity(0.4),
+                        //     ),
+                        //   ),
+                        // ),
+
+
+            
+     SingleChildScrollView(child:
+
+     Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+
+                  children: <Widget>[
+              
+                Padding(padding: const EdgeInsets.symmetric(vertical: 10),
+                                  child: Shimmer.fromColors(
+                  period: Duration(milliseconds: 1500),
+                  baseColor: Colors.blue[600],
+                  //Color.fromRGBO(38, 47, 62, 1),
+                  highlightColor:Colors.blue[900],
+                    
+                    child:  Row(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                      
+                    VSpacer(0.05),
+                    Container(child:
+                     Image.asset('images_and_icons/g_transparent.png'),height: 70,width: 50,),
+                        ],
+                      ),),
+
+                ),
+      
+         
           verticalSpace(20),
           Text(
             'Create New Tour',
-            style: TextStyle(fontSize: 26),
-          ),
+            style: TextStyle(fontSize: 40,fontFamily: "DancingScript",color: Colors.white)),
+          
 
           verticalSpaceMedium,
-          InputField(
+              Column(                         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: <Widget>[
+             TextLink1(
+            "Press me!!!                                                 To Select Your Tour Image & Location",
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => ProfilePage()));
+            },
+          ),
+            
+          verticalSpaceMedium,
+          InputFieldd(
             placeholder: 'Name',
             controller: titleController,
           ),
+           Text("    Tour Name  i.e: Muez Street",style: TextStyle(color:Colors.grey)),
           verticalSpaceSmall,
-          InputField(
-            placeholder: 'description',
+          InputFieldd(
+            placeholder: 'Description',
             controller: titleController2,
           ),
+           Text("    Tour Description",style: TextStyle(color:Colors.grey)),
           //   verticalSpaceSmall,
           //  RaisedButton(onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>MyHomePage(name: titleController.text,)))
 
@@ -182,30 +241,31 @@ class CreatePostView extends StatelessWidget {
           verticalSpaceSmall,
           // RaisedButton(onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>ProfilePage(id:_authenticationService.currentUser.id))))
 
-          InputField(
-            placeholder: 'info',
+          InputFieldd(
+            placeholder: 'Info',
             controller: titleControllerinfo,
           ),
+          Text("    More inforamtion about the tour",style: TextStyle(color:Colors.grey)),
           verticalSpaceSmall,
 
-          InputField(
+          InputFieldd(
             placeholder: 'Rate',
             controller: titleControllerrate,
           ),
+          Text("    Tour Rate",style: TextStyle(color:Colors.grey)),
+          Text("    Please enter the rate between 1-5",style: TextStyle(color:Colors.grey)),
           verticalSpaceSmall,
 
-          InputField(placeholder: "id", controller: titleControllerids),
-          InputField(placeholder: "tags", controller: titleControllertags),
+          InputFieldd(placeholder: "ID", controller: titleControllerids),
+          Text("    Give The tour any unique number",style: TextStyle(color:Colors.grey)),
+           verticalSpaceSmall,
 
-          verticalSpaceMedium,
-          TextLink1(
-            "Select Your Tour Image & Location",
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ProfilePage()));
-            },
-          ),
+          InputFieldd(placeholder: "Tags", controller: titleControllertags),
+            Text("    Specify the tour intersting themes.",style: TextStyle(color:Colors.grey)),
+              Text("    i.e:Art,War,Painting,Education,Qurans",style: TextStyle(color:Colors.grey)),
+                   verticalSpaceSmall,
 
+    
           // Text("imageURL:"+image),
           // verticalSpaceSmall,
           // Text("center:"+center.toString())
@@ -224,27 +284,69 @@ class CreatePostView extends StatelessWidget {
           //   ),
           // )
         ],
-      )));
+              )])))]));
     } else {
-      return Container(
+      return  
+      Container(
           // color: Colors.white,
-          child: SingleChildScrollView(
-              child: Column(
-        children: <Widget>[
-          //Container(child:Image.network(titleControllerImage.text),width: 50,height: 50,),
+             child: Stack(children:<Widget>[
+                        //   ClipRect(
+                        //   child: BackdropFilter(
+                        //     filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+                        //     child: Container(
+                        //       color: Colors.black38.withOpacity(0.4),
+                        //     ),
+                        //   ),
+                        // ),
+
+
+            
+     SingleChildScrollView(child:
+
+     Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+
+                  children: <Widget>[
+              
+                Padding(padding: const EdgeInsets.symmetric(vertical: 10),
+                                  child: Shimmer.fromColors(
+                  period: Duration(milliseconds: 1500),
+                  baseColor: Colors.blue[600],
+                  //Color.fromRGBO(38, 47, 62, 1),
+                  highlightColor:Colors.blue[900],
+                    
+                    child:  Row(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                      
+                    VSpacer(0.05),
+                    Container(child:
+                     Image.asset('images_and_icons/g_transparent.png'),height: 70,width: 50,),
+                        ],
+                      ),),
+
+                ),
+      
+         
+          verticalSpace(20),
           verticalSpace(20),
           Text(
-            'Create New Tour',
-            style: TextStyle(fontSize: 26),
+            'Edit your Tour',
+            style: TextStyle(fontSize: 40,fontFamily: "DancingScript",color: Colors.white),
           ),
 
           verticalSpaceMedium,
-          InputField(
+            Text("    Tour Name  i.e: Muez Street",style: TextStyle(color:Colors.grey)),
+          InputFieldd(
             placeholder: 'Name',
             controller: titleController,
           ),
-
-          InputField(
+  Text("    Tour Description",style: TextStyle(color:Colors.grey)),
+          InputFieldd(
             placeholder: 'description',
             controller: titleController2,
           ),
@@ -254,30 +356,44 @@ class CreatePostView extends StatelessWidget {
           //  ,child: Text("Select Image"),),
           verticalSpaceSmall,
           // RaisedButton(onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>ProfilePage(id:_authenticationService.currentUser.id))))
-
-          InputField(
+ Text("    More inforamtion about the tour",style: TextStyle(color:Colors.grey)),
+          InputFieldd(
             placeholder: 'info',
             controller: titleControllerinfo,
           ),
-
-          InputField(
+Text("    Tour Rate",style: TextStyle(color:Colors.grey)),
+          Text("    Please enter the rate between 1-5",style: TextStyle(color:Colors.grey)),
+          InputFieldd(
             placeholder: 'Rate',
             controller: titleControllerrate,
           ),
-
-          InputField(placeholder: "id", controller: titleControllerids),
-          InputField(placeholder: "tags", controller: titleControllertags),
-          InputField(placeholder: "Center", controller: titlecontrollercenter),
-          InputField(placeholder: "Image", controller: titleControllerImage),
+ Text("    Give The tour any unique number",style: TextStyle(color:Colors.grey)),
+          InputFieldd(placeholder: "id", controller: titleControllerids),
+          verticalSpaceSmall,
+            Text("    Specify the tour intersting themes.",style: TextStyle(color:Colors.grey)),
+              Text("    i.e:Art,War,Painting,Education,Qurans",style: TextStyle(color:Colors.grey)),
+          InputFieldd(placeholder: "tags", controller: titleControllertags),
+           
+                   verticalSpaceSmall,
+                       Text("    Tour center location",style: TextStyle(color:Colors.grey)),
+          InputFieldd(placeholder: "Center", controller: titlecontrollercenter),
+         
+        
+                   verticalSpaceSmall,
+                     Text("    Tour image",style: TextStyle(color:Colors.grey)),
+          InputFieldd(placeholder: "Image", controller: titleControllerImage),
+           
+            
+                   verticalSpaceSmall,
 
           verticalSpaceMedium,
-          TextLink1(
-            "Change your image",
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ProfilePage()));
-            },
-          ),
+          // TextLink1(
+          //   "Change your image",
+          //   onPressed: () {
+          //     Navigator.push(context,
+          //         MaterialPageRoute(builder: (context) => ProfilePage()));
+          //   },
+          // ),
 
           // Text("imageURL:"+image),
           // verticalSpaceSmall,
@@ -297,7 +413,7 @@ class CreatePostView extends StatelessWidget {
           //   ),
           // )
         ],
-      )));
+      )))]));
     }
   }
 }

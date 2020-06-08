@@ -20,12 +20,25 @@ class LoginViewModel extends BaseModel {
   Future login({
     @required String email,
     @required String password,
+   String fullName,
+   List<String> likedtours,
+   List<String>  likedplaces,
+    int review,
+    String addcomment,
+    String image
   }) async {
     setBusy(true);
 
     var result = await _authenticationService.loginWithEmail(
       email: email,
       password: password,
+      fullName: fullName,
+      likedtours: likedtours,
+      likedplaces: likedplaces,
+      review: review,
+      addcomment: addcomment,
+      image: image
+
     );
 
     setBusy(false);

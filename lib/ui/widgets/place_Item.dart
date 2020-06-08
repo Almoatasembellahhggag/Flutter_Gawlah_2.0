@@ -24,7 +24,7 @@ class PlaceItem extends StatelessWidget {
           Expanded(
               child: Padding(
             padding: const EdgeInsets.only(left: 15.0),
-            child: Text(post.name),
+            child: Text(post.name,style: TextStyle(fontSize:20,fontWeight: FontWeight.bold,color:Color.fromRGBO(38, 47, 62, 1)),),
           )),
           IconButton(
             icon: Icon(Icons.close),
@@ -40,7 +40,7 @@ class PlaceItem extends StatelessWidget {
           color: Colors.white,
           borderRadius: BorderRadius.circular(5),
           boxShadow: [
-            BoxShadow(blurRadius: 8, color: Colors.grey[200], spreadRadius: 3)
+            BoxShadow(blurRadius: 8, color: Color.fromRGBO(38, 47, 62, 1), spreadRadius: 3)
           ]),
     );
   }

@@ -3,24 +3,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gawlah/services/navigation_service.dart';
 import 'package:flutter_gawlah/ui/shared/ui_helpers.dart';
 import 'package:flutter_gawlah/ui/views/create_post_view.dart';
+import 'package:flutter_gawlah/ui/views/create_post_view_places.dart';
 import 'package:flutter_gawlah/ui/views/shaklbas.dart';
 import 'package:flutter_gawlah/ui/widgets/textlink1.dart';
+import 'package:flutter_gawlah/verticalspacer.dart';
 import 'dart:async';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import 'locator.dart';
 
-class MapsDemo extends StatefulWidget {
+class MapsPlace extends StatefulWidget {
   final String image;
   final String name;
 
-  const MapsDemo({Key key, this.image, this.name}) : super(key: key);
+  const MapsPlace({Key key, this.image, this.name}) : super(key: key);
   @override
-  _MapsDemoState createState() => _MapsDemoState();
+  _MapsPlaceState createState() => _MapsPlaceState();
 }
 
-class _MapsDemoState extends State<MapsDemo> {
+class _MapsPlaceState extends State<MapsPlace> {
   //
+ ArgumentCallback<LatLng> onTap;
   final NavigationService _navigationService = locator<NavigationService>();
   Completer<GoogleMapController> _controller = Completer();
   static const LatLng _center = const LatLng(30.0432583, 31.2325889);
@@ -28,8 +31,13 @@ class _MapsDemoState extends State<MapsDemo> {
   LatLng _lastMapPosition = _center;
   MapType _currentMapType = MapType.normal;
   GeoPoint _last;
-
-
+  var input=6;
+  GoogleMapController o;
+  List<GeoPoint> pos =new List<GeoPoint>();
+  LatLng _latLng = _center;
+  LatLng neww;
+  int i = 0;
+int x=0;
   static final CameraPosition _position1 = CameraPosition(
     bearing: 192.833,
     target: LatLng(30.0432583, 31.2325889),
@@ -58,43 +66,6 @@ class _MapsDemoState extends State<MapsDemo> {
     });
   }
 
-  // _onAddMarkerButtonPressed() {
-  //   setState(() {
-  //     _markers.add(
-  //       Marker(
-  //         markerId: MarkerId(_lastMapPosition.toString()),
-  //         position: _lastMapPosition,
-  //         infoWindow: InfoWindow(
-  //           title: 'This is a Title',
-  //           snippet: 'This is a snippet',
-  //         ),
-  //         icon: BitmapDescriptor.defaultMarker,
-  //       ),
-  //     );
-
-  //     // Navigator.push(context, MaterialPageRoute(builder:(context)=>CreatePostView(center:_lastMapPosition,image: widget.image,)));
-  //     //debugPrint(imageString+"PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP");
-  //     _last =
-  //         new GeoPoint(_lastMapPosition.latitude, _lastMapPosition.longitude);
-  //     print("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM");
-  //     print(_lastMapPosition);
-  //     print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-  //     print(widget.image);
-  //     // Navigator.pop(context);
-  //   });
-  // }
-
-  // Widget button(Function function, IconData icon) {
-  //   return FloatingActionButton(
-  //     onPressed: function,
-  //     materialTapTargetSize: MaterialTapTargetSize.padded,
-  //     backgroundColor: Colors.blue,
-  //     child: Icon(
-  //       icon,
-  //       size: 36.0,
-  //     ),
-  //   );
-  // }
   // button(Function function, IconData icon) {
   //   return FloatingActionButton(
   //     onPressed: function,
@@ -106,15 +77,13 @@ class _MapsDemoState extends State<MapsDemo> {
   //     ),
   //   );
   // }
-
-   _handleTap(LatLng point) {
- 
+ _handleTap(LatLng point) {
+   neww=point;
+    pos.insert(i,
+           new GeoPoint(point.latitude,point.latitude));
+    i++;
 setState(() {
-    if(_markers.length>=1)
-      {
-              _markers.clear();
-   }
- else{
+  if(x==0){
   _markers.add(Marker(
     markerId: MarkerId(point.toString()),
     position: point,
@@ -124,17 +93,30 @@ setState(() {
     ),
     icon:
         BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
+  ));}
+  else{
+     _markers.add(Marker(
+    markerId: MarkerId(point.toString()),
+    position: point,
+  //  draggable: true,
+    infoWindow: InfoWindow(
+      title: 'I am a marker',
+    ),
+    icon:
+        BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueMagenta),
   ));
-  
+
+  }
+  x++;
  _last =
           new GeoPoint(point.latitude, point.longitude);
         
           print(_last);
           print(point.latitude.toString());
           print(point.longitude.toString());
-         // print(pos.toString());
+          print(pos.toString());
           print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-}});
+});
 }
 
 
@@ -142,36 +124,38 @@ setState(() {
   Widget build(BuildContext context) {
     return MaterialApp(debugShowCheckedModeBanner: false,
       home: Scaffold(
-    
-        body:   Column(
+      
+        body: 
+        Column(
       
           children: <Widget>[
          verticalSpaceMedium,
          Text(
-            'Set the Tour location',
+            'Set the place location',
             style: TextStyle(fontSize: 40,fontFamily: "DancingScript",color: Color.fromRGBO(38, 47, 62, 1),fontWeight: FontWeight.bold)),
-        Text("   Make sure to add the place exact location ",style: TextStyle(color:Colors.grey,fontWeight: FontWeight.bold),),
-        
+         Text("       Make sure to add the place exact location ",style: TextStyle(color:Colors.grey,fontWeight: FontWeight.bold),),
+         Text("    and its polygon shape on the map.",style: TextStyle(color:Colors.grey,fontWeight: FontWeight.bold),),
 
-             verticalSpaceMedium,
+          verticalSpaceMedium,
                Container(
-                 height: 450,
+                 height: 500,
                  width: MediaQuery.of(context).size.width,
-                          child: GoogleMap(
-                onMapCreated: _onMapCreated,
-                initialCameraPosition: CameraPosition(
-                  target: _center,
-                  zoom: 11.0,
-                ),
-                mapType: _currentMapType,
-                markers: _markers,
-                onCameraMove: _onCameraMove,
+                 child: GoogleMap(
+                    onMapCreated: _onMapCreated,
+                    initialCameraPosition: CameraPosition(
+                      target: _center,
+                      zoom: 11.0,
+                    ),
+                    mapType: _currentMapType,
+                    markers: _markers,
+                    onCameraMove: _onCameraMove,
                     onTap: _handleTap,
-              ),
-            ),
-
-            verticalSpaceMedium,
-              Padding(
+                   // onLongPress:_handledoubleTap ,
+                    
+                  ),
+               ),
+             
+            Padding(
               padding: EdgeInsets.all(5.0),
               child: Align(
                 alignment: Alignment.topCenter,
@@ -182,9 +166,9 @@ setState(() {
                         "Press me when you are done",onPressed:()=>Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => CreatePostView(
+                                builder: (context) => CreatePlaceView(
                                     center: _last,
-                                   // pos: pos,
+                                    pos: pos,
                                     image: widget.image,
                                     name: widget.name))),
                         ),
@@ -199,7 +183,6 @@ setState(() {
                     // ),
 
                     //  button(_goToPosition1, Icons.location_searching),
-               
                   ],
                 ),
               ),
@@ -209,4 +192,9 @@ setState(() {
       ),
     );
   }
+
+  // changepostogeo(List<LatLng>pos){
+
+
+  // }
 }

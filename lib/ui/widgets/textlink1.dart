@@ -12,7 +12,7 @@ class TextLink1 extends StatelessWidget {
       onTap: onPressed,
       child: Text(
         text,
-        style: TextStyle(fontWeight: FontWeight.w700, fontSize: 14,color: Colors.black),
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20,color: Colors.blueAccent,fontFamily: "DancingScript"),
       ),
     );
   }

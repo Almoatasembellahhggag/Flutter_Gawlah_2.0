@@ -7,8 +7,8 @@ class User {
    final String email;
   final passwordController = TextEditingController();
   final String userRole;
-   final String likedtours;
-   final String likedplaces;
+   final List<String> likedtours;
+ final List<String> likedplaces;
    final int review;
    final String addcomment;
   final String documentId;
@@ -28,9 +28,10 @@ final String image;
         addcomment=data['addcomment'],
         review=data['review'],
        documentId=data['document'],
-       email=data['email'],
+       email=data['Email'],
        survey=data['survey'],
        image=data['image'];
+
 
 
 
@@ -45,7 +46,7 @@ final String image;
       'likedtours':likedtours,
       'addcomment':addcomment,
       'review':review,
-      'email':email,
+      'Email':email,
       'image':image
      
     };
@@ -76,7 +77,7 @@ final String image;
         addcomment:map['addcomment'],
         review:map['review'],
         documentId: documentId,
-        email: map['email'],
+        email: map['Email'],
         survey: map['survey'],
         image:map['image'],
         
@@ -94,8 +95,8 @@ class UserData {
    final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final String userRole;
-   final String likedtours;
-   final String likedplaces;
+ final List<String> likedtours;
+   final List<String> likedplaces;
    final int review;
    final String addcomment;
   final String documentId;
