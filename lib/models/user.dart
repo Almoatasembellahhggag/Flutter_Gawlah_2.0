@@ -7,28 +7,22 @@ class User {
    final String email;
   final passwordController = TextEditingController();
   final String userRole;
-   final List<String> likedtours;
- final List<String> likedplaces;
    final int review;
-   final String addcomment;
   final String documentId;
 final List<String> survey;
 final String image;
 
   //String get emailAddress=>emailController.text;
 
-  User({this.id, this.image,this.fullName, this.email,this.userRole,this.likedtours,this.likedplaces,this.review,this.addcomment,this.documentId,this.survey});
+  User({this.id, this.image,this.fullName, this.email,this.userRole,this.review,this.documentId,this.survey});
 
   User.fromData(Map<String, dynamic> data)
       : id = data['id'],
         fullName = data['fullName'],
         userRole = data['userRole'],
-        likedtours=data['likedtours'],
-        likedplaces=data['likedplaces'],
-        addcomment=data['addcomment'],
         review=data['review'],
        documentId=data['document'],
-       email=data['Email'],
+       email=data['email'],
        survey=data['survey'],
        image=data['image'];
 
@@ -42,11 +36,8 @@ final String image;
       'id': id,
       'fullName': fullName,
       'userRole': userRole,
-      'likedplaces':likedplaces,
-      'likedtours':likedtours,
-      'addcomment':addcomment,
       'review':review,
-      'Email':email,
+      'email':email,
       'image':image
      
     };
@@ -72,12 +63,9 @@ final String image;
         id : map['id'],
         fullName : map['fullName'],
         userRole :map['userRole'],
-        likedtours:map['likedtours'],
-        likedplaces:map['likedplaces'],
-        addcomment:map['addcomment'],
         review:map['review'],
         documentId: documentId,
-        email: map['Email'],
+        email: map['email'],
         survey: map['survey'],
         image:map['image'],
         
@@ -95,14 +83,13 @@ class UserData {
    final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final String userRole;
- final List<String> likedtours;
-   final List<String> likedplaces;
+
    final int review;
-   final String addcomment;
+ 
   final String documentId;
   final List<String>survey;
   final String image;
-  UserData({this.id,this.fullName,this.image,this.userRole,this.likedtours,this.likedplaces,this.review,this.addcomment,this.documentId,this.survey});
+  UserData({this.id,this.fullName,this.image,this.userRole,this.review,this.documentId,this.survey});
 }
 
 

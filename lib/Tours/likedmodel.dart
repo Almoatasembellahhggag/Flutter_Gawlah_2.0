@@ -32,7 +32,7 @@ class LikedViewModel extends BaseModel {
     }
 
 
-  Future addPost({@required List<String>likedtours,@required List<String>survey}) async {
+  Future addPost({@required List<String>likedtours}) async {
     setBusy(true);
 
     var result;
@@ -40,10 +40,10 @@ class LikedViewModel extends BaseModel {
     if (!_editting) {
       result = 
      await _firestoreService
-        .addPosttt(User(likedtours: likedtours,id: currentUser.id,fullName: currentUser.fullName,userRole: currentUser.userRole,review: currentUser.review,survey: survey));
+        .addLiked(Liked(fullName: currentUser.fullName,userId: currentUser.id,likedTours: likedtours));
     } else {
       result = await _firestoreService.updatePosttt(User(
-        likedtours: likedtours,
+      //  likedtours: likedtours,
         id: _edittingPost.id,
         
       //  docume: _edittingPost.documentId,

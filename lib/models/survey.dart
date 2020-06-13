@@ -2,44 +2,43 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_gawlah/Tours/Tour_card.dart';
 
-class Liked {
-  final List <String> likedPlaces;
-  final List <String> likedTours;
+class Survey {
+  final List <String>  survey;
   final String userId;
  final String documentId;
- final String fullName;
  final String timestamp;
+ final String fullName;
 
-  Liked({
+
+ Survey({
     this.userId,
-    this.likedPlaces,
-    this.likedTours,
+    this.survey,
+    this.timestamp,
     this.documentId,
     this.fullName,
-    this.timestamp,
-   
+
   });
 
   Map<String, dynamic> toMap() {
     return {
       'userId': userId,
-     'likedPlaces':likedPlaces,
-     'likedTours':likedTours,
+     'survey':survey,
+     //'timestamp': FieldValue.serverTimestamp(),
      'documentId':documentId,
      'fullName':fullName,
-     'timestamp':FieldValue.serverTimestamp(),
+     'timestamp': FieldValue.serverTimestamp(),
+
 
   
     };
   }
 
-  static Liked fromMap(Map<String, dynamic> map, String documentId) {
+  static Survey fromMap(Map<String, dynamic> map, String documentId) {
     if (map == null) return null;
   
   
-    return Liked(
- likedPlaces: map['likedPlaces'],
- likedTours: map['likedTours'],
+    return Survey(
+survey: map['survey'],
     // documentIdd:map['documentId'],
      userId: map['userId'],
      fullName: map['fullName'],

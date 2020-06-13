@@ -5,10 +5,12 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/services.dart';
+import 'package:flutter_gawlah/models/liked.dart';
 import 'package:flutter_gawlah/models/message.dart';
 
 import 'package:flutter_gawlah/models/place.dart';
 import 'package:flutter_gawlah/models/post.dart';
+import 'package:flutter_gawlah/models/survey.dart';
 import 'package:flutter_gawlah/models/user.dart';
 
 class FirestoreService {
@@ -71,6 +73,30 @@ class FirestoreService {
     Future addMessage(Message post) async {
     try {
       await  Firestore.instance.collection('messages').add(post.toMap());
+    } catch (e) {
+      // TODO: Find or create a way to repeat error handling without so much repeated code
+      if (e is PlatformException) {
+        return e.message;
+      }
+
+      return e.toString();
+    }
+  }
+      Future addSurvey(Survey post) async {
+    try {
+      await  Firestore.instance.collection('survey').add(post.toMap());
+    } catch (e) {
+      // TODO: Find or create a way to repeat error handling without so much repeated code
+      if (e is PlatformException) {
+        return e.message;
+      }
+
+      return e.toString();
+    }
+  }
+        Future addLiked(Liked post) async {
+    try {
+      await  Firestore.instance.collection('liked').add(post.toMap());
     } catch (e) {
       // TODO: Find or create a way to repeat error handling without so much repeated code
       if (e is PlatformException) {
@@ -189,6 +215,7 @@ class FirestoreService {
       if (e is PlatformException) {
         return e.message;
       }
+      
 
       return e.toString();
     }
@@ -235,12 +262,10 @@ class FirestoreService {
       'id':user.id,
       'fullName': user.fullName, 
       'userRole': user.userRole,
-      'likedplaces':user.likedplaces,
-      'addcomment':user.addcomment,
+   
       'review':user.review,
-     // 'email':user.email,
-      'likedtours': user.likedtours,
-      'survey':user.survey,
+      'email':user.email,
+    
       'image':user.image,
       });
 

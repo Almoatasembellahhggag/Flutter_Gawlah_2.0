@@ -30,14 +30,17 @@ class TourCard extends StatelessWidget {
 
   bool liked=false;
   List<String>likedlist;
-final List<String>survey;
+
   
 int index =0;
 
   
 
 
-  TourCard(this.Tour, this.saved,this.survey);
+  TourCard(this.Tour, this.saved);
+
+
+  
 
   @override
   Widget build(BuildContext context) {
@@ -183,7 +186,7 @@ int index =0;
               IconButton(icon:Icon(
       liked? Icons.favorite:Icons.favorite_border,
     color:liked ?Colors.red:Colors.grey),
-    onPressed: ()=>{_pressed(context,Tour['name']),debugPrint(saved.join(',')),model.addPost(likedtours: saved,survey: survey)}
+    onPressed: ()=>{_pressed(context,Tour['name']),debugPrint(saved.join(',')),model.addPost(likedtours: saved)}
             
               )  
             ],

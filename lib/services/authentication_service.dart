@@ -63,10 +63,9 @@ List<String> likedplaces,
         id: authResult.user.uid,
        fullName: fullName,
         userRole: role,
-        likedplaces:likedplaces,
-        likedtours:likedtours,
+     
         review:review,
-        addcomment:addcomment,
+   
         email: email,
         survey: survey,
         image: image,

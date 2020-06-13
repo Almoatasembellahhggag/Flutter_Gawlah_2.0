@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_gawlah/constants/route_names.dart';
 import 'package:flutter_gawlah/locator.dart';
 import 'package:flutter_gawlah/models/post.dart';
+import 'package:flutter_gawlah/models/survey.dart';
 import 'package:flutter_gawlah/models/user.dart';
 import 'package:flutter_gawlah/services/dialog_service.dart';
 import 'package:flutter_gawlah/services/firestore_service.dart';
@@ -27,7 +28,7 @@ class AppViewModel extends BaseModel {
     if (!_editting) {
       result = 
      await _firestoreService
-        .addPosttt(User(survey: survey,id: currentUser.id,fullName: currentUser.fullName,userRole: currentUser.userRole,review: currentUser.review,likedtours: currentUser.likedtours,likedplaces: currentUser.likedplaces));
+        .addSurvey(Survey(survey: survey,userId: currentUser.id,fullName: currentUser.fullName));
     } else {
       result = await _firestoreService.updatePosttt(User(
         survey: survey,

@@ -16,11 +16,13 @@ class PlaceItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 60,
+      height: 80,
       margin: const EdgeInsets.only(top: 20),
       alignment: Alignment.center,
-      child: Row(
+      child:  Row(
         children: <Widget>[
+           Container(height: 80,width: 80
+      ,child: Image.network(post.image,fit: BoxFit.fill,)),
           Expanded(
               child: Padding(
             padding: const EdgeInsets.only(left: 15.0),

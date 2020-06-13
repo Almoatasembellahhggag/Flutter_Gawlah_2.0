@@ -31,9 +31,43 @@ class _ProfilePageUserState extends State<ProfilePageUser> {
         final CollectionReference _usersCollectionReference =
       Firestore.instance.collection('Users');
        String _uploadedFileURL;
-       String liked;
+      String liked;
+      
+    @override
+ void initState() {
+    super.initState();
+   likedtours();
+   
+
+  }
+
+ likedtours() async {
+     
+          await Firestore.instance.collection('liked').where("fullName",isEqualTo:_authenticationService.currentUser.fullName).where("userId",isEqualTo:_authenticationService.currentUser.id).getDocuments()
+    .then((value) {
+  value.documents.forEach((result) {
+   List<dynamic> likedd=List<dynamic>();
+   likedd.add(result.data['likedTours']);
+   setState(() {
+        liked=likedd.join(',');
+
+   });
+   liked=likedd.join(',');
+
+   print(liked);
+    print("likeddddddddddddddddddddddddddddddddddddddd"+likedd.toString());
+    print(result.data);
+    return liked;
+  //  return result.data.toString();
+  });});
+   
+    }
   @override
   Widget build(BuildContext context) {
+
+    
+
+ 
 
     void updateDataaa() async {
       QuerySnapshot querySnapshot = await _usersCollectionReference
@@ -59,13 +93,7 @@ class _ProfilePageUserState extends State<ProfilePageUser> {
      return ds.data['image'].toString();
     }
 
-   likedtours(String name) async {
-      DocumentSnapshot ds =
-          await Firestore.instance.collection('Users').document(_authenticationService.currentUser.fullName).get();
-    liked=ds.data['likedtours'].toString();
-     
-     return ds.data['likedtours'].toString();
-    }
+ 
 
     Future uploadFile() async {
       StorageReference storageReference = FirebaseStorage.instance
@@ -140,9 +168,9 @@ class _ProfilePageUserState extends State<ProfilePageUser> {
                             child: new SizedBox(
                               width: 170.0,
                               height: 170.0,
-                              child: widget.image!=null?{Image.network(widget.image)
-                              }:widget.images!=null?{Image.file(widget.images)}:
-                              Image.network("https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/240px-Circle-icons-profile.svg.png")
+                              child: widget.images!=null?Image.file(widget.images):Image.network(widget.image)
+                              
+                         
 
                               
                               )
@@ -253,32 +281,32 @@ SizedBox(
                     height: 20.0,
                   ),
 
-                    // Row(
-                    // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    // children: <Widget>[
-                    //   Align(
-                    //     alignment: Alignment.centerLeft,
-                    //     child: Container(
-                    //       child: Row(
-                    //         children: <Widget>[
-                    //           Align(
-                    //             alignment: Alignment.centerLeft,
-                    //             child: Text('Email  ',
-                    //                 style: TextStyle(
-                    //                     color: Colors.grey, fontSize: 18.0)),
-                              //),
-                              // Align(
-                              //   alignment: Alignment.centerLeft,
-                              //   child: Text( _authenticationService.currentUser.email,
-                              //       style: TextStyle(
-                              //           color: Colors.white,
-                              //           fontSize: 20.0,
-                              //           fontWeight: FontWeight.bold)),
-                              // ),
-                      //       ],
-                      //     ),
-                      //   ),
-                      // ),
+                    Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Container(
+                          child: Row(
+                            children: <Widget>[
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text('Email  ',
+                                    style: TextStyle(
+                                        color: Colors.grey, fontSize: 15.0)),
+                              ),
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text( _authenticationService.currentUser.email,
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 20.0,
+                                        fontWeight: FontWeight.bold)),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                       // Align(
                       //   alignment: Alignment.centerRight,
                       //   child: Container(
@@ -289,8 +317,8 @@ SizedBox(
                           
                       //   ),
                       // ),
-                  //   ],
-                  // ),
+                    ],
+                  ),
 
 
 
@@ -321,9 +349,11 @@ SizedBox(
                                 child: Text(
                                  liked!=null? liked:"No liked Tours Yet!",
                                     style: TextStyle(
+                                      
                                         color: Colors.white,
-                                        fontSize: 20.0,
-                                        fontWeight: FontWeight.bold)),
+                                        fontSize: 15.0,
+                                        fontWeight: FontWeight.bold),overflow: TextOverflow.clip,
+    maxLines: 3,),
                               ),
 
                             ],
@@ -344,32 +374,32 @@ SizedBox(
                   SizedBox(
                     height: 20.0,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Container(
-                          child: Row(
-                            children: <Widget>[
-                              Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text('Liked places ',
-                                    style: TextStyle(
-                                        color: Colors.grey, fontSize: 18.0)),
-                              ),
-                              Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text( _authenticationService.currentUser.likedplaces!=null? _authenticationService.currentUser.likedplaces.join(','):"No liked Places Yet!",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 20.0,
-                                        fontWeight: FontWeight.bold)),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  //   children: <Widget>[
+                  //     Align(
+                  //       alignment: Alignment.centerLeft,
+                  //       child: Container(
+                  //         child: Row(
+                            // children: <Widget>[
+                            //   Align(
+                            //     alignment: Alignment.centerLeft,
+                            //     child: Text('Liked places ',
+                            //         style: TextStyle(
+                            //             color: Colors.grey, fontSize: 18.0)),
+                            //   ),
+                              // Align(
+                              //   alignment: Alignment.centerLeft,
+                              //   child: Text( _authenticationService.currentUser.likedplaces!=null? _authenticationService.currentUser.likedplaces.join(','):"No liked Places Yet!",
+                              //       style: TextStyle(
+                              //           color: Colors.white,
+                              //           fontSize: 20.0,
+                              //           fontWeight: FontWeight.bold)),
+                              // ),
+                      //       ],
+                      //     ),
+                      //   ),
+                      // ),
                       // Align(
                       //   alignment: Alignment.centerRight,
                       //   child: Container(
@@ -380,8 +410,8 @@ SizedBox(
                           
                       //   ),
                       // ),
-                    ],
-                  ),
+                  //   ],
+                  // ),
                   // Container(
                   //   margin: EdgeInsets.all(20.0),
                   //   child: Row(
@@ -409,7 +439,9 @@ SizedBox(
                                           child: RaisedButton(
                           color: Color(0xff476cfb),
                           onPressed: () {
-                            Navigator.of(context).pop();
+                          //  Navigator.of(context).pop();
+                           likedtours();
+                           print("KKKKKKKKKKKKKKK");
                           },
                           elevation: 4.0,
                           splashColor: Colors.white,

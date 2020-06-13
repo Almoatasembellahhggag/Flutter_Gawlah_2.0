@@ -215,7 +215,7 @@ class CreatePostView extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
              TextLink1(
-            "Press me!!!                                                 To Select Your Tour Image & Location",
+            "Press me!!!                                                          To Select Your Tour Image & Location",
             onPressed: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => ProfilePage()));
@@ -335,7 +335,7 @@ class CreatePostView extends StatelessWidget {
           verticalSpace(20),
           verticalSpace(20),
           Text(
-            'Edit your Tour',
+            'Edit Tour',
             style: TextStyle(fontSize: 40,fontFamily: "DancingScript",color: Colors.white),
           ),
 

@@ -1,67 +1,126 @@
+// import 'package:flutter/material.dart';
+// import 'package:flutter_gawlah/Image.dart';
+// import 'package:flutter_gawlah/Tours/Tours_Pager.dart';
+// import 'package:flutter_gawlah/map_widgets/mvc.dart';
+// import 'package:flutter_gawlah/placelocation.dart';
+// import 'package:flutter_gawlah/tourlocation.dart';
+// import 'package:flutter_gawlah/ui/views/create_post_view.dart';
+// import 'package:flutter_gawlah/ui/views/home_view.dart';
+// import 'package:flutter_gawlah/ui/views/home_view_places.dart';
+
+
+// import 'package:flutter_gawlah/ui/views/login_view.dart';
+// import 'package:flutter_gawlah/ui/views/signup_view.dart';
+// import 'Tours/brew_list.dart';
+// import 'services/navigation_service.dart';
+// import 'services/dialog_service.dart';
+
+// import 'managers/dialog_manager.dart';
+// import 'ui/router.dart';
+// import 'locator.dart';
+
+// import 'package:flutter_gawlah/splashscreen.dart';
+// void main() {
+//   // Register all the models and services before the app starts
+//   setupLocator();
+
+//   runApp(MyApp());
+// }
+
+// class MyApp extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(debugShowCheckedModeBanner: false,
+//       title: 'Compound',
+//       builder: (context, child) => Navigator(
+//         key: locator<DialogService>().dialogNavigationKey,
+//         onGenerateRoute: (settings) => MaterialPageRoute(
+//             builder: (context) => DialogManager(child: child)),
+//       ),
+//       navigatorKey: locator<NavigationService>().navigationKey,
+//       theme: ThemeData(
+//         primaryColor: Color(0xff19c7c1),
+//         textTheme: Theme.of(context).textTheme.apply(
+//               fontFamily: 'Open Sans',
+//             ),
+//       ),
+//       home:  
+//       //TourList2(),
+//       //SignUpView(),
+//      //SplashScreen(),
+//    LoginView(),
+//   //MapsPlace(),
+//   //WebViewTest(),
+//  // HomeViewPlace(),
+//     //MapsDemo(),
+//    // CreatePostView(),
+// // BrewList(),
+//     //SaveImageDemo(),
+//     //HomeView(),
+//       //MyHomePage(),
+//       onGenerateRoute: generateRoute,
+//     );
+//   }
+// }
+
+
+
 import 'package:flutter/material.dart';
-import 'package:flutter_gawlah/Image.dart';
-import 'package:flutter_gawlah/Tours/Tours_Pager.dart';
-import 'package:flutter_gawlah/map_widgets/mvc.dart';
-import 'package:flutter_gawlah/placelocation.dart';
-import 'package:flutter_gawlah/tourlocation.dart';
-import 'package:flutter_gawlah/ui/views/create_post_view.dart';
-import 'package:flutter_gawlah/ui/views/home_view.dart';
-import 'package:flutter_gawlah/ui/views/home_view_places.dart';
+import 'package:flutter_gawlah/views/chatrooms.dart';
 
+import 'helper/authenticate.dart';
+import 'helper/helperfunctions.dart';
 
-import 'package:flutter_gawlah/ui/views/login_view.dart';
-import 'package:flutter_gawlah/ui/views/signup_view.dart';
-import 'Tours/brew_list.dart';
-import 'services/navigation_service.dart';
-import 'services/dialog_service.dart';
-
-import 'managers/dialog_manager.dart';
-import 'ui/router.dart';
-import 'locator.dart';
-
-import 'package:flutter_gawlah/splashscreen.dart';
 void main() {
-  // Register all the models and services before the app starts
-  setupLocator();
-
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  // This widget is the root of your application.
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+
+  bool userIsLoggedIn;
+
+  @override
+  void initState() {
+    getLoggedInState();
+    super.initState();
+  }
+
+  getLoggedInState() async {
+    await HelperFunctions.getUserLoggedInSharedPreference().then((value){
+      setState(() {
+        userIsLoggedIn  = value;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(debugShowCheckedModeBanner: false,
-      title: 'Compound',
-      builder: (context, child) => Navigator(
-        key: locator<DialogService>().dialogNavigationKey,
-        onGenerateRoute: (settings) => MaterialPageRoute(
-            builder: (context) => DialogManager(child: child)),
-      ),
-      navigatorKey: locator<NavigationService>().navigationKey,
+    return MaterialApp(
+      title: 'FlutterChat',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primaryColor: Color(0xff19c7c1),
-        textTheme: Theme.of(context).textTheme.apply(
-              fontFamily: 'Open Sans',
-            ),
+        primaryColor: Color(0xff145C9E),
+        scaffoldBackgroundColor: Color(0xff1F1F1F),
+        accentColor: Color(0xff007EF4),
+        fontFamily: "OverpassRegular",
+      //  visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home:  
-      //TourList2(),
-      //SignUpView(),
-     //SplashScreen(),
-   LoginView(),
-  //MapsPlace(),
-  //WebViewTest(),
- // HomeViewPlace(),
-    //MapsDemo(),
-   // CreatePostView(),
-// BrewList(),
-    //SaveImageDemo(),
-    //HomeView(),
-      //MyHomePage(),
-      onGenerateRoute: generateRoute,
+      home: userIsLoggedIn != null ?  userIsLoggedIn ? ChatRoom() : Authenticate()
+          : Container(
+        child: Center(
+          child: Authenticate(),
+        ),
+      ),
     );
   }
 }
+
 
 
 

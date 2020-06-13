@@ -164,7 +164,7 @@ x(String likedtoursstring){
           ],
         ),
    
-        child:new TourCard(data,_saved,data['survey']),
+        child:new TourCard(data,_saved),
         
       
       );
@@ -210,7 +210,7 @@ x(String likedtoursstring){
           
          
             Container(
-              height: 550,
+              height: 650,
             ),
           
 // Shimmer.fromColors(

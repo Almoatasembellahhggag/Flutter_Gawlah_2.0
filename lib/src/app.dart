@@ -188,60 +188,62 @@ class SplashScreenState extends State<SplashScreen>
    // final double _width = logicalSize.width;
 
     // TODO: implement build
-    return Scaffold(
-     backgroundColor:  Color.fromRGBO(38, 47, 62, 1),
-      body: Center(child:
-        Stack(children: <Widget>[
-          BackdropFilter(
-                          filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
-                          child: Container(
-                            color: Colors.black38.withOpacity(0.5),
+    return MaterialApp(debugShowCheckedModeBanner: false,
+          home: Scaffold(
+       backgroundColor:  Color.fromRGBO(38, 47, 62, 1),
+        body: Center(child:
+          Stack(children: <Widget>[
+            BackdropFilter(
+                            filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+                            child: Container(
+                              color: Colors.black38.withOpacity(0.5),
+                            ),
                           ),
-                        ),
-        Container(
-          width: MediaQuery.of(context).size.width,
-          height:  MediaQuery.of(context).size.height,
-         padding: EdgeInsets.all(16.0),
-          child: _animateController.isCompleted
-              ? getPages(MediaQuery.of(context).size.width)
-              : AnimationBox(
-                  controller: _animateController,
-                  screenWidth: MediaQuery.of(context).size.width,
-                  onStartAnimation: () {
-                    _startAnimation();
-                  },
-                ),
-        )],
-      ),),
-      bottomNavigationBar: _animateController.isCompleted
-          ? BottomAppBar(
-              child: Container(
+          Container(
+            width: MediaQuery.of(context).size.width,
+            height:  MediaQuery.of(context).size.height,
+           padding: EdgeInsets.all(16.0),
+            child: _animateController.isCompleted
+                ? getPages(MediaQuery.of(context).size.width)
+                : AnimationBox(
+                    controller: _animateController,
+                    screenWidth: MediaQuery.of(context).size.width,
+                    onStartAnimation: () {
+                      _startAnimation();
+                    },
+                  ),
+          )],
+        ),),
+        bottomNavigationBar: _animateController.isCompleted
+            ? BottomAppBar(
+                child: Container(
 
-              decoration: BoxDecoration(
-                  color: Color.fromRGBO(38, 47, 62, 1),
-                  boxShadow: [BoxShadow(color: Colors.grey.withAlpha(200))]),
-              height: 50.0,
-              child: GestureDetector(
-                onTap: () {
-                  setState(() {
-                    curIndex += 1;
-                    if (curIndex == 1) {
-                      _startSecondStepAnimation();
-                    } else if (curIndex == 2) {
-                      _startThirdStepAnimation();
-                    } else if (curIndex == 3) {
-                      _startFourStepAnimation();
-                    }
-                  });
-                },
-                child: Center(
-                    child: Text(
-                  curIndex < 3 ? 'Continue' : 'Finish',
-                  style: TextStyle(fontSize: 20.0, color: Colors.blue[600],backgroundColor:Colors.transparent ),
-                )),
-              ),
-            ))
-          : null,
+                decoration: BoxDecoration(
+                    color: Color.fromRGBO(38, 47, 62, 1),
+                    boxShadow: [BoxShadow(color: Colors.grey.withAlpha(200))]),
+                height: 50.0,
+                child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      curIndex += 1;
+                      if (curIndex == 1) {
+                        _startSecondStepAnimation();
+                      } else if (curIndex == 2) {
+                        _startThirdStepAnimation();
+                      } else if (curIndex == 3) {
+                        _startFourStepAnimation();
+                      }
+                    });
+                  },
+                  child: Center(
+                      child: Text(
+                    curIndex < 3 ? 'Continue' : 'Finish',
+                    style: TextStyle(fontSize: 20.0, color: Colors.blue[600],backgroundColor:Colors.transparent ),
+                  )),
+                ),
+              ))
+            : null,
+      ),
     );
   }
 

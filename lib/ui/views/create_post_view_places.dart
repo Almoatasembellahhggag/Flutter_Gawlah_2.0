@@ -228,7 +228,7 @@ class CreatePlaceView extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
              TextLink1(
-            "Press me!!!                                                 To Select Your Tour Image & Location",
+            "Press me!!!                                                               To Select Your Tour Image & Location",
             onPressed: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => ProfilePagePlace()));
@@ -336,7 +336,7 @@ Text("    i.e: Place",style: TextStyle(color:Colors.grey)),
           verticalSpace(20),
           verticalSpace(20),
           Text(
-            'Edit your Tour',
+            'Edit Place',
             style: TextStyle(fontSize: 40,fontFamily: "DancingScript",color: Colors.white),
           ),
 
