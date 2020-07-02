@@ -7,15 +7,21 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 import 'package:flutter_gawlah/Tours/profilepageuaer.dart';
+import 'package:flutter_gawlah/auth.dart';
 import 'package:flutter_gawlah/brewlistmodel.dart';
+import 'package:flutter_gawlah/helper/authenticate.dart';
 import 'package:flutter_gawlah/services/authentication_service.dart';
 import 'package:flutter_gawlah/services/firestore_service.dart';
 import 'package:flutter_gawlah/src/app.dart';
 import 'package:flutter_gawlah/ui/views/create_post_view.dart';
 import 'package:flutter_gawlah/ui/views/home_view.dart';
 import 'package:flutter_gawlah/ui/views/home_view_places.dart';
+import 'package:flutter_gawlah/ui/views/login_view.dart';
 import 'package:flutter_gawlah/verticalspacer.dart';
 import 'package:flutter_gawlah/view_models.dart/home_view_model.dart';
+import 'package:flutter_gawlah/views/chatrooms.dart';
+import 'package:flutter_gawlah/views/signin.dart';
+import 'package:flutter_gawlah/views/signup.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:image_picker/image_picker.dart';
@@ -369,6 +375,18 @@ image:  "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-
                     //           MaterialPageRoute(
                     //               builder: (context) => AnimalQuizz()));
                     //     }),
+                            ListTile(
+                        leading: Icon(Icons.chat),
+                        title: Text(
+                          "Chat",
+                          style: TextStyle(fontSize: 18),
+                        ),
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ChatRoom()));
+                        }),
                           ListTile(
                         leading: Icon(Icons.games),
                         title: Text(
@@ -393,6 +411,7 @@ image:  "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-
                         //       MaterialPageRoute(
                         //           builder: (context) => AnimalQuizz()));
                         // }),
+                    
                     ListTile(
                         leading: Icon(Icons.arrow_back),
                         title: Text(
@@ -400,8 +419,10 @@ image:  "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-
                           style: TextStyle(fontSize: 18),
                         ),
                         onTap: () async {
-                          
-                       await model.signOut();
+                        AuthenticationService().signOut();
+                         Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => LoginView()));
+                      // await model.signOut();
                         }),
                   ],
                 ),
@@ -642,6 +663,18 @@ image:  "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-
                     //           MaterialPageRoute(
                     //               builder: (context) => AnimalQuizz()));
                     //     }),
+                        ListTile(
+                        leading: Icon(Icons.chat),
+                        title: Text(
+                          "Chat",
+                          style: TextStyle(fontSize: 18),
+                        ),
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ChatRoom()));
+                        }),
                           ListTile(
                         leading: Icon(Icons.info),
                         title: Text(
@@ -654,6 +687,7 @@ image:  "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-
                               MaterialPageRoute(
                                   builder: (context) => AboutUsPage()));
                         }),
+                          
                     ListTile(
                         leading: Icon(Icons.arrow_back),
                         title: Text(
@@ -661,7 +695,10 @@ image:  "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-
                           style: TextStyle(fontSize: 18),
                         ),
                         onTap: () async {
-                      await model.signOut();
+                     // await model.signOut();
+                      AuthenticationService().signOut();
+                       Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => LoginView()));
                         }),
                   ],
                 ),

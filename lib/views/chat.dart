@@ -65,8 +65,8 @@ class _ChatState extends State<Chat> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: appBarMain(context),
+    return Scaffold(backgroundColor: Color.fromRGBO(38, 47, 62, 1),
+     // appBar: appBarMain(context),
       body: Container(
         child: Stack(
           children: [
@@ -114,7 +114,7 @@ class _ChatState extends State<Chat> {
                               borderRadius: BorderRadius.circular(40)
                           ),
                           padding: EdgeInsets.all(12),
-                          child: Image.asset("assets/images/send.png",
+                          child: Image.asset("images_and_icons/send.png",
                             height: 25, width: 25,)),
                     ),
                   ],

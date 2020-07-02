@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gawlah/helper/helperfunctions.dart';
 import 'package:flutter_gawlah/helper/theme.dart';
+import 'package:flutter_gawlah/services/authentication_service.dart';
 import 'package:flutter_gawlah/servicess/auth.dart';
 import 'package:flutter_gawlah/servicess/database.dart';
 import 'package:flutter_gawlah/views/widget.dart';
@@ -21,8 +22,10 @@ class _SignUpState extends State<SignUp> {
   TextEditingController passwordEditingController = new TextEditingController();
   TextEditingController usernameEditingController =
       new TextEditingController();
+        TextEditingController roleController =
+      new TextEditingController();
 
-  AuthService authService = new AuthService();
+  AuthenticationService authService = new AuthenticationService();
   DatabaseMethods databaseMethods = new DatabaseMethods();
 
   final formKey = GlobalKey<FormState>();
@@ -36,13 +39,15 @@ class _SignUpState extends State<SignUp> {
         isLoading = true;
       });
 
-      await authService.signUpWithEmailAndPassword(emailEditingController.text,
-          passwordEditingController.text).then((result){
+    
+            await authService.signUpWithEmail(email:emailEditingController.text,
+                password:passwordEditingController.text, fullName: usernameEditingController.text,role:roleController.text).then((result){
             if(result != null){
 
               Map<String,String> userDataMap = {
-                "userName" : usernameEditingController.text,
-                "userEmail" : emailEditingController.text
+                "fullName" : usernameEditingController.text,
+                "email" : emailEditingController.text,
+                "userRole":roleController.text,
               };
 
               databaseMethods.addUserInfo(userDataMap);
@@ -61,7 +66,7 @@ class _SignUpState extends State<SignUp> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Scaffold(backgroundColor: Colors.grey,
       appBar: appBarMain(context),
       body: isLoading ? Container(child: Center(child: CircularProgressIndicator(),),) :  Container(
         padding: EdgeInsets.symmetric(horizontal: 24),
@@ -99,6 +104,15 @@ class _SignUpState extends State<SignUp> {
                     },
 
                   ),
+
+    TextFormField(
+                    style: simpleTextStyle(),
+                    controller: roleController,
+                   
+                    decoration: textFieldInputDecoration("role"),
+                  ),
+
+
                 ],
               ),
             ),

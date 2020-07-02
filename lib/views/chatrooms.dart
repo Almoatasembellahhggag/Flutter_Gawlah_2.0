@@ -4,10 +4,16 @@ import 'package:flutter_gawlah/helper/authenticate.dart';
 import 'package:flutter_gawlah/helper/constants.dart';
 import 'package:flutter_gawlah/helper/helperfunctions.dart';
 import 'package:flutter_gawlah/helper/theme.dart';
+import 'package:flutter_gawlah/services/authentication_service.dart';
 import 'package:flutter_gawlah/servicess/auth.dart';
 import 'package:flutter_gawlah/servicess/database.dart';
+import 'package:flutter_gawlah/ui/shared/ui_helpers.dart';
+import 'package:flutter_gawlah/ui/views/login_view.dart';
+import 'package:flutter_gawlah/verticalspacer.dart';
 import 'package:flutter_gawlah/views/chat.dart';
 import 'package:flutter_gawlah/views/search.dart';
+
+import '../locator.dart';
 
 class ChatRoom extends StatefulWidget {
   @override
@@ -16,7 +22,8 @@ class ChatRoom extends StatefulWidget {
 
 class _ChatRoomState extends State<ChatRoom> {
   Stream chatRooms;
-
+ final AuthenticationService _authenticationService =
+      locator<AuthenticationService>();
   Widget chatRoomsList() {
     return StreamBuilder(
       stream: chatRooms,
@@ -46,7 +53,7 @@ class _ChatRoomState extends State<ChatRoom> {
   }
 
   getUserInfogetChats() async {
-    Constants.myName = await HelperFunctions.getUserNameSharedPreference();
+    Constants.myName = _authenticationService.currentUser.fullName;
     DatabaseMethods().getUserChats(Constants.myName).then((snapshots) {
       setState(() {
         chatRooms = snapshots;
@@ -58,30 +65,36 @@ class _ChatRoomState extends State<ChatRoom> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Image.asset(
-          "assets/images/logo.png",
-          height: 40,
-        ),
-        elevation: 0.0,
-        centerTitle: false,
-        actions: [
-          GestureDetector(
-            onTap: () {
-              AuthService().signOut();
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => Authenticate()));
-            },
-            child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 16),
-                child: Icon(Icons.exit_to_app)),
-          )
-        ],
-      ),
+    return Scaffold(backgroundColor: Color.fromRGBO(38, 47, 62, 1),
+      // appBar: AppBar(
+      //   title: Image.asset(
+      //     "images_and_icons/logo.png",
+      //     height: 40,
+      //   ),
+      //   elevation: 0.0,
+      //  centerTitle: false,
+      //   actions: [
+      //     GestureDetector(
+      //       onTap: () {
+      //         AuthenticationService().signOut();
+      //         Navigator.pushReplacement(context,
+      //             MaterialPageRoute(builder: (context) => LoginView()));
+      //       },
+      //       child: Container(
+      //           padding: EdgeInsets.symmetric(horizontal: 16),
+      //           child: Icon(Icons.exit_to_app)),
+      //     )
+      //   ],
+    //  ),
       body: Container(
-        child: chatRoomsList(),
-      ),
+        child:Column(crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+          
+          children: <Widget>[
+          verticalSpaceMedium,
+        Text("Chats", style: TextStyle(fontSize: 50,fontFamily: "DancingScript",color: Colors.white),),
+        chatRoomsList(),
+      ],)),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.search),
         onPressed: () {

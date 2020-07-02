@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gawlah/helper/constants.dart';
 import 'package:flutter_gawlah/servicess/database.dart';
+import 'package:flutter_gawlah/ui/shared/ui_helpers.dart';
 import 'package:flutter_gawlah/views/chat.dart';
 import 'package:flutter_gawlah/views/widget.dart';
 
@@ -43,8 +44,8 @@ class _SearchState extends State<Search> {
       itemCount: searchResultSnapshot.documents.length,
         itemBuilder: (context, index){
         return userTile(
-          searchResultSnapshot.documents[index].data["userName"],
-          searchResultSnapshot.documents[index].data["userEmail"],
+          searchResultSnapshot.documents[index].data["fullName"],
+          searchResultSnapshot.documents[index].data["email"],
         );
         }) : Container();
   }
@@ -71,8 +72,8 @@ class _SearchState extends State<Search> {
   }
 
   Widget userTile(String userName,String userEmail){
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+    return Container(color: Colors.green,
+      padding: EdgeInsets.symmetric(horizontal: 24, vertical: 5),
       child: Row(
         children: [
           Column(
@@ -135,15 +136,17 @@ class _SearchState extends State<Search> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: appBarMain(context),
+    return Scaffold(backgroundColor: Color.fromRGBO(38, 47, 62, 1),
+     // appBar: appBarMain(context),
       body: isLoading ? Container(
         child: Center(
-          child: CircularProgressIndicator(),
+          child: CircularProgressIndicator(backgroundColor: Colors.blue[600],),
         ),
       ) :  Container(
         child: Column(
+
           children: [
+            verticalSpaceMedium,
             Container(
               padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
               color: Color(0x54FFFFFF),
@@ -182,7 +185,7 @@ class _SearchState extends State<Search> {
                           borderRadius: BorderRadius.circular(40)
                         ),
                         padding: EdgeInsets.all(12),
-                        child: Image.asset("assets/images/search_white.png",
+                        child: Image.asset("images_and_icons/search_white.png",
                           height: 25, width: 25,)),
                   )
                 ],

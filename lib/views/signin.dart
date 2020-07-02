@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gawlah/helper/helperfunctions.dart';
 import 'package:flutter_gawlah/helper/theme.dart';
+import 'package:flutter_gawlah/services/authentication_service.dart';
 import 'package:flutter_gawlah/servicess/auth.dart';
 import 'package:flutter_gawlah/servicess/database.dart';
 import 'package:flutter_gawlah/views/chatrooms.dart';
@@ -22,7 +23,7 @@ class _SignInState extends State<SignIn> {
   TextEditingController emailEditingController = new TextEditingController();
   TextEditingController passwordEditingController = new TextEditingController();
 
-  AuthService authService = new AuthService();
+  AuthenticationService authService = new AuthenticationService();
 
   final formKey = GlobalKey<FormState>();
 
@@ -34,9 +35,9 @@ class _SignInState extends State<SignIn> {
         isLoading = true;
       });
 
-      await authService
-          .signInWithEmailAndPassword(
-              emailEditingController.text, passwordEditingController.text)
+      await authService.loginWithEmail(email:
+              emailEditingController.text, password:passwordEditingController.text,)
+        
           .then((result) async {
         if (result != null)  {
           QuerySnapshot userInfoSnapshot =
@@ -44,9 +45,9 @@ class _SignInState extends State<SignIn> {
 
           HelperFunctions.saveUserLoggedInSharedPreference(true);
           HelperFunctions.saveUserNameSharedPreference(
-              userInfoSnapshot.documents[0].data["userName"]);
+              userInfoSnapshot.documents[0].data["fullName"]);
           HelperFunctions.saveUserEmailSharedPreference(
-              userInfoSnapshot.documents[0].data["userEmail"]);
+              userInfoSnapshot.documents[0].data["email"]);
 
           Navigator.pushReplacement(
               context, MaterialPageRoute(builder: (context) => ChatRoom()));
@@ -62,7 +63,7 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Scaffold(backgroundColor: Colors.grey,
       appBar: appBarMain(context),
       body: isLoading
           ? Container(

@@ -166,6 +166,9 @@ flutter:
      - images_and_icons/egypt.jpg
      - images_and_icons/giphy.gif
      - images_and_icons/aaa.gif
+     - images_and_icons/send.png
+     - images_and_icons/search_white.png
+     - images_and_icons/logo.png
      - images_and_icons/aboutus.gif
      - images_and_icons/message.png
      - images_and_icons/about-us-icon-vector-png-3.png
